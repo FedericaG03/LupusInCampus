@@ -1,0 +1,8 @@
+<resources>
+    <color name="dark_gray">#2D2F33</color>
+    <color name="light_cream">#FAF4E6</color>
+    <color name="light_brown">#D5A186</color>
+    <color name="dark_text">#6D4C41</color>
+    <color name="link_blue">#4285F4</color>
+    <color name="button_color">#F3E5AB</color>
+</resources>
