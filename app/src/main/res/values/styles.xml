@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MainPageTextViewStyle">
+        <item name="android:textSize">23sp</item>
+        <item name="android:textColor">@color/panna</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <style name="MainPageSidebarTextViewStyle">
+        <item name="android:textSize">23sp</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+    </style>
+</resources>

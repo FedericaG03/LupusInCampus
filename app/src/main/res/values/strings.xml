@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">LupusInCampus</string>
+    <string name="app_name" translatable="false">LupusInCampus</string>
+    <string name="exit_btn_txt">ESCI</string>
+    <string name="setting_btn_txt">IMPOSTAZIONI</string>
+    <string name="rules_btn_txt">REGOLE DEL GIOCO</string>
+    <string name="play_btn_text">GIOCA</string>
+    <string name="icona_profilo_desc_txt">icona_profilo_desc</string>
+    <string name="username" translatable="false">User</string>
+    <string name="area_utente_btn_txt">Area Utente</string>
+    <string name="lista_amici_btn_txt">Lista Amici</string>
+    <string name="lista_inviti_btn_txt">Lista Inviti</string>
+    <string name="back_btn_txt">INDIETRO</string>
+    <string name="username_lista_amici" translatable="false">UserName</string>
+    <string name="aggiungi_amico_btn_txt">AGGIUNGI AMICO</string>
 </resources>

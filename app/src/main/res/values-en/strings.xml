@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="exit_btn_txt">EXIT</string>
+    <string name="setting_btn_txt">SETTINGS</string>
+    <string name="rules_btn_txt">GAME RULE</string>
+    <string name="play_btn_text">PLAY</string>
+    <string name="icona_profilo_desc_txt">profile_icon_desc</string>
+    <string name="area_utente_btn_txt">User Area</string>
+    <string name="lista_amici_btn_txt">Friends</string>
+    <string name="lista_inviti_btn_txt">Invites</string>
+    <string name="back_btn_txt">BACK</string>
+    <string name="aggiungi_amico_btn_txt">ADD FRIEND</string>
+</resources>

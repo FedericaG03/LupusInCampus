@@ -1,8 +1,11 @@
 <resources>
-    <color name="dark_gray">#2D2F33</color>
+    <color name="dark_gray">#262D28</color>
     <color name="light_cream">#FAF4E6</color>
     <color name="light_brown">#D5A186</color>
     <color name="dark_text">#6D4C41</color>
     <color name="link_blue">#4285F4</color>
     <color name="button_color">#F3E5AB</color>
+    <color name="text_red">#7B332E</color>
+    <color name="panna">#F4E5CB</color> <!--TODO controllare validita colore panna su tutti  idispositivi-->
+    <color name="opaque_white">#E0F4E5CB</color>
 </resources>

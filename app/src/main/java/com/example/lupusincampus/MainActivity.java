@@ -1,84 +1,67 @@
 package com.example.lupusincampus;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static final String TAG = "MainActivity";
-    private MainViewModel viewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d(TAG, "onCreate: Activity creata");
+        ConstraintLayout mainLayout = findViewById(R.id.main_layout);
+        ConstraintLayout sidebar = findViewById(R.id.profile_sidebar);
 
-        // Collega i componenti del layout
-        EditText emailInput = findViewById(R.id.email_input);
-        EditText passwordInput = findViewById(R.id.password_input);
-        Button registerButton = findViewById(R.id.register_button);
-        Button loginButton = findViewById(R.id.login_button);
-        TextView forgotPassword = findViewById(R.id.forgot_password);
+        TextView profileButtom = findViewById(R.id.probile_btn);
+        TextView playButton = findViewById(R.id.play_btn);
+        TextView rulesButton = findViewById(R.id.rules_btn);
+        TextView settingsButton = findViewById(R.id.setting_btn);
+        TextView exitButton = findViewById(R.id.exit_btn);
+        TextView friendsListButton = findViewById(R.id.lista_amici_btn);
 
-        // Collega il ViewModel
-        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-
-        // Ripristina i dati salvati nel ViewModel
-        emailInput.setText(viewModel.getEmail());
-        passwordInput.setText(viewModel.getPassword());
-
-        // Aggiorna i dati del ViewModel durante l'interazione
-        registerButton.setOnClickListener(v -> {
-            viewModel.setEmail(emailInput.getText().toString());
-            viewModel.setPassword(passwordInput.getText().toString());
-            Toast.makeText(MainActivity.this, "Registrazione cliccata", Toast.LENGTH_SHORT).show();
+        profileButtom.setOnClickListener( v->{
+            if(profileButtom.getVisibility() == View.VISIBLE){
+                profileButtom.setVisibility(View.GONE);
+                sidebar.setVisibility(View.VISIBLE);
+            }
         });
 
-        loginButton.setOnClickListener(v -> {
-            viewModel.setEmail(emailInput.getText().toString());
-            viewModel.setPassword(passwordInput.getText().toString());
-            Toast.makeText(MainActivity.this, "Login cliccato", Toast.LENGTH_SHORT).show();
+        mainLayout.setOnClickListener(v->{
+            if(sidebar.getVisibility() == View.VISIBLE){
+                profileButtom.setVisibility(View.VISIBLE);
+                sidebar.setVisibility(View.GONE);
+            }
         });
 
-        forgotPassword.setOnClickListener(v ->
-                Toast.makeText(MainActivity.this, "Password dimenticata!", Toast.LENGTH_SHORT).show()
-        );
+        exitButton.setOnClickListener(v->{
+            new AlertDialog.Builder(MainActivity.this)
+                    .setTitle("Conferma uscita")
+                    .setMessage("Sei sicuro di voler uscire dall'app?")
+                    .setPositiveButton("Sì", (dialog, which) -> finish())
+                    .setNegativeButton("No", null)
+                    .show();
+        });
+
+        friendsListButton.setOnClickListener(v->{
+            Intent intent = new Intent(this, ListaAmiciActivity.class);
+            startActivity(intent);
+        });
+
+        rulesButton.setOnClickListener(v->{
+            Intent intent = new Intent(this, RegoleActivity.class);
+            startActivity(intent);
+        });
     }
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        // Salva i dati del form
-        EditText emailInput = findViewById(R.id.email_input);
-        EditText passwordInput = findViewById(R.id.password_input);
-
-        outState.putString("email", emailInput.getText().toString());
-        outState.putString("password", passwordInput.getText().toString());
-
-        Log.d(TAG, "onSaveInstanceState: Dati salvati");
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        // Ripristina i dati del form
-        EditText emailInput = findViewById(R.id.email_input);
-        EditText passwordInput = findViewById(R.id.password_input);
-
-        emailInput.setText(savedInstanceState.getString("email"));
-        passwordInput.setText(savedInstanceState.getString("password"));
-
-        Log.d(TAG, "onRestoreInstanceState: Dati ripristinati");
-    }
-
+    
 }
