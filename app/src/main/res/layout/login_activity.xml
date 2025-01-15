@@ -5,105 +5,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_gray"
-    tools:context=".LoginActivity">
+    android:background="@color/text_red"
+    tools:context=".LoginActivity"
+    android:padding="16dp">
 
-    <!-- Sinistra -->
-    <LinearLayout
-        android:id="@+id/left_section"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="24dp"
-        android:background="@color/light_cream"
+    <ImageView
+        android:id="@+id/login_logo"
+        android:layout_width="249dp"
+        android:layout_height="158dp"
+        android:src="@drawable/logo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/right_section"
-        app:layout_constraintWidth_percent="0.5"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <!-- Testo principale -->
-        <TextView
-            android:id="@+id/title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LO ..."
-            android:textSize="48sp"
-            android:textStyle="bold"
-            android:textColor="@color/dark_text"
-            android:layout_marginBottom="32dp" />
-
-        <!-- Campo email -->
-        <EditText
-            android:id="@+id/email_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="EMAIL..."
-            android:backgroundTint="@color/light_brown"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Campo password -->
-        <EditText
-            android:id="@+id/password_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="PASSWORD..."
-            android:backgroundTint="@color/light_brown"
-            android:inputType="textPassword"
-            android:layout_marginBottom="8dp" />
-
-        <!-- Link password dimenticata -->
-        <TextView
-            android:id="@+id/forgot_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PASSWORD DIMENTICATA"
-            android:textColor="@color/link_blue"
-            android:layout_gravity="end"
-            android:textSize="12sp"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Bottoni -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/register_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="REGISTRATI"
-                android:backgroundTint="@color/button_color"
-                android:layout_marginEnd="16dp" />
-
-            <Button
-                android:id="@+id/login_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ENTRA"
-                android:backgroundTint="@color/button_color" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- Destra -->
-    <FrameLayout
-        android:id="@+id/right_section"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toEndOf="@+id/left_section"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Logo -->
-        <ImageView
-            android:id="@+id/logo_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Username"
+        android:inputType="text"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@id/login_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp" />
 
-            android:layout_gravity="center" />
-    </FrameLayout>
+    <!-- Campo Password -->
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@id/username"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- Bottone Login -->
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:backgroundTint="@color/dark_gray"
+        android:textColor="@android:color/white"
+        android:padding="12dp"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@id/password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp" />
+
+    <!-- Messaggio di errore -->
+    <TextView
+        android:id="@+id/error_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username o password non validi"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/login_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

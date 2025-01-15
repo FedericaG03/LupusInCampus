@@ -43,7 +43,7 @@
 
     <include
         android:id="@+id/include_profile_btn_main"
-        layout="@layout/profile_icon_layout"/>
+        layout="@layout/profile_icon_layout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/profile_sidebar"
@@ -52,6 +52,7 @@
         app:layout_constraintWidth_percent="0.25"
         android:background="@color/opaque_white"
         android:theme="@style/MainPageSidebarTextViewStyle"
+        android:text="@string/username"
         android:layout_margin="0dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
