@@ -31,6 +31,15 @@
         <activity android:name=".ListaAmiciActivity"
             android:exported ="true"
             android:screenOrientation="landscape"/>
+
+        <activity android:name=".ForgotPasswordActivity"
+            android:exported="true"
+            android:screenOrientation="landscape"/>
+
+        <activity android:name=".RegisterActivity"
+            android:exported="true"
+            android:screenOrientation="landscape"/>
+
     </application>
 
 </manifest>

@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="32dp"
-            android:text="LOGIN"
+            android:text="@string/login"
             android:textSize="32sp"
             android:textStyle="bold" />
 
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             tools:ignore="TouchTargetSizeCheck" />
 
@@ -53,7 +53,7 @@
             android:id="@+id/etPassword"
             android:layout_width="434dp"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="@string/password"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:inputType="textPassword"
@@ -65,8 +65,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:text="Password dimenticata?"
-            android:textColor="@color/light_brown" />
+            android:text="@string/password_dimenticata"
+            android:textColor="@color/light_brown"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -84,14 +84,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:background="@color/text_red"
-                android:text="Registrati" />
+                android:text="@string/registrati" />
 
             <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/text_red"
-                android:text="Entra" />
+                android:text="@string/entra" />
 
         </LinearLayout>
 

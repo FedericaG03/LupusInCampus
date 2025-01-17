@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        tools:context=".RegisterActivity"
+        android:gravity="center"
+        android:background="#f5f5f5">
+
+    <!-- Titolo -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Registrati"
+        android:textSize="28sp"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Campo Nome Utente -->
+    <EditText
+        android:id="@+id/etNickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="Nome utente"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:padding="10dp" />
+
+    <!-- Campo Email -->
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="10dp"
+        android:background="@android:drawable/edit_text"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Campo Regione -->
+    <EditText
+        android:id="@+id/etRegione"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Regione"
+        android:inputType="text"
+        android:padding="10dp"
+        android:background="@android:drawable/edit_text"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Campo Password -->
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:background="@android:drawable/edit_text"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Bottone di Registrazione -->
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registrati"
+        android:backgroundTint="#FAF4E6"
+        android:textColor="#FFFFFF"
+        android:padding="12dp"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
