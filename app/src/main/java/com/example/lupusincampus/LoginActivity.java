@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+
         // Inizializza i componenti UI
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
@@ -50,7 +51,10 @@ public class LoginActivity extends AppCompatActivity {
                 if (email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Compila tutti i campi!", Toast.LENGTH_SHORT).show();
                 } else if (isValidCredentials(email, password)) {
-                    preferences.edit().putBoolean("isLoggedIn", true).apply();
+                    preferences.edit()
+                            .putBoolean("isLoggedIn", true)
+                            .putString("username", email)
+                            .apply();
                     Log.d("LoginActivity", "Login success, navigating to MainActivity");
                     navigateToMainActivity();
                 } else {

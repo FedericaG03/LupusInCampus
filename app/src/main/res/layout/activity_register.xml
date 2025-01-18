@@ -69,10 +69,11 @@
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registrati"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#FAF4E6"
-        android:textColor="#FFFFFF"
+        android:minHeight="48dp"
         android:padding="12dp"
-        android:layout_marginTop="16dp" />
+        android:text="Registrati"
+        android:textColor="#FFFFFF" />
 
 </LinearLayout>
