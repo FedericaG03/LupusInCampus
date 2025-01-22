@@ -1,7 +1,7 @@
 package com.example.lupusincampus;
 
-import com.example.lupusincampus.LoginActivity;
 import com.example.lupusincampus.ListaAmiciActivity;
+import com.example.lupusincampus.Login.LoginActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
