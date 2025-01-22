@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
     private void navigateToRegisterActivity() {
         // TODO
         Log.d("LoginActivity", "Navigating to RegisterActivity");
-        Intent intent = new Intent(LoginActivity.this, com.example.lupusincampus.RegisterActivity.class);
+        Intent intent = new Intent(LoginActivity.this, com.example.lupusincampus.Login.RegisterActivity.class);
         startActivity(intent);
     }
 

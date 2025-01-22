@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".LoginActivity"
+        <activity android:name=".Login.LoginActivity"
             android:exported="true"
             android:screenOrientation="landscape"/>
 
@@ -32,11 +32,11 @@
             android:exported ="true"
             android:screenOrientation="landscape"/>
 
-        <activity android:name=".ForgotPasswordActivity"
+        <activity android:name=".Login.ForgotPasswordActivity"
             android:exported="true"
             android:screenOrientation="landscape"/>
 
-        <activity android:name=".RegisterActivity"
+        <activity android:name=".Login.RegisterActivity"
             android:exported="true"
             android:screenOrientation="landscape"/>
 

@@ -1,13 +1,10 @@
 package com.example.lupusincampus;
 
-import com.example.lupusincampus.ListaAmiciActivity;
 import com.example.lupusincampus.Login.LoginActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -16,15 +13,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import org.w3c.dom.Text;
-
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        gestioneAccesso();
         //prima verifico se l'utente sia loggato
         SharedPreferences sharedPref = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         boolean isLoggedIn = sharedPref.getBoolean("isLoggedIn", false);
@@ -47,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
         ConstraintLayout mainLayout = findViewById(R.id.main_layout);
         ConstraintLayout sidebar = findViewById(R.id.profile_sidebar);
-
 
 
         TextView profileButtom = findViewById(R.id.probile_btn);
@@ -82,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         friendsListButton.setOnClickListener(v->{
-            Intent intent = new Intent(this, ListaAmiciActivity.class);
+            Intent intent = new Intent(this, com.example.lupusincampus.ListaAmiciActivity.class);
             startActivity(intent);
         });
 
@@ -91,27 +84,4 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });*/
     }
-
-    public void gestioneAccesso(){
-        //prima verifico se l'utente sia loggato
-        SharedPreferences sharedPref = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-        boolean isLoggedIn = sharedPref.getBoolean("isLoggedIn", false);
-        Log.d("LoginActivity", "isLoggedIn (all'avvio): " + isLoggedIn);
-
-        /*"userPrefs" è il nome del file in cui vengono memorizzate le preferenze. Questo nome può essere a tua scelta (come ad esempio userPrefs per le preferenze legate all'utente).
-            MODE_PRIVATE significa che il file di preferenze è privato per questa applicazione. Nessun altro processo (o app) potrà leggere o scrivere queste preferenze.*/
-        //non è loggato
-        if (!isLoggedIn) {
-            Log.d("MainActivity", "Utente non loggato, reindirizzamento a LoginActivity");
-            // Se non è loggato, vai alla LoginActivity
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();  // Chiudi MainActivity per evitare che l'utente torni indietro
-            return;     // Ferma l'esecuzione della funzione se l'utente non è loggato
-        }
-
-        String username = sharedPref.getString("username", "DEFAULT");
-        Log.d("MainActivity", "Utente loggato: " + username);
-    }
-    
 }
