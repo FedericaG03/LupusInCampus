@@ -1,6 +1,9 @@
 package com.example.lupusincampus;
 
 import com.example.lupusincampus.Login.LoginActivity;
+import com.example.lupusincampus.Play.PlayActivity;
+import com.example.lupusincampus.Amici.ListaAmiciActivity;
+import com.example.lupusincampus.SalvataggioPassword.SharedActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,42 +17,44 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class MainActivity extends AppCompatActivity {
+    private SharedActivity sharedActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //prima verifico se l'utente sia loggato
-        SharedPreferences sharedPref = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-        boolean isLoggedIn = sharedPref.getBoolean("isLoggedIn", false);
+        sharedActivity = new SharedActivity(this); // Istanza della SharedActivity
+        boolean isLoggedIn = sharedActivity.isLoggedIn();
         Log.d("LoginActivity", "isLoggedIn (all'avvio): " + isLoggedIn);
 
-        /*"userPrefs" è il nome del file in cui vengono memorizzate le preferenze. Questo nome può essere a tua scelta (come ad esempio userPrefs per le preferenze legate all'utente).
-            MODE_PRIVATE significa che il file di preferenze è privato per questa applicazione. Nessun altro processo (o app) potrà leggere o scrivere queste preferenze.*/
-        //non è loggato
         if (!isLoggedIn) {
             Log.d("MainActivity", "Utente non loggato, reindirizzamento a LoginActivity");
-            // Se non è loggato, vai alla LoginActivity
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
-            finish();  // Chiudi MainActivity per evitare che l'utente torni indietro
-            return;     // Ferma l'esecuzione della funzione se l'utente non è loggato
+            finish();
+            return;
         }
 
-        String username = sharedPref.getString("username", "DEFAULT");
-        Log.d("MainActivity", "Utente loggato: " + username);
+
+        // Recupere nickname e password salvata
+        String nickname = sharedActivity.getNickname();
+        String mail = sharedActivity.getEmail();
+        Log.d("MainActivity", "Utente loggato: " + nickname);
 
         ConstraintLayout mainLayout = findViewById(R.id.main_layout);
         ConstraintLayout sidebar = findViewById(R.id.profile_sidebar);
 
 
         TextView profileButtom = findViewById(R.id.probile_btn);
-        profileButtom.setText(username);
+        profileButtom.setText(nickname);
         TextView playButton = findViewById(R.id.play_btn);
         TextView rulesButton = findViewById(R.id.rules_btn);
         TextView settingsButton = findViewById(R.id.setting_btn);
         TextView exitButton = findViewById(R.id.exit_btn);
         TextView friendsListButton = findViewById(R.id.lista_amici_btn);
+
+        profileButtom.setText(nickname);
 
         profileButtom.setOnClickListener( v->{
             if(profileButtom.getVisibility() == View.VISIBLE){
@@ -65,6 +70,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        playButton.setOnClickListener(v -> {
+            Log.d("MainActivity","Vado alla playactivity" );
+            Intent intent = new Intent(MainActivity.this, PlayActivity.class);
+            startActivity(intent);
+        });
+
         exitButton.setOnClickListener(v->{
             new AlertDialog.Builder(MainActivity.this)
                     .setTitle("Conferma uscita")
@@ -75,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         friendsListButton.setOnClickListener(v->{
-            Intent intent = new Intent(this, com.example.lupusincampus.ListaAmiciActivity.class);
+            Intent intent = new Intent(this, ListaAmiciActivity.class);
             startActivity(intent);
         });
 

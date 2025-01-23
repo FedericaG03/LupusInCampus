@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lupusincampus.R;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
     private EditText etEmail;
@@ -20,36 +22,57 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        // Inizializza i componenti UI
         etEmail = findViewById(R.id.etEmail);
         btnSubmit = findViewById(R.id.btnSubmit);
 
-        // Imposta il listener per il bottone di invio
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = etEmail.getText().toString().trim();
+        btnSubmit.setOnClickListener(v -> {
+            String email = etEmail.getText().toString().trim();
 
-                if (email.isEmpty()) {
-                    Toast.makeText(ForgotPasswordActivity.this, "Inserisci una email valida!", Toast.LENGTH_SHORT).show();
-                } else if (isValidEmail(email)) {
-                    // Simulazione del recupero della password
-                    Toast.makeText(ForgotPasswordActivity.this, "Istruzioni inviate all'email: " + email, Toast.LENGTH_SHORT).show();
+            if (email.isEmpty()) {
+                Toast.makeText(ForgotPasswordActivity.this, "Inserisci una email valida!", Toast.LENGTH_SHORT).show();
+            } else if (isValidEmail(email)) {
+                // Invia la richiesta al server per il recupero password
+                JSONObject requestBody = new JSONObject();
+                try {
+                    requestBody.put("email", email);
+                    new ServerConnector().recoverPasswordRequest(email, "http://your-server-url/recover-password", new ServerConnector.PasswordRecoverCallback() {
 
-                    // Intent per tornare alla schermata di login
-                    Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class); // Sostituisci LoginActivity con il nome della tua Activity di login
-                    startActivity(intent);
 
-                    finish();  // Chiudi la schermata di recupero password e torna alla login
-                } else {
-                    Toast.makeText(ForgotPasswordActivity.this, "Email non valida", Toast.LENGTH_SHORT).show();
+                        @Override
+                        public void onResponse(String jsonResponse) {
+                            try {
+                                JSONObject jsonResponseObj = new JSONObject(jsonResponse);
+                                if (jsonResponseObj.getBoolean("success")) {
+                                    Toast.makeText(ForgotPasswordActivity.this, "Istruzioni inviate all'email: " + email, Toast.LENGTH_SHORT).show();
+
+                                    // Reindirizza alla schermata di login
+                                    Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Toast.makeText(ForgotPasswordActivity.this, "Email non trovata nel nostro sistema!", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                Toast.makeText(ForgotPasswordActivity.this, "Errore nella risposta del server!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            Toast.makeText(ForgotPasswordActivity.this, "Errore nella connessione al server!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } catch (JSONException e) {
+                    Toast.makeText(ForgotPasswordActivity.this, "Errore nella richiesta", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                Toast.makeText(ForgotPasswordActivity.this, "Email non valida", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    // Verifica se l'email ha un formato valido (puoi personalizzarlo o usare un'espressione regolare)
+    // Verifica se l'email ha un formato valido
     private boolean isValidEmail(String email) {
-        return email.contains("@") && email.contains(".");
+        return email.contains("@");
     }
 }

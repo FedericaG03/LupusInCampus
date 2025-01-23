@@ -1,29 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:background="@drawable/sfondo"
+    tools:context=".Play.PlayActivity">
 
     <include
-        android:id="@+id/profilo_btn_lista_amici"
+        android:id="@+id/probile_btn"
         layout="@layout/profile_icon_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp" />
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
+    <ImageButton
+        android:id="@+id/btn_local"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/btn_word"
+        android:contentDescription="@string/local_button_description"
+        android:src="@drawable/locale_da_cambiare" />
+
+    <ImageButton
+        android:id="@+id/btn_word"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/world_button_description"
+        android:src="@drawable/mondo_da_cambiare"/>
 
 
     <include
         android:id="@+id/back_btn"
         layout="@layout/back_btn_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="731dp" />
 
-
-
-</LinearLayout>
+</RelativeLayout>

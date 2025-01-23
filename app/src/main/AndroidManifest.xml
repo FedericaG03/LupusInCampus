@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.LupusInCampus"
         tools:targetApi="31"
-        tools:ignore="DiscouragedApi"> <!--ignora il warning quando metto activity in landscape-->
+        tools:ignore="DiscouragedApi"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="true"
+        > <!--ignora il warning quando metto activity in landscape-->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -28,7 +33,7 @@
             android:exported="true"
             android:screenOrientation="landscape"/>
 
-        <activity android:name=".ListaAmiciActivity"
+        <activity android:name=".Amici.ListaAmiciActivity"
             android:exported ="true"
             android:screenOrientation="landscape"/>
 
@@ -37,6 +42,10 @@
             android:screenOrientation="landscape"/>
 
         <activity android:name=".Login.RegisterActivity"
+            android:exported="true"
+            android:screenOrientation="landscape"/>
+
+        <activity android:name=".Play.PlayActivity"
             android:exported="true"
             android:screenOrientation="landscape"/>
 

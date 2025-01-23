@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#808080"
-    tools:context=".LoginActivity"
+    tools:context=".Login.LoginActivity"
     android:padding="16dp">
 
 
@@ -40,18 +40,18 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/etEmail"
-            android:layout_width="434dp"
+            android:id="@+id/etEmailorNicK"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:hint="@string/email"
+            android:hint="@string/email_o_nickname"
             android:inputType="textEmailAddress"
             tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
             android:id="@+id/etPassword"
-            android:layout_width="434dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/password"
             android:layout_marginLeft="8dp"

@@ -1,4 +1,4 @@
-package com.example.lupusincampus;
+package com.example.lupusincampus.Amici;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.lupusincampus.ListaAmiciAdapter;
+import com.example.lupusincampus.R;
 
 import org.w3c.dom.Text;
 
