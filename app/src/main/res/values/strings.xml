@@ -12,22 +12,22 @@
     <string name="back_btn_txt">INDIETRO</string>
     <string name="username_lista_amici" translatable="false">UserName</string>
     <string name="aggiungi_amico_btn_txt">AGGIUNGI AMICO</string>
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome!"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="login">LOGIN</string>
+    <string name="Login">LOGIN</string>
+    <string name="action_sign_in">Entra o registrati</string>
+    <string name="action_sign_in_short">Entra </string>
+    <string name="welcome">"Benvenuto!"</string>
+    <string name="invalid_username">Username non valido</string>
+    <string name="invalid_password">La password deve contenere più di 5 caratteri</string>
+    <string name="login_failed">"Accesso fallito"</string>
     <string name="password">Password</string>
     <string name="password_dimenticata">Password dimenticata?</string>
     <string name="registrati">Registrati</string>
-    <string name="entra">Entra</string>
     <string name="mondo">MONDO</string>
     <string name="local_button_description">Pulsante Locale</string>
     <string name="world_button_description">Pulsante Mondo</string>
     <string name="email_o_nickname">Email o Nickname</string>
+    <string name="crea_partita">CREA PARTITA</string>
+    <string name="Mostralobby">MOSTRA LOBBY\n</string>
+    <string name="indietro">INDIETRO\n</string>
+
 </resources>

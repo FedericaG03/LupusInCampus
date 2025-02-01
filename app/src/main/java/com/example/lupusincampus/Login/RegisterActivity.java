@@ -2,15 +2,18 @@ package com.example.lupusincampus.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lupusincampus.MainActivity;
 import com.example.lupusincampus.R;
-import com.example.lupusincampus.SalvataggioPassword.SharedActivity;
+import com.example.lupusincampus.SharedActivity;
+import com.example.lupusincampus.ServerConnector;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText etNickname, etEmail, etPassword;
     private Button btnRegister;
+    private View bckButton;
     private SharedActivity sharedActivity;
 
     @Override
@@ -33,6 +37,12 @@ public class RegisterActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnRegister = findViewById(R.id.btnRegister);
+        bckButton = findViewById(R.id.back_btn);
+
+
+        bckButton.setOnClickListener(v->{
+            getOnBackPressedDispatcher().onBackPressed();
+        });
 
         btnRegister.setOnClickListener(v -> {
             String nickname = etNickname.getText().toString().trim();
@@ -44,10 +54,9 @@ public class RegisterActivity extends AppCompatActivity {
             } else if (!email.contains("@")) {
                 Toast.makeText(RegisterActivity.this, "Inserisci un'email valida.", Toast.LENGTH_SHORT).show();
             } else {
-                String serverUrl = "http://your-server-url/register"; // Cambia con il tuo URL
-                new ServerConnector().registerRequest(nickname, email, password, serverUrl, new ServerConnector.RegisterCallback() {
+                new ServerConnector().registerRequest(nickname, email, password, new ServerConnector.FetchDataCallback() {
                     @Override
-                    public void onResponse(String jsonResponse) {
+                    public void onSuccess(String jsonResponse) {
                         runOnUiThread(() -> {
                             try {
                                 JSONObject response = new JSONObject(jsonResponse);
@@ -65,7 +74,6 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         });
                     }
-
                     @Override
                     public void onError(Exception e) {
                         runOnUiThread(() -> {

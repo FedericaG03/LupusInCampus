@@ -3,10 +3,8 @@ package com.example.lupusincampus;
 import com.example.lupusincampus.Login.LoginActivity;
 import com.example.lupusincampus.Play.PlayActivity;
 import com.example.lupusincampus.Amici.ListaAmiciActivity;
-import com.example.lupusincampus.SalvataggioPassword.SharedActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d("MainActivity", "Utente non loggato, reindirizzamento a LoginActivity");
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
-            finish();
             return;
         }
 

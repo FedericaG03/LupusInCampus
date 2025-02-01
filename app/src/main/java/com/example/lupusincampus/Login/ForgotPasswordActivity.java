@@ -10,13 +10,15 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lupusincampus.R;
+import com.example.lupusincampus.ServerConnector;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
     private EditText etEmail;
     private Button btnSubmit;
-
+    View bckButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,9 +26,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         etEmail = findViewById(R.id.etEmail);
         btnSubmit = findViewById(R.id.btnSubmit);
+        bckButton = findViewById(R.id.back_btn);
+
+        bckButton.setOnClickListener(v->{
+            getOnBackPressedDispatcher().onBackPressed();
+        });
 
         btnSubmit.setOnClickListener(v -> {
-            String email = etEmail.getText().toString().trim();
+            String email = etEmail.getText().toString();
 
             if (email.isEmpty()) {
                 Toast.makeText(ForgotPasswordActivity.this, "Inserisci una email valida!", Toast.LENGTH_SHORT).show();
@@ -35,11 +42,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 JSONObject requestBody = new JSONObject();
                 try {
                     requestBody.put("email", email);
-                    new ServerConnector().recoverPasswordRequest(email, "http://your-server-url/recover-password", new ServerConnector.PasswordRecoverCallback() {
-
-
+                    new ServerConnector().recoverPasswordRequest(email, new ServerConnector.FetchDataCallback() {
                         @Override
-                        public void onResponse(String jsonResponse) {
+                        public void onSuccess(String jsonResponse) {
                             try {
                                 JSONObject jsonResponseObj = new JSONObject(jsonResponse);
                                 if (jsonResponseObj.getBoolean("success")) {
@@ -59,7 +64,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                         @Override
                         public void onError(Exception e) {
-                            Toast.makeText(ForgotPasswordActivity.this, "Errore nella connessione al server!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ForgotPasswordActivity.this, "Errore nella connessione al server: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
                 } catch (JSONException e) {
@@ -73,6 +78,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     // Verifica se l'email ha un formato valido
     private boolean isValidEmail(String email) {
-        return email.contains("@");
+        String emailPattern = "[a-z0-9._%+\\-]+@[a-z0-9.\\-]+\\.[a-z]{2,}$\n";
+        return email.matches(emailPattern);
     }
 }

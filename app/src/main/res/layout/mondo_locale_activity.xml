@@ -35,13 +35,7 @@
         android:src="@drawable/mondo_da_cambiare"/>
 
 
-    <include
-        android:id="@+id/back_btn"
-        layout="@layout/back_btn_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="731dp" />
+    <include android:id="@+id/back_btn"
+        layout="@layout/back_btn_layout" />
 
 </RelativeLayout>

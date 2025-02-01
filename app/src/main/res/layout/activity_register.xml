@@ -8,13 +8,14 @@
         android:padding="16dp"
         tools:context=".Login.RegisterActivity"
         android:gravity="center"
-        android:background="#f5f5f5">
+        android:background="@drawable/sfondo">
 
     <!-- Titolo -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/light_cream"
         android:gravity="center_horizontal"
         android:text="Registrati"
         android:textSize="28sp"
@@ -26,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:hint="Nome utente"
+        android:hint="Nickname"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:padding="10dp" />
@@ -65,4 +66,6 @@
         android:text="Registrati"
         android:textColor="#FFFFFF" />
 
+    <include android:id="@+id/back_btn"
+        layout="@layout/back_btn_layout"/>
 </LinearLayout>

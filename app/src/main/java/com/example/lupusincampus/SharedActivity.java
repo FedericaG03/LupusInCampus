@@ -1,4 +1,4 @@
-package com.example.lupusincampus.SalvataggioPassword;
+package com.example.lupusincampus;
 
 import android.content.Context;
 import android.content.SharedPreferences;

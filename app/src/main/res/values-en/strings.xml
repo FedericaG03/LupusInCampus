@@ -10,4 +10,22 @@
     <string name="lista_inviti_btn_txt">Invites</string>
     <string name="back_btn_txt">BACK</string>
     <string name="aggiungi_amico_btn_txt">ADD FRIEND</string>
+    <string name="Login">LOGIN\n\n</string>
+    <string name="password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="password_dimenticata">Forgotten password?</string>
+    <string name="registrati">Register</string>
+     <string name="mondo">Word</string>
+    <string name="local_button_description">Local button</string>
+    <string name="world_button_description">Word button</string>
+    <string name="email_o_nickname">Email o Nickname</string>
+    <string name="crea_partita">Create game</string>
+    <string name="Mostralobby">Show lobby</string>
+    <string name="indietro">Back\n</string>
+
 </resources>

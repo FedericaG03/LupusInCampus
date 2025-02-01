@@ -12,7 +12,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.lupusincampus.MainActivity;
 import com.example.lupusincampus.R;
-import com.example.lupusincampus.SalvataggioPassword.SharedActivity;
+import com.example.lupusincampus.SharedActivity;
+import com.example.lupusincampus.ServerConnector;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText etEmailorNicK;
@@ -49,6 +50,9 @@ public class LoginActivity extends AppCompatActivity {
             String emailOrNickname = etEmailorNicK.getText().toString();
             String password = etPassword.getText().toString();
 
+            // Funzione che simula una risposta dal server (per test locali)
+            simulateServerResponse(emailOrNickname, password);
+
             if (emailOrNickname.isEmpty() || password.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "Compila tutti i campi!", Toast.LENGTH_SHORT).show();
             } else {
@@ -60,10 +64,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 // Invia la richiesta di login
-                String serverUrl = "http://172.19.:8080/login"; // URL del server
-                serverConnector.loginRequest(emailOrNickname, password, isEmail, serverUrl, new ServerConnector.LoginCallback() {
+                serverConnector.loginRequest(emailOrNickname, password, isEmail, new ServerConnector.FetchDataCallback() {
                     @Override
-                    public void onResponse(String jsonResponse) {
+                    public void onSuccess(String jsonResponse) {
                         try {
                             // Analizza la risposta del server (JSON)
                             JSONObject jsonObject = new JSONObject(jsonResponse);
@@ -96,12 +99,10 @@ public class LoginActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(v -> navigateToRegisterActivity());
         tvForgotPassword.setOnClickListener(v -> navigateToForgotPasswordActivity());
     }
-
-    private boolean isEmail(String input){
-        return input.contains("@");
+    private boolean isEmail(String email){
+        String emailPattern = "[a-z0-9._%+\\-]+@[a-z0-9.\\-]+\\.[a-z]{2,}$\n";
+        return email.matches(emailPattern);
     }
-
-
 
     private boolean isValidCredentialsTest(String email, String password) {
         return email.equals("user@example.com") && password.equals("password");
@@ -120,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void navigateToForgotPasswordActivity() {
-        Log.d("LoginActivity", "Navigating to RegisterActivity");
+        Log.d("LoginActivity", "Navigating to ForgotPasswordActivity");
         Intent intent = new Intent(LoginActivity.this, com.example.lupusincampus.Login.ForgotPasswordActivity.class);
         startActivity(intent);
     }
@@ -140,5 +141,27 @@ public class LoginActivity extends AppCompatActivity {
         ServerConnector connector = new ServerConnector();
         connector.testServerConn("http://172.19.188.97:8080/");
     }*/
+
+    // Funzione che simula una risposta dal server (per test locali)
+    private void simulateServerResponse(String emailOrNickname, String password) {
+        // Definiamo un esempio di email e password valide
+        String validEmail = "user@example.com"; // Email di esempio
+        String validNickname = "userNickname"; // Nickname di esempio
+        String validPassword = "password";// Password di esempio
+
+        if (emailOrNickname.equals(validEmail) || emailOrNickname.equals(validNickname)) {
+            if (password.equals(validPassword)) {
+                sharedActivity.setLoggedIn(true);
+                sharedActivity.setEmail(validEmail);
+                sharedActivity.setNickname(validNickname);
+                Log.d("LoginActivity", "Login simulato riuscito, navigazione su MainActivity");
+                navigateToMainActivity();
+            } else {
+                Toast.makeText(LoginActivity.this, "Credenziali errate!", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(LoginActivity.this, "Email o nickname non trovati!", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 }

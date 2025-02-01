@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Play.WordActivity"
+    android:background="@drawable/sfondo">
+
+    <!-- Sezione Ospita (Crea Partita) -->
+    <LinearLayout
+        android:id="@+id/hostSection"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="125dp">
+
+        <ImageView
+            android:id="@+id/hostIcon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="10dp" />
+        <!--android:src="@drawable/wolf_host_icon"-->
+        <TextView
+            android:id="@+id/btnCreateGame"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:textColor="@color/panna"
+            style="@style/ButtonStyle"
+            android:background="@drawable/back_btn_border"
+            android:text="@string/crea_partita"
+            android:textSize="23sp"
+            android:padding="5dp" />
+
+    </LinearLayout>
+
+    <!-- Sezione Cerca (Mostra Lobby) -->
+    <LinearLayout
+        android:id="@+id/searchSection"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@id/hostSection"
+        android:layout_marginTop="40dp">
+
+        <ImageView
+            android:id="@+id/searchIcon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="10dp" />
+
+        <!--:src="@drawable/wolf_search_icon"-->
+        <TextView
+            android:id="@+id/btnShowLobby"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            style="@style/ButtonStyle"
+            android:background="@drawable/back_btn_border"
+            android:textColor="@color/panna"
+            android:text="@string/Mostralobby"
+            android:textSize="23sp"
+            android:padding="5dp" />
+
+        </LinearLayout>
+
+    <TextView
+        android:id="@+id/inviteNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/searchSection"
+        android:layout_marginTop="30dp"
+        android:text="Caricamento inviti..."
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:background="#80000000"
+        android:padding="10dp" />
+
+    <include android:id="@+id/back_btn"
+        layout="@layout/back_btn_layout"/>
+</RelativeLayout>
