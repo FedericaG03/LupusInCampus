@@ -7,6 +7,16 @@
     tools:context=".Play.WordActivity"
     android:background="@drawable/sfondo">
 
+
+    <include
+        android:id="@+id/probile_btn"
+        layout="@layout/profile_icon_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp" />
+
     <!-- Sezione Ospita (Crea Partita) -->
     <LinearLayout
         android:id="@+id/hostSection"
@@ -78,6 +88,10 @@
         android:background="#80000000"
         android:padding="10dp" />
 
-    <include android:id="@+id/back_btn"
-        layout="@layout/back_btn_layout"/>
+    <include
+        android:id="@+id/back_btn"
+        layout="@layout/back_btn_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

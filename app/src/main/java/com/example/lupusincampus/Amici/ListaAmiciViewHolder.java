@@ -1,4 +1,4 @@
-package com.example.lupusincampus;
+package com.example.lupusincampus.Amici;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.lupusincampus.R;
 
 public class ListaAmiciViewHolder extends RecyclerView.ViewHolder {
     TextView usernameTextView;

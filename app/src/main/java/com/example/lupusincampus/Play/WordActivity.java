@@ -30,7 +30,14 @@ public class WordActivity extends AppCompatActivity {
         inviteNotification = findViewById(R.id.inviteNotification);
         bckButton = findViewById(R.id.back_btn);
         // Recupera il numero di inviti dal server
-        //fetchInvitesFromServer();
+        fetchInvitesFromServer();
+
+
+        bckButton.setOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed();
+            finish();
+        });
+
     }
 
     private void fetchInvitesFromServer() {
@@ -66,6 +73,7 @@ public class WordActivity extends AppCompatActivity {
             inviteNotification.setText("Nessun invito disponibile");
         }
     }
+
 }
 
 

@@ -11,10 +11,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.lupusincampus.ListaAmiciAdapter;
+import com.example.lupusincampus.Amici.ListaAmiciActivity;
 import com.example.lupusincampus.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;

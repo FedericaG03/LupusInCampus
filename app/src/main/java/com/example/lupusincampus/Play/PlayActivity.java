@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +21,7 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.mondo_locale_activity);
         Log.d("PlayActivity", "Sono alla playactivity");
 
-        bckButton = findViewById(R.id.back_btn);
+        bckButton  = findViewById(R.id.back_btn);
         ImageButton imageButtonLocal = findViewById(R.id.btn_local);
         ImageButton imageButtonWord = findViewById(R.id.btn_word);
 
@@ -34,6 +35,10 @@ public class PlayActivity extends AppCompatActivity {
             Intent intent = new Intent(PlayActivity.this, WordActivity.class);
             startActivity(intent);
             Log.d(TAG, "onCreate: vado al wordActivity");
+        });
+
+        bckButton.setOnClickListener(view -> {
+            getOnBackPressedDispatcher().onBackPressed();
         });
     }
 }

@@ -1,4 +1,4 @@
-package com.example.lupusincampus;
+package com.example.lupusincampus.Amici;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.lupusincampus.R;
 
 import java.util.List;
 
