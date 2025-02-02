@@ -104,10 +104,6 @@ public class LoginActivity extends AppCompatActivity {
         return email.matches(emailPattern);
     }
 
-    private boolean isValidCredentialsTest(String email, String password) {
-        return email.equals("user@example.com") && password.equals("password");
-    }
-
     private void navigateToMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);

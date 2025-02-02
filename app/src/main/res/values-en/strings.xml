@@ -11,7 +11,6 @@
     <string name="back_btn_txt">BACK</string>
     <string name="aggiungi_amico_btn_txt">ADD FRIEND</string>
     <string name="Login">LOGIN\n\n</string>
-    <string name="password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome!"</string>
@@ -27,5 +26,9 @@
     <string name="crea_partita">Create game</string>
     <string name="Mostralobby">Show lobby</string>
     <string name="indietro">Back\n</string>
+    <string name="inserire_nuova_password">vvv</string>
+    <string name="resetta_password">Resetta Password</string>
+    <string name="password">Password...</string>
+
 
 </resources>

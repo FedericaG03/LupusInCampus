@@ -19,15 +19,21 @@
     <string name="invalid_username">Username non valido</string>
     <string name="invalid_password">La password deve contenere più di 5 caratteri</string>
     <string name="login_failed">"Accesso fallito"</string>
-    <string name="password">Password</string>
     <string name="password_dimenticata">Password dimenticata?</string>
     <string name="registrati">Registrati</string>
     <string name="mondo">MONDO</string>
     <string name="local_button_description">Pulsante Locale</string>
     <string name="world_button_description">Pulsante Mondo</string>
-    <string name="email_o_nickname">Email o Nickname</string>
+    <string name="email_o_nickname">Email o Nickname...</string>
     <string name="crea_partita">CREA PARTITA</string>
     <string name="Mostralobby">MOSTRA LOBBY\n</string>
     <string name="indietro">INDIETRO\n</string>
+    <string name="inserire_nuova_password">Inserire nuova password</string>
+    <string name="conferma_nuova_password" translatable="false">Conferma nuova password</string>
+    <string name="resetta_password">Resetta Password</string>
+    <string name="password">Password...</string>
+    <string name="Nuova_password" translatable="false">Reimposta password</string>
+    <string name="nickname">Nickname</string>
+    <string name="email">Email\n</string>
 
 </resources>

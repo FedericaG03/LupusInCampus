@@ -144,7 +144,7 @@ public class ServerConnector {
     }
 
     /**
-     * Recupero password
+     * Recupero password, (invio mail al server)
      */
     public void recoverPasswordRequest(String email, FetchDataCallback callback) {
         try {
@@ -156,6 +156,7 @@ public class ServerConnector {
             callback.onError(e);
         }
     }
+
 
     /**
      * Recupera la lista di inviti
