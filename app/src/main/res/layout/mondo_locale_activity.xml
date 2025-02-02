@@ -26,10 +26,12 @@
             android:id="@+id/btn_local"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:contentDescription="@string/local_button_description"
             android:scaleType="fitCenter"
             android:background="@null"
-            android:src="@drawable/local_card"/>
+            android:src="@drawable/local_card"
+            android:contentDescription="@null"
+            android:importantForAccessibility="no"
+            />
 
         <ImageButton
             android:id="@+id/btn_world"
@@ -37,7 +39,10 @@
             android:layout_height="250dp"
             android:scaleType="fitCenter"
             android:background="@null"
-            android:src="@drawable/word_card"/>
+            android:src="@drawable/word_card"
+            android:contentDescription="@null"
+            android:importantForAccessibility="no"
+            />
     </LinearLayout>
 
     <include
