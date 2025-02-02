@@ -173,6 +173,13 @@ public class ServerConnector {
     }
 
     /**
+     * Reimposta Password
+     */
+    public void updatePasswordRequest(JSONObject jsonBody, FetchDataCallback callback) {
+        makePostRequest(jsonBody, callback);
+    }
+
+    /**
      * Callback generico per gestire i dati del server
      */
     public interface FetchDataCallback {

@@ -2,10 +2,10 @@ package com.example.lupusincampus.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
+//import me.pushy.sdk.Pushy;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +17,7 @@ import com.example.lupusincampus.ServerConnector;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -44,24 +45,27 @@ public class RegisterActivity extends AppCompatActivity {
             getOnBackPressedDispatcher().onBackPressed();
         });
 
-        btnRegister.setOnClickListener(v -> {
-            String nickname = etNickname.getText().toString().trim();
-            String email = etEmail.getText().toString().trim();
-            String password = etPassword.getText().toString().trim();
+//        Pushy.listen(getApplicationContext());
 
-            if (nickname.isEmpty() || email.isEmpty() || password.isEmpty()) {
+        btnRegister.setOnClickListener(v -> {
+            String nickname = etNickname.getText().toString();
+            String email = etEmail.getText().toString();
+            String password = etPassword.getText().toString();
+            String hashPass = BCrypt.hashpw(password, BCrypt.gensalt());
+
+            if (nickname.isEmpty() || email.isEmpty() || hashPass.isEmpty()) {
                 Toast.makeText(RegisterActivity.this, "Per favore, compila tutti i campi.", Toast.LENGTH_SHORT).show();
             } else if (!email.contains("@")) {
                 Toast.makeText(RegisterActivity.this, "Inserisci un'email valida.", Toast.LENGTH_SHORT).show();
             } else {
-                new ServerConnector().registerRequest(nickname, email, password, new ServerConnector.FetchDataCallback() {
+                new ServerConnector().registerRequest(nickname, email, hashPass, new ServerConnector.FetchDataCallback() {
                     @Override
                     public void onSuccess(String jsonResponse) {
                         runOnUiThread(() -> {
                             try {
                                 JSONObject response = new JSONObject(jsonResponse);
                                 if (response.getBoolean("success")) {
-                                    sharedActivity.saveUserDetails(nickname, email, password, "email");
+                                    sharedActivity.saveUserDetails(nickname, email, hashPass, "email");
 
                                     Toast.makeText(RegisterActivity.this, "Registrazione avvenuta con successo!", Toast.LENGTH_SHORT).show();
                                     navigateToMainActivity();

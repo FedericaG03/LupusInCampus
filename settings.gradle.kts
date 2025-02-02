@@ -8,16 +8,19 @@ pluginManagement {
             }
         }
         mavenCentral()
+        maven ("https://maven.pushy.me")
         gradlePluginPortal()
-    }
+        }
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
+        maven ("https://maven.pushy.me")
     }
 }
+
 
 rootProject.name = "LupusInCampus"
 include(":app")

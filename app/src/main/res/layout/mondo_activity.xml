@@ -30,7 +30,8 @@
             android:id="@+id/hostIcon"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginEnd="10dp" />
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/lupo_ospita"/>
         <!--android:src="@drawable/wolf_host_icon"-->
         <TextView
             android:id="@+id/btnCreateGame"
@@ -59,9 +60,9 @@
             android:id="@+id/searchIcon"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginEnd="10dp" />
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/lupo_cerca"/>
 
-        <!--:src="@drawable/wolf_search_icon"-->
         <TextView
             android:id="@+id/btnShowLobby"
             android:layout_width="200dp"

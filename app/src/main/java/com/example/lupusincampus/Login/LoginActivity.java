@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
-       ServerConnector serverConnector = new ServerConnector();
+        ServerConnector serverConnector = new ServerConnector();
         sharedActivity = new SharedActivity(this);
 
         boolean isLoggedIn = sharedActivity.isLoggedIn();

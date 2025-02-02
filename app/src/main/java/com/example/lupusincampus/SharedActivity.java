@@ -82,4 +82,18 @@ public class SharedActivity {
     public String getLoginMethod() {
         return sharedPreferences.getString(LOGIN_METHOD, "UNKNOWN");
     }
+
+
+    //Per salvare il token Pushy
+    public void savePushyToken(String token){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("pushy_token", token);
+        editor.apply();
+    }
+    
+    public String getPushyToken() {
+        return sharedPreferences.getString("pushy_token", null);
+    }
 }
+
+

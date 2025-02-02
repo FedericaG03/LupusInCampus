@@ -45,5 +45,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation("org.mindrot:jbcrypt:0.4")
-    }
+    implementation(libs.jbcrypt)
+    implementation(libs.pushy)// Dipendenza Pushy
+}
