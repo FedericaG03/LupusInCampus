@@ -46,5 +46,4 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.jbcrypt)
-    implementation(libs.pushy)// Dipendenza Pushy
 }

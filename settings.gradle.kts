@@ -8,7 +8,6 @@ pluginManagement {
             }
         }
         mavenCentral()
-        maven ("https://maven.pushy.me")
         gradlePluginPortal()
         }
 }
@@ -17,7 +16,6 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven ("https://maven.pushy.me")
     }
 }
 

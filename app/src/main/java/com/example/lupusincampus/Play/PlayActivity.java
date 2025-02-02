@@ -23,7 +23,7 @@ public class PlayActivity extends AppCompatActivity {
 
         bckButton  = findViewById(R.id.back_btn);
         ImageButton imageButtonLocal = findViewById(R.id.btn_local);
-        ImageButton imageButtonWord = findViewById(R.id.btn_word);
+        ImageButton imageButtonWord = findViewById(R.id.btn_world);
 
 
         imageButtonLocal.setOnClickListener(v -> {
