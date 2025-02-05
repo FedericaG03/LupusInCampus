@@ -11,17 +11,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ServerConnector {
 
     private static final String TAG = "ServerConnector";
-    private static final String SERVER_URL = "";
+    private static final String SERVER_URL = "http://172.19.170.102:8080";
 
     // Esegue operazioni di rete su un thread in background
     private final ExecutorService executor = Executors.newFixedThreadPool(4); //(4 thread per richieste contemporanee)
@@ -97,6 +95,47 @@ public class ServerConnector {
         });
     }
 
+
+
+    /**
+     * Metodo generico per effettuare richieste HTTP PUT
+     */
+     private  void makePutRequest(String endpoint, JSONObject jsonBody, FetchDataCallback callback){
+         executor.execute(() -> {
+             HttpURLConnection connection = null;
+             try {
+                 URL url = new URL(SERVER_URL + endpoint); // Usa l'URL base del server
+                 connection = (HttpURLConnection) url.openConnection();
+                 connection.setRequestMethod("PUT");
+                 connection.setRequestProperty("Content-Type", "application/json");
+                 connection.setDoOutput(true);
+
+                 try (OutputStream os = connection.getOutputStream()) {
+                     os.write(jsonBody.toString().getBytes());
+                     os.flush();
+                     Log.d(TAG, "Sto a fa la richiesta PUT: " );
+                 }
+
+                 int responseCode = connection.getResponseCode();
+                 if (responseCode == HttpURLConnection.HTTP_OK) {
+                     String response = readStream(connection);
+                     mainThreadHandler.post(() -> callback.onSuccess(response));
+                 } else {
+                     mainThreadHandler.post(() -> callback.onError(new IOException("Errore HTTP: " + responseCode)));
+                 }
+
+             } catch (IOException e) {
+                 Log.e(TAG, "Errore nella richiesta PUT: " + e.getMessage(), e);
+                 mainThreadHandler.post(() -> callback.onError(e));
+             } finally {
+                 if (connection != null) {
+                     connection.disconnect();
+                 }
+             }
+         });
+     }
+
+
     /**
      * Legge i dati dalla risposta HTTP
      */
@@ -114,6 +153,7 @@ public class ServerConnector {
     /**
      * Richiesta di login
      */
+    //TODO: LEVARE VERIFICA MAIL O PASSWORD, LASCIARE MAIL
     public void loginRequest(String emailOrNickname, String password, boolean isEmail,  FetchDataCallback callback) {
         try {
             JSONObject jsonBody = new JSONObject();
@@ -141,26 +181,11 @@ public class ServerConnector {
             jsonBody.put("email", email);
             jsonBody.put("password", password);
 
-            makePostRequest("/controller/player/registration", jsonBody, callback);
+            makePutRequest("/controller/player/registration", jsonBody, callback);
         } catch (JSONException e) {
             callback.onError(e);
         }
     }
-/*
-    public void registerRequest(String nickname, String email, String password, FetchDataCallback callback) {
-        try {
-            // Creazione della query string con i parametri
-            String params = "nickname=" + URLEncoder.encode(nickname, "UTF-8") +
-                    "&email=" + URLEncoder.encode(email, "UTF-8") +
-                    "&password=" + URLEncoder.encode(password, "UTF-8");
-
-            // Invio della richiesta con i parametri nell'URL (se GET) o nel body (se POST)
-            makePostRequest("/controller/player/registration?" + params, null, callback);
-        } catch (UnsupportedEncodingException e) {
-            callback.onError(e);
-        }
-    }*/
-
     /**
      * Recupero password, (invio mail al server)
      */
@@ -177,7 +202,7 @@ public class ServerConnector {
 
 
     /**
-     * Recupera la lista di inviti
+     * Recupera la lista di inviti lobby
      */
     public void fetchInvites(FetchDataCallback callback) {
         makeGetRequest("", callback);
