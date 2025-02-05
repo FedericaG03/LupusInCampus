@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/sfondo">
 
+    <!-- Da mettere INTESTAZIONE-->
     <ListView
         android:id="@+id/my_list_view_lobby"
         android:layout_width="match_parent"

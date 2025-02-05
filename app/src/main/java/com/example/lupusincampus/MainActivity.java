@@ -43,26 +43,25 @@ public class MainActivity extends AppCompatActivity {
         ConstraintLayout sidebar = findViewById(R.id.profile_sidebar);
 
 
-        TextView profileButtom = findViewById(R.id.probile_btn);
-        profileButtom.setText(nickname);
+        TextView profileButton = findViewById(R.id.probile_btn);
+        profileButton.setText(nickname);
         TextView playButton = findViewById(R.id.play_btn);
         TextView rulesButton = findViewById(R.id.rules_btn);
         TextView settingsButton = findViewById(R.id.setting_btn);
         TextView exitButton = findViewById(R.id.exit_btn);
         TextView friendsListButton = findViewById(R.id.lista_amici_btn);
 
-        profileButtom.setText(nickname);
 
-        profileButtom.setOnClickListener( v->{
-            if(profileButtom.getVisibility() == View.VISIBLE){
-                profileButtom.setVisibility(View.GONE);
+        profileButton.setOnClickListener( v->{
+            if(profileButton.getVisibility() == View.VISIBLE){
+                profileButton.setVisibility(View.GONE);
                 sidebar.setVisibility(View.VISIBLE);
             }
         });
 
         mainLayout.setOnClickListener(v->{
             if(sidebar.getVisibility() == View.VISIBLE){
-                profileButtom.setVisibility(View.VISIBLE);
+                profileButton.setVisibility(View.VISIBLE);
                 sidebar.setVisibility(View.GONE);
             }
         });

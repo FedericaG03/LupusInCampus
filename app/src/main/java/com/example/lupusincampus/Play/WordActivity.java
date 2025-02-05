@@ -1,5 +1,6 @@
 package com.example.lupusincampus.Play;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -7,12 +8,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyListActivity;
 import com.example.lupusincampus.ServerConnector;
 
 import org.json.JSONObject;
 
 import com.example.lupusincampus.R;
+import com.example.lupusincampus.SharedActivity;
 
 public class WordActivity extends AppCompatActivity {
 
@@ -20,12 +24,47 @@ public class WordActivity extends AppCompatActivity {
     private static final String TAG = "WordActivity";
     private TextView inviteNotification;
     private View bckButton;
+    private SharedActivity sharedActivity;
+    private TextView btnShowLobby;
+    private TextView btnCreateGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mondo_activity);
 
+        String nickname = sharedActivity.getNickname();
+        ConstraintLayout sidebar = findViewById(R.id.profile_sidebar);
+        TextView profileButton = findViewById(R.id.probile_btn);
+        profileButton.setText(nickname);
+        //Bottoni gioco mostra lobby
+        btnShowLobby = findViewById(R.id.btnShowLobby);
+        btnCreateGame = findViewById(R.id.btnCreateGame);
+
+        inviteNotification = findViewById(R.id.inviteNotification);
+
+
+        btnShowLobby.setOnClickListener(view -> {
+            Intent intent = new Intent(WordActivity.this, LobbyListActivity.class);
+            startActivity(intent);
+            Log.d(TAG, "onCreate: vado al lobbyActivity");
+        });
+
+
+        btnCreateGame.setOnClickListener(view -> {
+            //TODO: CREARE LA CLASSE CHE TI CREARE UNA LOBBY ( ANCHE L'XML)
+            Intent intent = new Intent();
+            startActivity(intent);
+            Log.d(TAG, "onCreate: vado al lobbyActivity");
+        });
+
+
+        profileButton.setOnClickListener( v->{
+            if(profileButton.getVisibility() == View.VISIBLE){
+                profileButton.setVisibility(View.GONE);
+                sidebar.setVisibility(View.VISIBLE);
+            }
+        });
 
         inviteNotification = findViewById(R.id.inviteNotification);
         bckButton = findViewById(R.id.back_btn);
@@ -40,6 +79,9 @@ public class WordActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Gestione inviti
+     */
     private void fetchInvitesFromServer() {
         ServerConnector connector = new ServerConnector();
         // Chiama la funzione fetchInvites
@@ -64,7 +106,6 @@ public class WordActivity extends AppCompatActivity {
             }
         });
     }
-
     private void updateInviteNotification(int invites) {
         if (invites > 0) {
             String text = invites + " Amici Ti Hanno Invitato";

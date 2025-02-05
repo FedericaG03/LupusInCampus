@@ -9,13 +9,12 @@
 
 
     <include
-        android:id="@+id/probile_btn"
-        layout="@layout/profile_icon_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="20dp" />
+        android:id="@+id/include_profile_mondo"
+        layout="@layout/profile_icon_layout" />
+
+    <include
+        android:id="@+id/profile_sidebar_mondo"
+        layout="@layout/profile_sidebar" />
 
     <!-- Sezione Ospita (Crea Partita) -->
     <LinearLayout
@@ -83,7 +82,6 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/searchSection"
         android:layout_marginTop="30dp"
-        android:text="Caricamento inviti..."
         android:textSize="16sp"
         android:textColor="#FFFFFF"
         android:background="#80000000"
