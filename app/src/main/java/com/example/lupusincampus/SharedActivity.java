@@ -16,7 +16,15 @@ public class SharedActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
-    public SharedActivity(Context context) {
+    private static SharedActivity instance;
+
+    public static SharedActivity getInstance(Context context){
+        if(instance == null){
+            instance = new SharedActivity(context);
+        }
+        return instance;
+    }
+    private SharedActivity(Context context) {
         this.sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
         this.editor = sharedPreferences.edit();
     }

@@ -1,5 +1,7 @@
 package com.example.lupusincampus.Login;
 
+import static com.example.lupusincampus.Login.SHA256.hashSHA256;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +18,6 @@ import com.example.lupusincampus.ServerConnector;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.mindrot.jbcrypt.BCrypt;
 
 import me.pushy.sdk.Pushy;
 
@@ -32,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        sharedActivity = new SharedActivity(this);
+        sharedActivity = SharedActivity.getInstance(this);
 
         // Trova i componenti del layout
         etNickname = findViewById(R.id.etNickname);
@@ -53,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
             String nickname = etNickname.getText().toString();
             String email = etEmail.getText().toString();
             String password = etPassword.getText().toString();
-            String hashPass = BCrypt.hashpw(password, BCrypt.gensalt());
+            String hashPass = hashSHA256(password);
 
             if (nickname.isEmpty() || email.isEmpty() || hashPass.isEmpty()) {
                 Toast.makeText(RegisterActivity.this, "Per favore, compila tutti i campi.", Toast.LENGTH_SHORT).show();

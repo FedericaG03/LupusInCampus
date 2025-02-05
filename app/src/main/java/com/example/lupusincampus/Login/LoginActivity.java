@@ -1,5 +1,7 @@
 package com.example.lupusincampus.Login;
 
+import static com.example.lupusincampus.Login.SHA256.hashSHA256;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,7 +10,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONObject;
-import org.mindrot.jbcrypt.BCrypt;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.lupusincampus.MainActivity;
 import com.example.lupusincampus.R;
@@ -29,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_activity);
 
         ServerConnector serverConnector = new ServerConnector();
-        sharedActivity = new SharedActivity(this);
+        sharedActivity = SharedActivity.getInstance(this);
 
         boolean isLoggedIn = sharedActivity.isLoggedIn();
         Log.d("LoginActivity", "isLoggedIn: " + isLoggedIn);
@@ -50,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
             String email = etEmailorNicK.getText().toString();
             String password = etPassword.getText().toString();
 
-            String hashPass = BCrypt.hashpw(password, BCrypt.gensalt());
+            String hashPass = hashSHA256(password);
             Log.d("PASSWORD", "onCreate: hasspass " + hashPass);
 
             // Funzione che simula una risposta dal server (per test locali)
@@ -70,8 +71,9 @@ public class LoginActivity extends AppCompatActivity {
                             String storedHash = value.getString("password"); // Password hashata
 
                             // Confronta la password immessa con quella hashata (BCrypt)
-                            if (BCrypt.checkpw(hashPass, storedHash)) {
-                                sharedActivity.setEmail(jsonObject.getString("email")); // Salva email
+                            if (hashPass.equals(storedHash)) {
+                                sharedActivity.setEmail(value.getString("email")); // Salva email
+                                sharedActivity.setLoggedIn(true);
                                 Log.d("LoginActivity", "Login success, navigating to MainActivity");
                                 navigateToMainActivity();
                             } else {

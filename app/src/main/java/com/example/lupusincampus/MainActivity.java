@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedActivity = new SharedActivity(this); // Istanza della SharedActivity
+        sharedActivity = SharedActivity.getInstance(this);
         boolean isLoggedIn = sharedActivity.isLoggedIn();
         Log.d("LoginActivity", "isLoggedIn (all'avvio): " + isLoggedIn);
 
