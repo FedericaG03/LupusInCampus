@@ -11,15 +11,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ServerConnector {
 
     private static final String TAG = "ServerConnector";
-    private static final String SERVER_URL = "https://example.com"; // Usa l'URL del tuo server
+    private static final String SERVER_URL = "";
 
     // Esegue operazioni di rete su un thread in background
     private final ExecutorService executor = Executors.newFixedThreadPool(4); //(4 thread per richieste contemporanee)
@@ -28,11 +30,11 @@ public class ServerConnector {
     /**
      * Metodo generico per effettuare richieste HTTP GET
      */
-    private void makeGetRequest(FetchDataCallback callback) {
+    private void makeGetRequest(String endpoint,FetchDataCallback callback) {
         executor.execute(() -> {
             HttpURLConnection connection = null;
             try {
-                URL url = new URL(SERVER_URL); // Usa l'URL base del server
+                URL url = new URL(SERVER_URL + endpoint); // Usa l'URL base del server
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("Content-Type", "application/json");
@@ -59,11 +61,11 @@ public class ServerConnector {
     /**
      * Metodo generico per effettuare richieste HTTP POST
      */
-    private void makePostRequest(JSONObject jsonBody, FetchDataCallback callback) {
+    private void makePostRequest(String endpoint, JSONObject jsonBody, FetchDataCallback callback) {
         executor.execute(() -> {
             HttpURLConnection connection = null;
             try {
-                URL url = new URL(SERVER_URL); // Usa l'URL base del server
+                URL url = new URL(SERVER_URL + endpoint); // Usa l'URL base del server
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");
@@ -72,6 +74,8 @@ public class ServerConnector {
                 try (OutputStream os = connection.getOutputStream()) {
                     os.write(jsonBody.toString().getBytes());
                     os.flush();
+                    Log.d(TAG, "Sto a fa la richiesta POST: " );
+
                 }
 
                 int responseCode = connection.getResponseCode();
@@ -110,7 +114,7 @@ public class ServerConnector {
     /**
      * Richiesta di login
      */
-    public void loginRequest(String emailOrNickname, String password, boolean isEmail, FetchDataCallback callback) {
+    public void loginRequest(String emailOrNickname, String password, boolean isEmail,  FetchDataCallback callback) {
         try {
             JSONObject jsonBody = new JSONObject();
             if (isEmail) {
@@ -120,7 +124,7 @@ public class ServerConnector {
             }
             jsonBody.put("password", password);
 
-            makePostRequest(jsonBody, callback);
+            makePostRequest("/controller/player/login",jsonBody, callback);
 
         } catch (JSONException e) {
             callback.onError(e);
@@ -130,18 +134,32 @@ public class ServerConnector {
     /**
      * Richiesta di registrazione
      */
-    public void registerRequest(String nickname, String email, String password, FetchDataCallback callback) {
+   public void registerRequest(String nickname, String email, String password, FetchDataCallback callback) {
         try {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("nickname", nickname);
             jsonBody.put("email", email);
             jsonBody.put("password", password);
 
-            makePostRequest(jsonBody, callback);
+            makePostRequest("/controller/player/registration", jsonBody, callback);
         } catch (JSONException e) {
             callback.onError(e);
         }
     }
+/*
+    public void registerRequest(String nickname, String email, String password, FetchDataCallback callback) {
+        try {
+            // Creazione della query string con i parametri
+            String params = "nickname=" + URLEncoder.encode(nickname, "UTF-8") +
+                    "&email=" + URLEncoder.encode(email, "UTF-8") +
+                    "&password=" + URLEncoder.encode(password, "UTF-8");
+
+            // Invio della richiesta con i parametri nell'URL (se GET) o nel body (se POST)
+            makePostRequest("/controller/player/registration?" + params, null, callback);
+        } catch (UnsupportedEncodingException e) {
+            callback.onError(e);
+        }
+    }*/
 
     /**
      * Recupero password, (invio mail al server)
@@ -151,7 +169,7 @@ public class ServerConnector {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("email", email);
 
-            makePostRequest(jsonBody, callback);
+            makePostRequest("",jsonBody, callback);
         } catch (JSONException e) {
             callback.onError(e);
         }
@@ -162,21 +180,28 @@ public class ServerConnector {
      * Recupera la lista di inviti
      */
     public void fetchInvites(FetchDataCallback callback) {
-        makeGetRequest(callback);
+        makeGetRequest("", callback);
     }
 
     /**
      * Recupera la lista di lobby disponibili
      */
     public void fetchDataForListView(FetchDataCallback callback) {
-        makeGetRequest(callback);
+        makeGetRequest("", callback);
     }
 
     /**
      * Reimposta Password
      */
     public void updatePasswordRequest(JSONObject jsonBody, FetchDataCallback callback) {
-        makePostRequest(jsonBody, callback);
+        makePostRequest("", jsonBody, callback);
+    }
+
+    /**
+     *Funzione per ottenere il ruolo dal server (GET)
+     */
+    public void fetchRole(FetchDataCallback callback) {
+        makeGetRequest("/controller/game/role", callback);
     }
 
     /**
