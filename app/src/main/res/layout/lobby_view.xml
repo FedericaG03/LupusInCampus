@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:padding="8dp"> <!-- Sostituisci con uno stile personalizzato -->
+    android:padding="8dp">
 
         <!-- Testo Creatore -->
         <TextView
@@ -11,7 +11,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="CREATORE"
             android:textStyle="bold"
             android:textSize="16sp" />
 
@@ -22,7 +21,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center"
-            android:text="STATO"
             android:textSize="16sp" />
 
         <!-- Testo Giocatori -->
@@ -32,7 +30,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="#GIOCATORI"
             android:textSize="16sp" />
 
         <!-- Pulsante Unisciti -->
@@ -43,5 +40,5 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="UNISCITI"
-            android:background="@drawable/button_background" /> <!-- Sostituisci con uno stile personalizzato -->
+            android:background="@drawable/button_background" />
 </LinearLayout>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sfondo">
+
+    <!-- Pulsante Giocatori in alto a sinistra -->
+    <Button
+        android:id="@+id/btn_players"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Giocatori"
+        android:textColor="#FFF"
+        android:background="@android:color/transparent"
+        android:padding="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_margin="10dp"
+        android:layout_alignParentTop="true"/>
+
+    <!-- Icona profilo in alto a destra -->
+    <include
+        android:id="@+id/include_profile_lobby"
+        layout="@layout/profile_icon_layout" />
+
+    <!-- Contenitore della storia narrata -->
+    <LinearLayout
+        android:id="@+id/story_container"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:background="#D3D3D3"
+        android:gravity="center"
+        android:layout_centerInParent="true">
+        <!-- TODO:JAVA, TESTO DAL SERVER -->
+        <TextView
+            android:id="@+id/story_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="#000"/>
+    </LinearLayout>
+
+    <!-- Sezione giocatore in basso a destra -->
+    <LinearLayout
+        android:id="@+id/player_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- TODO:JAVA,IMMAGINE SETTATA IN BASE AL RUOLO -->
+        <ImageView
+            android:id="@+id/player_avatar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/sfondo"/>
+
+        <TextView
+            android:id="@+id/player_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LUPO"
+            android:textColor="#FFF"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <!-- Pulsante per uscire dalla partita in basso a sinistra -->
+    <Button
+        android:id="@+id/btn_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ESCI DALLA PARTITA"
+        android:textColor="#FFF"
+        android:background="@android:color/transparent"
+        android:padding="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"/>
+
+    <!-- Pulsante microfono in basso a destra -->
+    <ImageView
+        android:id="@+id/mic_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_mic"
+        android:background="@android:color/transparent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"/>
+
+</RelativeLayout>

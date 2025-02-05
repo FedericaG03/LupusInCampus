@@ -46,4 +46,5 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.jbcrypt)
+    implementation("me.pushy:sdk:1.0.109")
 }
