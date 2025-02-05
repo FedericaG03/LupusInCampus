@@ -2,7 +2,6 @@ package com.example.lupusincampus.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
-//import me.pushy.sdk.Pushy;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +17,8 @@ import com.example.lupusincampus.ServerConnector;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
+
+import me.pushy.sdk.Pushy;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -41,11 +42,12 @@ public class RegisterActivity extends AppCompatActivity {
         bckButton = findViewById(R.id.back_btn);
 
 
-        bckButton.setOnClickListener(v->{
-            getOnBackPressedDispatcher().onBackPressed();
-        });
+//        bckButton.setOnClickListener(v->{
+  //          getOnBackPressedDispatcher().onBackPressed();
 
-//        Pushy.listen(getApplicationContext());
+    //    });
+
+        Pushy.listen(getApplicationContext());
 
         btnRegister.setOnClickListener(v -> {
             String nickname = etNickname.getText().toString();
@@ -64,9 +66,9 @@ public class RegisterActivity extends AppCompatActivity {
                         runOnUiThread(() -> {
                             try {
                                 JSONObject response = new JSONObject(jsonResponse);
-                                if (response.getBoolean("success")) {
-                                    sharedActivity.saveUserDetails(nickname, email, hashPass, "email");
-
+                                if (response != null) {
+                                    JSONObject value = response.getJSONObject("body");
+                                    sharedActivity.saveUserDetails(String.valueOf(value.getInt("id")), value.getString("nickname"), value.getString("email"), value.getString("password"));
                                     Toast.makeText(RegisterActivity.this, "Registrazione avvenuta con successo!", Toast.LENGTH_SHORT).show();
                                     navigateToMainActivity();
                                 } else {

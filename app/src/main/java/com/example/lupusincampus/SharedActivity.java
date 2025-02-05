@@ -6,12 +6,12 @@ import android.content.SharedPreferences;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class SharedActivity {
+    private static final String ID = "0";
     private static final String USER_PREFS = "UserPrefs";
     private static final String IS_LOGGED_IN = "isLoggedIn";
     private static final String NICKNAME = "nickname";
     private static final String EMAIL = "email";
     private static final String PASSWORD = "password";
-    private static final String LOGIN_METHOD = "login_method"; // Aggiunto campo per email/nickname
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -30,12 +30,12 @@ public class SharedActivity {
         return sharedPreferences.getBoolean(IS_LOGGED_IN, false);
     }
 
-    public void saveUserDetails(String nickname, String email, String password, String loginMethod) {
+    public void saveUserDetails(String id, String nickname, String email, String password) {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt()); // Cripta la password
+        editor.putString(ID,id);
         editor.putString(NICKNAME, nickname);
         editor.putString(EMAIL, email);
         editor.putString(PASSWORD, hashedPassword); // Salva la password criptata
-        editor.putString(LOGIN_METHOD, loginMethod); // Salva il metodo di login
         editor.apply();
     }
 
@@ -73,14 +73,6 @@ public class SharedActivity {
     public void clear() {
         editor.clear();
         editor.apply();
-    }
-
-    public void setLoginMethod(String method) {
-        editor.putString(LOGIN_METHOD, method).apply();
-    }
-
-    public String getLoginMethod() {
-        return sharedPreferences.getString(LOGIN_METHOD, "UNKNOWN");
     }
 
 

@@ -154,14 +154,10 @@ public class ServerConnector {
      * Richiesta di login
      */
     //TODO: LEVARE VERIFICA MAIL O PASSWORD, LASCIARE MAIL
-    public void loginRequest(String emailOrNickname, String password, boolean isEmail,  FetchDataCallback callback) {
+    public void loginRequest(String email, String password,  FetchDataCallback callback) {
         try {
             JSONObject jsonBody = new JSONObject();
-            if (isEmail) {
-                jsonBody.put("email", emailOrNickname);
-            } else {
-                jsonBody.put("nickname", emailOrNickname);
-            }
+            jsonBody.put("email", email);
             jsonBody.put("password", password);
 
             makePostRequest("/controller/player/login",jsonBody, callback);
