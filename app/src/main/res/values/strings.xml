@@ -12,7 +12,7 @@
     <string name="back_btn_txt">INDIETRO</string>
     <string name="username_lista_amici" translatable="false">UserName</string>
     <string name="aggiungi_amico_btn_txt">AGGIUNGI AMICO</string>
-    <string name="Login">LOGIN</string>
+    <string name="Login" translatable="false">LOGIN</string>
     <string name="action_sign_in">Entra o registrati</string>
     <string name="action_sign_in_short">Entra </string>
     <string name="welcome">"Benvenuto!"</string>
@@ -22,18 +22,19 @@
     <string name="password_dimenticata">Password dimenticata?</string>
     <string name="registrati">Registrati</string>
     <string name="mondo">MONDO</string>
-    <string name="local_button_description">Pulsante Locale</string>
-    <string name="world_button_description">Pulsante Mondo</string>
-    <string name="email_o_nickname">Email o Nickname...</string>
+    <string name="email_o_nickname" translatable="false">Email...</string>
     <string name="crea_partita">CREA PARTITA</string>
-    <string name="Mostralobby">MOSTRA LOBBY\n</string>
-    <string name="indietro">INDIETRO\n</string>
+    <string name="Mostralobby">MOSTRA LOBBY</string>
+    <string name="indietro">INDIETRO</string>
     <string name="inserire_nuova_password">Inserire nuova password</string>
-    <string name="conferma_nuova_password" translatable="false">Conferma nuova password</string>
+    <string name="conferma_nuova_password">Conferma nuova password</string>
     <string name="resetta_password">Resetta Password</string>
-    <string name="password">Password...</string>
-    <string name="Nuova_password" translatable="false">Reimposta password</string>
-    <string name="nickname">Nickname</string>
-    <string name="email">Email\n</string>
+    <string name="password" translatable="false">Password...</string>
+    <string name="Nuova_password">Reimposta password</string>
+    <string name="nickname" translatable="false">Nickname</string>
+    <string name="email" translatable="false">Email</string>
+    <string name="logout_btn_text" translatable="false">LOGOUT</string>
+    <string name="regole_label_txt">Regole</string>
+    <string name="ruoli_label_txt">Ruoli</string>
 
 </resources>

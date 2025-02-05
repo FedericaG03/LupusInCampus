@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import com.example.lupusincampus.Model.Player;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -182,6 +185,7 @@ public class ServerConnector {
             callback.onError(e);
         }
     }
+
     /**
      * Recupero password, (invio mail al server)
      */
@@ -223,6 +227,26 @@ public class ServerConnector {
      */
     public void fetchRole(FetchDataCallback callback) {
         makeGetRequest("/controller/game/role", callback);
+    }
+
+    /**
+     *Funzione per ottenere lista amici sal server
+     */
+    public void fetchDataForFriendList (String nickname, FetchDataCallback callback){
+        try{
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("nickname", nickname);
+            makePostRequest("",jsonBody, callback);
+        } catch (JSONException e){
+            callback.onError(e);
+        }
+    }
+
+    /**
+     * Funzione per il logout
+     */
+    public void logoutReqeust(FetchDataCallback callback){
+        makeGetRequest("/controller/player/logout", callback);
     }
 
     /**
