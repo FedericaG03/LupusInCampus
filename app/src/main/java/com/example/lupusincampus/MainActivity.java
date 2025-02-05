@@ -1,18 +1,21 @@
 package com.example.lupusincampus;
 
 import com.example.lupusincampus.Login.LoginActivity;
-import com.example.lupusincampus.Play.PlayActivity;
 import com.example.lupusincampus.Amici.ListaAmiciActivity;
+import com.example.lupusincampus.Play.WordActivity;
+import com.example.lupusincampus.Regole.RuoliActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
 
 public class MainActivity extends AppCompatActivity {
     private SharedActivity sharedActivity;
@@ -44,12 +47,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         TextView profileButton = findViewById(R.id.probile_btn);
-        profileButton.setText(nickname);
         TextView playButton = findViewById(R.id.play_btn);
         TextView rulesButton = findViewById(R.id.rules_btn);
         TextView settingsButton = findViewById(R.id.setting_btn);
         TextView exitButton = findViewById(R.id.exit_btn);
         TextView friendsListButton = findViewById(R.id.lista_amici_btn);
+        TextView logoutButton = findViewById(R.id.logout_btn);
+        TextView usernameSidebar = findViewById(R.id.username_sdb);
+
+        profileButton.setText(nickname);
+        usernameSidebar.setText(nickname);
 
 
         profileButton.setOnClickListener( v->{
@@ -68,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
         playButton.setOnClickListener(v -> {
             Log.d("MainActivity","Vado alla playactivity" );
-            Intent intent = new Intent(MainActivity.this, PlayActivity.class);
+            Intent intent = new Intent(MainActivity.this, WordActivity.class);
             startActivity(intent);
         });
 
@@ -86,9 +93,27 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        /*rulesButton.setOnClickListener(v->{
-            Intent intent = new Intent(this, RegoleActivity.class);
+        rulesButton.setOnClickListener(v->{
+            Intent intent = new Intent(this, RuoliActivity.class);
             startActivity(intent);
-        });*/
+        });
+
+        logoutButton.setOnClickListener(v->{
+            new ServerConnector().logoutReqeust(new ServerConnector.FetchDataCallback() {
+                @Override
+                public void onSuccess(String jsonResponse) {
+                    Log.d("MainActivity", "Effettuato logout con successo");
+                    Toast.makeText(MainActivity.this, "Effettuato logout con successo!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    Log.e("MainActivity", "Impossibile effettuare logout!");
+                    Toast.makeText(MainActivity.this, "Impossibile effettuare logout!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
     }
 }
