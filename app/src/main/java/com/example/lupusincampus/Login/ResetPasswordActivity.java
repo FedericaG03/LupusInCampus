@@ -54,7 +54,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
             requestBody.put("new_password",hashPass);
 
 
-            new ServerConnector().updatePasswordRequest(requestBody, new ServerConnector.FetchDataCallback() {
+            new ServerConnector().updatePasswordRequest(this,requestBody, new ServerConnector.FetchDataCallback() {
                 @Override
                 public void onSuccess(String jsonResponse) {
                     Toast.makeText(ResetPasswordActivity.this, "Password aggiornata con successo!", Toast.LENGTH_SHORT).show();

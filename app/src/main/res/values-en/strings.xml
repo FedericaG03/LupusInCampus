@@ -10,6 +10,7 @@
     <string name="lista_inviti_btn_txt">Invites</string>
     <string name="back_btn_txt">BACK</string>
     <string name="aggiungi_amico_btn_txt">ADD FRIEND</string>
+    <string name="Login">LOGIN</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome!"</string>

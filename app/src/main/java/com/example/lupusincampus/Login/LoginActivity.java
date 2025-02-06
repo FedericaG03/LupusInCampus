@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(this, "Compila tutti i campi!", Toast.LENGTH_SHORT).show();
             } else {
                 // Invia la richiesta di login
-                serverConnector.loginRequest(email, hashPass,  new ServerConnector.FetchDataCallback() {
+                serverConnector.loginRequest(this,email, hashPass,  new ServerConnector.FetchDataCallback() {
                     @Override
                     public void onSuccess(String jsonResponse) {
                         try {

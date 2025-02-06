@@ -61,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
             } else if (!email.contains("@")) {
                 Toast.makeText(RegisterActivity.this, "Inserisci un'email valida.", Toast.LENGTH_SHORT).show();
             } else {
-                new ServerConnector().registerRequest(nickname, email, hashPass, new ServerConnector.FetchDataCallback() {
+                new ServerConnector().registerRequest(this,nickname, email, hashPass, new ServerConnector.FetchDataCallback() {
                     @Override
                     public void onSuccess(String jsonResponse) {
                         runOnUiThread(() -> {
@@ -69,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 JSONObject response = new JSONObject(jsonResponse);
                                 if (response != null) {
                                     JSONObject value = response.getJSONObject("body");
-                                    sharedActivity.saveUserDetails(String.valueOf(value.getInt("id")), value.getString("nickname"), value.getString("email"), value.getString("password"));
+                                    sharedActivity.saveUserDetails(String.valueOf(value.getInt("id")), value.getString("nickname"), value.getString("email"));
                                     Toast.makeText(RegisterActivity.this, "Registrazione avvenuta con successo!", Toast.LENGTH_SHORT).show();
                                     navigateToMainActivity();
                                 } else {

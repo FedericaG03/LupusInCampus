@@ -42,14 +42,13 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 JSONObject requestBody = new JSONObject();
                 try {
                     requestBody.put("email", email);
-                    new ServerConnector().recoverPasswordRequest(email, new ServerConnector.FetchDataCallback() {
+                    new ServerConnector().recoverPasswordRequest(this,email, new ServerConnector.FetchDataCallback() {
                         @Override
                         public void onSuccess(String jsonResponse) {
                             try {
-                                JSONObject jsonResponseObj = new JSONObject(jsonResponse);
-                                if (jsonResponseObj.getBoolean("success")) {
+                                JSONObject response = new JSONObject(jsonResponse);
+                                if (response != null) {
                                     Toast.makeText(ForgotPasswordActivity.this, "Istruzioni inviate all'email: " + email, Toast.LENGTH_SHORT).show();
-
                                     // Reindirizza alla schermata di login
                                     Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
                                     startActivity(intent);

@@ -85,7 +85,7 @@ public class WordActivity extends AppCompatActivity {
     private void fetchInvitesFromServer() {
         ServerConnector connector = new ServerConnector();
         // Chiama la funzione fetchInvites
-        connector.fetchInvites(new ServerConnector.FetchDataCallback() {
+        connector.fetchInvites(this,new ServerConnector.FetchDataCallback() {
             @Override
             public void onSuccess(String jsonResponse) {
                 try {

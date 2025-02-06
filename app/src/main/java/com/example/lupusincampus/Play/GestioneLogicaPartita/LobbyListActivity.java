@@ -31,7 +31,7 @@ public class LobbyListActivity extends AppCompatActivity {
         ServerConnector serverConnector = new ServerConnector();
 
         // Richiedi i dati dal server
-        serverConnector.fetchDataForListView(new ServerConnector.FetchDataCallback() {
+        serverConnector.fetchDataForListView(this,new ServerConnector.FetchDataCallback() {
             @Override
             public void onSuccess(String jsonResponse) {
                 runOnUiThread(() -> {

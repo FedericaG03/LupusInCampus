@@ -1,5 +1,6 @@
 package com.example.lupusincampus;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -22,7 +23,8 @@ import java.util.concurrent.Executors;
 public class ServerConnector {
 
     private static final String TAG = "ServerConnector";
-    private static final String SERVER_URL = "http://172.19.170.102:8080";
+    private static final String SERVER_URL = "http://172.19.188.227:8080";
+    private static String sessionId = null;
 
     // Esegue operazioni di rete su un thread in background
     private final ExecutorService executor = Executors.newFixedThreadPool(4); //(4 thread per richieste contemporanee)
@@ -31,7 +33,7 @@ public class ServerConnector {
     /**
      * Metodo generico per effettuare richieste HTTP GET
      */
-    private void makeGetRequest(String endpoint,FetchDataCallback callback) {
+    private void makeGetRequest(Context ctx, String endpoint,FetchDataCallback callback) {
         executor.execute(() -> {
             HttpURLConnection connection = null;
             try {
@@ -40,7 +42,18 @@ public class ServerConnector {
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("Content-Type", "application/json");
 
+                sessionId = SharedActivity.getInstance(ctx).getSessionid();
+                if (sessionId != null) {
+                    connection.setRequestProperty("Cookie", sessionId);
+                }
+
                 int responseCode = connection.getResponseCode();
+                String cookie = connection.getHeaderField("Set-Cookie");
+                if (cookie != null){
+                    sessionId = cookie.split(";")[0];
+                    SharedActivity.getInstance(ctx).setSessionid(sessionId);
+                    Log.d(TAG, "makePostRequest: " + sessionId);
+                }
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     String response = readStream(connection);
                     mainThreadHandler.post(() -> callback.onSuccess(response));
@@ -62,7 +75,7 @@ public class ServerConnector {
     /**
      * Metodo generico per effettuare richieste HTTP POST
      */
-    private void makePostRequest(String endpoint, JSONObject jsonBody, FetchDataCallback callback) {
+    private void makePostRequest(Context ctx, String endpoint, JSONObject jsonBody, FetchDataCallback callback) {
         executor.execute(() -> {
             HttpURLConnection connection = null;
             try {
@@ -72,6 +85,11 @@ public class ServerConnector {
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setDoOutput(true);
 
+                sessionId = SharedActivity.getInstance(ctx).getSessionid();
+                if (sessionId != null) {
+                    connection.setRequestProperty("Cookie", sessionId);
+                }
+
                 try (OutputStream os = connection.getOutputStream()) {
                     os.write(jsonBody.toString().getBytes());
                     os.flush();
@@ -79,7 +97,14 @@ public class ServerConnector {
 
                 }
 
+                Log.d(TAG, "makePostRequest: Ottengo codice risposta");
                 int responseCode = connection.getResponseCode();
+                String cookie = connection.getHeaderField("Set-Cookie");
+                if (cookie != null){
+                    sessionId = cookie.split(";")[0];
+                    SharedActivity.getInstance(ctx).setSessionid(sessionId);
+                    Log.d(TAG, "makePostRequest: " + sessionId);
+                }
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     String response = readStream(connection);
                     mainThreadHandler.post(() -> callback.onSuccess(response));
@@ -97,13 +122,10 @@ public class ServerConnector {
             }
         });
     }
-
-
-
     /**
      * Metodo generico per effettuare richieste HTTP PUT
      */
-     private  void makePutRequest(String endpoint, JSONObject jsonBody, FetchDataCallback callback){
+     private  void makePutRequest(Context ctx, String endpoint, JSONObject jsonBody, FetchDataCallback callback){
          executor.execute(() -> {
              HttpURLConnection connection = null;
              try {
@@ -113,6 +135,11 @@ public class ServerConnector {
                  connection.setRequestProperty("Content-Type", "application/json");
                  connection.setDoOutput(true);
 
+                 sessionId = SharedActivity.getInstance(ctx).getSessionid();
+                 if (sessionId != null) {
+                     connection.setRequestProperty("Cookie", sessionId);
+                 }
+
                  try (OutputStream os = connection.getOutputStream()) {
                      os.write(jsonBody.toString().getBytes());
                      os.flush();
@@ -120,6 +147,12 @@ public class ServerConnector {
                  }
 
                  int responseCode = connection.getResponseCode();
+                 String cookie = connection.getHeaderField("Set-Cookie");
+                 if (cookie != null){
+                     sessionId = cookie.split(";")[0];
+                     SharedActivity.getInstance(ctx).setSessionid(sessionId);
+                     Log.d(TAG, "makePostRequest: " + sessionId);
+                 }
                  if (responseCode == HttpURLConnection.HTTP_OK) {
                      String response = readStream(connection);
                      mainThreadHandler.post(() -> callback.onSuccess(response));
@@ -157,13 +190,13 @@ public class ServerConnector {
      * Richiesta di login
      */
     //TODO: LEVARE VERIFICA MAIL O PASSWORD, LASCIARE MAIL
-    public void loginRequest(String email, String password,  FetchDataCallback callback) {
+    public void loginRequest(Context ctx, String email, String password,  FetchDataCallback callback) {
         try {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("email", email);
             jsonBody.put("password", password);
 
-            makePostRequest("/controller/player/login",jsonBody, callback);
+            makePostRequest(ctx, "/controller/player/login",jsonBody, callback);
 
         } catch (JSONException e) {
             callback.onError(e);
@@ -173,14 +206,14 @@ public class ServerConnector {
     /**
      * Richiesta di registrazione
      */
-   public void registerRequest(String nickname, String email, String password, FetchDataCallback callback) {
+   public void registerRequest(Context ctx, String nickname, String email, String password, FetchDataCallback callback) {
         try {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("nickname", nickname);
             jsonBody.put("email", email);
             jsonBody.put("password", password);
 
-            makePutRequest("/controller/player/registration", jsonBody, callback);
+            makePutRequest(ctx, "/controller/player/registration", jsonBody, callback);
         } catch (JSONException e) {
             callback.onError(e);
         }
@@ -189,12 +222,12 @@ public class ServerConnector {
     /**
      * Recupero password, (invio mail al server)
      */
-    public void recoverPasswordRequest(String email, FetchDataCallback callback) {
+    public void recoverPasswordRequest(Context ctx, String email, FetchDataCallback callback) {
         try {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("email", email);
 
-            makePostRequest("",jsonBody, callback);
+            makePostRequest(ctx, "",jsonBody, callback);
         } catch (JSONException e) {
             callback.onError(e);
         }
@@ -204,39 +237,39 @@ public class ServerConnector {
     /**
      * Recupera la lista di inviti lobby
      */
-    public void fetchInvites(FetchDataCallback callback) {
-        makeGetRequest("", callback);
+    public void fetchInvites(Context ctx, FetchDataCallback callback) {
+        makeGetRequest(ctx, "", callback);
     }
 
     /**
      * Recupera la lista di lobby disponibili
      */
-    public void fetchDataForListView(FetchDataCallback callback) {
-        makeGetRequest("", callback);
+    public void fetchDataForListView(Context ctx, FetchDataCallback callback) {
+        makeGetRequest(ctx, "", callback);
     }
 
     /**
      * Reimposta Password
      */
-    public void updatePasswordRequest(JSONObject jsonBody, FetchDataCallback callback) {
-        makePostRequest("", jsonBody, callback);
+    public void updatePasswordRequest(Context ctx, JSONObject jsonBody, FetchDataCallback callback) {
+        makePostRequest(ctx, "", jsonBody, callback);
     }
 
     /**
      *Funzione per ottenere il ruolo dal server (GET)
      */
-    public void fetchRole(FetchDataCallback callback) {
-        makeGetRequest("/controller/game/role", callback);
+    public void fetchRole(Context ctx, FetchDataCallback callback) {
+        makeGetRequest(ctx, "/controller/game/role", callback);
     }
 
     /**
      *Funzione per ottenere lista amici sal server
      */
-    public void fetchDataForFriendList (String nickname, FetchDataCallback callback){
+    public void fetchDataForFriendList (Context ctx, String nickname, FetchDataCallback callback){
         try{
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("nickname", nickname);
-            makePostRequest("",jsonBody, callback);
+            makePostRequest(ctx,"",jsonBody, callback);
         } catch (JSONException e){
             callback.onError(e);
         }
@@ -245,8 +278,8 @@ public class ServerConnector {
     /**
      * Funzione per il logout
      */
-    public void logoutReqeust(FetchDataCallback callback){
-        makeGetRequest("/controller/player/logout", callback);
+    public void logoutReqeust(Context ctx, FetchDataCallback callback){
+        makeGetRequest(ctx,"/controller/player/logout", callback);
     }
 
     /**

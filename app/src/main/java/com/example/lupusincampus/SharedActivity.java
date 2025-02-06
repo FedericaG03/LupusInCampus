@@ -3,15 +3,14 @@ package com.example.lupusincampus;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import org.mindrot.jbcrypt.BCrypt;
-
 public class SharedActivity {
+    private static final String TOKEN ="token";
     private static final String ID = "0";
     private static final String USER_PREFS = "UserPrefs";
     private static final String IS_LOGGED_IN = "isLoggedIn";
     private static final String NICKNAME = "nickname";
     private static final String EMAIL = "email";
-    private static final String PASSWORD = "password";
+    private static final String SESSIONID = "sessionId";
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -34,16 +33,22 @@ public class SharedActivity {
         editor.apply();
     }
 
+    public void setSessionid(String sessionid) {
+        editor.putString(SESSIONID, sessionid);
+        editor.apply();
+    }
+
+    public String getSessionid(){
+        return sharedPreferences.getString(SESSIONID, null);
+    }
     public boolean isLoggedIn() {
         return sharedPreferences.getBoolean(IS_LOGGED_IN, false);
     }
 
-    public void saveUserDetails(String id, String nickname, String email, String password) {
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt()); // Cripta la password
+    public void saveUserDetails(String id, String nickname, String email) {
         editor.putString(ID,id);
         editor.putString(NICKNAME, nickname);
         editor.putString(EMAIL, email);
-        editor.putString(PASSWORD, hashedPassword); // Salva la password criptata
         editor.apply();
     }
 
@@ -63,19 +68,12 @@ public class SharedActivity {
         editor.putString(NICKNAME, nickname).apply();
     }
 
-    public void setPassword(String password) {
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt()); // Cripta la password
-        editor.putString(PASSWORD, hashedPassword); // Salva la password criptata
-        editor.apply();
+    public void setToken(String token){
+        editor.putString(TOKEN, token).apply();
     }
 
-    public String getPassword() {
-        return sharedPreferences.getString(PASSWORD, "DEFAULT_PASSWORD");
-    }
-
-    public boolean checkPassword(String enteredPassword) {
-        String storedHashedPassword = getPassword();
-        return BCrypt.checkpw(enteredPassword, storedHashedPassword); // Verifica la password
+    public String getToken(){
+        return sharedPreferences.getString(TOKEN,null);
     }
 
     public void clear() {

@@ -116,7 +116,7 @@ public class PartitaActivity extends  AppCompatActivity {
 
     // Metodo per ottenere il ruolo dal server
     private void fetchRoleFromServer() {
-        serverConnector.fetchRole(new ServerConnector.FetchDataCallback() {
+        serverConnector.fetchRole(this,new ServerConnector.FetchDataCallback() {
             @Override
             public void onSuccess(String jsonResponse) {
                 try {
