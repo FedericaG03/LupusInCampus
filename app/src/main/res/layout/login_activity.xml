@@ -36,7 +36,7 @@
                     android:textColor="@color/dark_text"/>
 
                 <EditText
-                    android:id="@+id/etEmailorNicK"
+                    android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"

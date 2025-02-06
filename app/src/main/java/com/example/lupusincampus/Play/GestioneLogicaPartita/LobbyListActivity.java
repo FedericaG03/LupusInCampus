@@ -15,6 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 public class LobbyListActivity extends AppCompatActivity {
 
     @Override
@@ -59,6 +61,11 @@ public class LobbyListActivity extends AppCompatActivity {
                 runOnUiThread(() ->
                         Toast.makeText(LobbyListActivity.this, "Errore durante il fetch dei dati", Toast.LENGTH_SHORT).show()
                 );
+            }
+
+            @Override
+            public void onServerOffline(Exception e) {
+                Toast.makeText(LobbyListActivity.this, "Errore connessione server", Toast.LENGTH_SHORT).show();
             }
         });
     }

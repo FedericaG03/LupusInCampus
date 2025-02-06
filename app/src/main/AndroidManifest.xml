@@ -20,22 +20,22 @@
         android:usesCleartextTraffic="true"
         android:configChanges="locale"
         > <!--ignora il warning quando metto activity in landscape , (locale ==italiano)-->
-        <activity
-            android:name=".MainActivity"
+
+        <activity android:name=".Login.LoginActivity"
             android:exported="true"
             android:configChanges="locale"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".Login.LoginActivity"
+        <activity
+            android:name=".Play.GiocoActivity"
             android:exported="true"
             android:screenOrientation="landscape"/>
-
+        
         <activity android:name=".Amici.ListaAmiciActivity"
             android:exported ="true"
             android:screenOrientation="landscape"/>

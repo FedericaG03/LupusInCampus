@@ -1,8 +1,11 @@
-package com.example.lupusincampus;
+package com.example.lupusincampus.Play;
 
+import com.example.lupusincampus.CookieHelper;
 import com.example.lupusincampus.Login.LoginActivity;
 import com.example.lupusincampus.Amici.ListaAmiciActivity;
-import com.example.lupusincampus.Play.WordActivity;
+import com.example.lupusincampus.R;
+import com.example.lupusincampus.ServerConnector;
+import com.example.lupusincampus.SharedActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 
-public class MainActivity extends AppCompatActivity {
+public class GiocoActivity extends AppCompatActivity {
     private SharedActivity sharedActivity;
 
     @Override
@@ -28,14 +31,13 @@ public class MainActivity extends AppCompatActivity {
 
         sharedActivity = SharedActivity.getInstance(this);
         boolean isLoggedIn = sharedActivity.isLoggedIn();
-        Log.d("LoginActivity", "isLoggedIn (all'avvio): " + isLoggedIn);
+        Log.d("LoginActivity", "isLoggedIn : " + isLoggedIn);
 
-        if (!isLoggedIn) {
+        /*if (!isLoggedIn) {
             Log.d("MainActivity", "Utente non loggato, reindirizzamento a LoginActivity");
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            Intent intent = new Intent(GiocoActivity.this, LoginActivity.class);
             startActivity(intent);
-            return;
-        }
+        }*/
 
 
         // Recupere nickname e password salvata
@@ -76,12 +78,12 @@ public class MainActivity extends AppCompatActivity {
 
         playButton.setOnClickListener(v -> {
             Log.d("MainActivity","Vado alla playactivity" );
-            Intent intent = new Intent(MainActivity.this, WordActivity.class);
+            Intent intent = new Intent(GiocoActivity.this, WordActivity.class);
             startActivity(intent);
         });
 
         exitButton.setOnClickListener(v->{
-            new AlertDialog.Builder(MainActivity.this)
+            new AlertDialog.Builder(GiocoActivity.this)
                     .setTitle("Conferma uscita")
                     .setMessage("Sei sicuro di voler uscire dall'app?")
                     .setPositiveButton("Sì", (dialog, which) -> finish())
@@ -104,18 +106,24 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(String jsonResponse) {
                     Log.d("MainActivity", "Effettuato logout con successo");
-                    Toast.makeText(MainActivity.this, "Effettuato logout con successo!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                    startActivity(intent);
-                    finish();
+                    Toast.makeText(GiocoActivity.this, "Effettuato logout con successo!", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onError(Exception e) {
                     Log.e("MainActivity", "Impossibile effettuare logout!");
-                    Toast.makeText(MainActivity.this, "Impossibile effettuare logout!" + e, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GiocoActivity.this, "Impossibile effettuare logout!" + e, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onServerOffline(Exception e) {
+                    Toast.makeText(GiocoActivity.this, "Errore connessione server!" + e, Toast.LENGTH_SHORT).show();
                 }
             });
+            sharedActivity.setLoggedIn(false);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 }

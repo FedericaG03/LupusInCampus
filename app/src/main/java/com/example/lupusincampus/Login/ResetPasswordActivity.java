@@ -16,6 +16,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.io.IOException;
+
 public class ResetPasswordActivity extends AppCompatActivity {
     private EditText etNewPwd;
     private EditText etConPwd;
@@ -53,7 +55,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
             requestBody.put("email", email);
             requestBody.put("new_password",hashPass);
 
-
+/*
             new ServerConnector().updatePasswordRequest(this,requestBody, new ServerConnector.FetchDataCallback() {
                 @Override
                 public void onSuccess(String jsonResponse) {
@@ -66,7 +68,14 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 public void onError(Exception e) {
                     Toast.makeText(ResetPasswordActivity.this, "Errore nell'aggiornamento della password.", Toast.LENGTH_SHORT).show();
                 }
+
+                @Override
+                public void onServerOffline(Exception e) {
+                    Toast.makeText(ResetPasswordActivity.this, "Errore nell'aggiornamento della password.", Toast.LENGTH_SHORT).show();
+                }
             });
+
+ */
         } catch (JSONException e) {
             Toast.makeText(this, "Errore nella richiesta.", Toast.LENGTH_SHORT).show();
         }

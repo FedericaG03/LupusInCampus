@@ -2,6 +2,9 @@ package com.example.lupusincampus;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+
+import kotlin.jvm.Synchronized;
 
 public class SharedActivity {
     private static final String TOKEN ="token";
@@ -28,68 +31,72 @@ public class SharedActivity {
         this.editor = sharedPreferences.edit();
     }
 
-    public void setLoggedIn(boolean isLoggedIn) {
+    public synchronized void setLoggedIn(boolean isLoggedIn) {
         editor.putBoolean(IS_LOGGED_IN, isLoggedIn);
         editor.apply();
     }
 
-    public void setSessionid(String sessionid) {
+
+    public synchronized void setSessionid(String sessionid) {
         editor.putString(SESSIONID, sessionid);
         editor.apply();
     }
 
-    public String getSessionid(){
+    public synchronized String getSessionid(){
         return sharedPreferences.getString(SESSIONID, null);
     }
-    public boolean isLoggedIn() {
+    public synchronized boolean isLoggedIn() {
+        Log.d("TAG", "isLoggedIn: " + this + ": " + sharedPreferences.toString());
         return sharedPreferences.getBoolean(IS_LOGGED_IN, false);
     }
 
-    public void saveUserDetails(String id, String nickname, String email) {
+    //isLoggedIn: com.example.lupusincampus.SharedActivity@28e5058: android.app.SharedPreferencesImpl@f2335b1
+
+    public synchronized void saveUserDetails(String id, String nickname, String email) {
         editor.putString(ID,id);
         editor.putString(NICKNAME, nickname);
         editor.putString(EMAIL, email);
         editor.apply();
     }
 
-    public String getNickname() {
+    public synchronized String getNickname() {
         return sharedPreferences.getString(NICKNAME, null);
     }
 
-    public String getEmail() {
+    public synchronized String getEmail() {
         return sharedPreferences.getString(EMAIL, null);
     }
 
-    public void setEmail(String email) {
+    public  synchronized void setEmail(String email) {
         editor.putString(EMAIL, email).apply();
     }
 
-    public void setNickname(String nickname) {
+    public  synchronized void setNickname(String nickname) {
         editor.putString(NICKNAME, nickname).apply();
     }
 
-    public void setToken(String token){
+    public  synchronized void setToken(String token){
         editor.putString(TOKEN, token).apply();
     }
 
-    public String getToken(){
+    public  synchronized String getToken(){
         return sharedPreferences.getString(TOKEN,null);
     }
 
-    public void clear() {
+    public  synchronized void clear() {
         editor.clear();
         editor.apply();
     }
 
 
     //Per salvare il token Pushy
-    public void savePushyToken(String token){
+    public  synchronized void savePushyToken(String token){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("pushy_token", token);
         editor.apply();
     }
     
-    public String getPushyToken() {
+    public synchronized String getPushyToken() {
         return sharedPreferences.getString("pushy_token", null);
     }
 }

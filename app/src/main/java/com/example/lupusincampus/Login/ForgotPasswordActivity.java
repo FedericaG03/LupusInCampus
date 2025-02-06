@@ -15,6 +15,8 @@ import com.example.lupusincampus.ServerConnector;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 public class ForgotPasswordActivity extends AppCompatActivity {
     private EditText etEmail;
     private Button btnSubmit;
@@ -41,8 +43,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 // Invia la richiesta al server per il recupero password
                 JSONObject requestBody = new JSONObject();
                 try {
+
+                    ;
+                    /*
+
                     requestBody.put("email", email);
-                    new ServerConnector().recoverPasswordRequest(this,email, new ServerConnector.FetchDataCallback() {
+                    new ServerConnector().recoverPasswordRequest(this,email, new ServerConnector.CallbackInterface() {
                         @Override
                         public void onSuccess(String jsonResponse) {
                             try {
@@ -62,11 +68,17 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onError(Exception e) {
+                        public void onError(String e) {
+                            Toast.makeText(ForgotPasswordActivity.this, "Errore informazioni da cambiare : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onServerOffline(Exception e) {
                             Toast.makeText(ForgotPasswordActivity.this, "Errore nella connessione al server: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
-                } catch (JSONException e) {
+                    */
+                } catch (Exception ex) {
                     Toast.makeText(ForgotPasswordActivity.this, "Errore nella richiesta", Toast.LENGTH_SHORT).show();
                 }
             } else {

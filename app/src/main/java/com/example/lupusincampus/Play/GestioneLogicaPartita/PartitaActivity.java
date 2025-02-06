@@ -144,6 +144,12 @@ public class PartitaActivity extends  AppCompatActivity {
             public void onError(Exception e) {
                 Log.e(TAG, "Errore nel recupero del ruolo: " + e.getMessage(), e);
             }
+
+            @Override
+            public void onServerOffline(Exception e) {
+                Log.e(TAG, "Errore connessione server: " + e.getMessage(), e);
+            }
+
         });
     }
 }

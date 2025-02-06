@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.lupusincampus.MainActivity;
+import com.example.lupusincampus.Play.GiocoActivity;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.SharedActivity;
 import com.example.lupusincampus.ServerConnector;
@@ -87,13 +87,19 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this, "Errore di connessione: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         });
                     }
+
+                    @Override
+                    public void onServerOffline(Exception e) {
+                        Toast.makeText(RegisterActivity.this, "Errore di connessione: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
                 });
             }
         });
     }
 
         private void navigateToMainActivity() {
-        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+        Intent intent = new Intent(RegisterActivity.this, GiocoActivity.class);
         startActivity(intent);
         finish();
     }
