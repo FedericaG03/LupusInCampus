@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sfondo"
+    android:alpha="0.7"
+    android:padding="16dp">
+
+    <!-- Main Centered LinearLayout with Text Views -->
+    <LinearLayout
+        android:id="@+id/waiting_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:alpha="0.7"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/static_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/in_attesa_che_entrino_tutti_i_giocatori"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/number_player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="da java"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:padding="8dp" />
+
+    </LinearLayout>
+
+
+    <!-- Start Button -->
+    <Button
+        android:id="@+id/btn_start_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/inizia_partita"
+        android:textColor="#FFF"
+        android:background="@android:color/transparent"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        />
+
+
+    <!-- Exit Button -->
+    <Button
+        android:id="@+id/btn_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ESCI DALLA LOBBY"
+        android:textColor="#FFF"
+        android:background="@android:color/transparent"
+        android:padding="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        />
+
+    <Button
+        android:id="@+id/btn_amici"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:background="@android:color/transparent"
+        android:padding="10dp"
+        android:text="@string/invita_amici"
+        android:textColor="#FFF" />
+
+    <!-- Friend List (Initially Hidden) -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_friends"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"
+        android:layout_above="@id/btn_amici"
+        android:background="@android:color/black"/>
+
+</RelativeLayout>
