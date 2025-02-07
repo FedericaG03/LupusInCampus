@@ -22,7 +22,7 @@ import java.util.concurrent.Executors;
 public class ServerConnector {
 
     private static final String TAG = "ServerConnector";
-    private static final String SERVER_URL = "http://172.19.188.227:8080";
+    private static final String SERVER_URL = "http://193.205.162.73:8080";
     private static String sessionId = null;
 
     // Esegue operazioni di rete su un thread in background
@@ -53,7 +53,7 @@ public class ServerConnector {
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("Content-Type", "application/json");
 
-                sessionId = SharedActivity.getInstance(ctx).getSessionid();
+                sessionId = SharedActivity.getInstance(ctx).getSessionId();
                 if (sessionId != null) {
                     connection.setRequestProperty("Cookie", sessionId);
                 }
@@ -62,7 +62,7 @@ public class ServerConnector {
                 String cookie = connection.getHeaderField("Set-Cookie");
                 if (cookie != null) {
                     sessionId = cookie.split(";")[0];
-                    SharedActivity.getInstance(ctx).setSessionid(sessionId);
+                    SharedActivity.getInstance(ctx).setSessionId(sessionId);
                     Log.d(TAG, "makePostRequest: " + sessionId);
                 }
                 if (responseCode == HttpURLConnection.HTTP_OK) {
@@ -102,7 +102,7 @@ public class ServerConnector {
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setDoOutput(true);
 
-                sessionId = SharedActivity.getInstance(ctx).getSessionid();
+                sessionId = SharedActivity.getInstance(ctx).getSessionId();
                 if (sessionId != null) {
                     connection.setRequestProperty("Cookie", sessionId);
                 }
@@ -120,7 +120,7 @@ public class ServerConnector {
                 String cookie = connection.getHeaderField("Set-Cookie");
                 if (cookie != null) {
                     sessionId = cookie.split(";")[0];
-                    SharedActivity.getInstance(ctx).setSessionid(sessionId);
+                    SharedActivity.getInstance(ctx).setSessionId(sessionId);
                     Log.d(TAG, "makePostRequest, sessionId: " + sessionId);
                 }
 
@@ -137,7 +137,7 @@ public class ServerConnector {
                 } else {
                     mainThreadHandler.post(() -> callback.onServerError(new IOException("Errore: " + responseCode)));
                 }
-            } catch (IOException ex ) {
+            } catch (Exception ex ) {
                 Log.e(TAG, "Errore nella richiesta POST: ", ex);
                 mainThreadHandler.post(() -> callback.onServerError(ex));
             } finally {
@@ -189,7 +189,7 @@ public class ServerConnector {
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setDoOutput(true);
 
-                sessionId = SharedActivity.getInstance(ctx).getSessionid();
+                sessionId = SharedActivity.getInstance(ctx).getSessionId();
                 if (sessionId != null) {
                     connection.setRequestProperty("Cookie", sessionId);
                 }
@@ -204,7 +204,7 @@ public class ServerConnector {
                 String cookie = connection.getHeaderField("Set-Cookie");
                 if (cookie != null) {
                     sessionId = cookie.split(";")[0];
-                    SharedActivity.getInstance(ctx).setSessionid(sessionId);
+                    SharedActivity.getInstance(ctx).setSessionId(sessionId);
                     Log.d(TAG, "makePostRequest: " + sessionId);
                 }
                 String response = readStream(connection);

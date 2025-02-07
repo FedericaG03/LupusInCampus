@@ -17,7 +17,7 @@ import org.json.JSONObject;
 public class PlayerAPI  {
     private static ServerConnector serverConnector = new ServerConnector();
     private static final String TAG = "PlayerAPI";
-    private static volatile boolean FLAG = true;
+    private static volatile boolean FLAG = false;
 
     /**
      * Questo metodo si occupa di effettuare la richiesta di login al server e di interpretare la risposta
@@ -43,7 +43,9 @@ public class PlayerAPI  {
                     if (hashPass.equals(storedHash)) {
                         sharedActivity.setEmail(infoPlayer.getString("email")); // Salva email
                         Log.i(TAG, "onSuccess: Imposto logged a true");
-                        sharedActivity.setLoggedIn(true);
+                        //sharedActivity.setLoggedIn(true);
+                        FLAG = true;
+                        Log.d(TAG, "onSuccess: La FLAG è: " + FLAG);
                     } else {
                         Toast.makeText(ctx, "Credenziali errate!", Toast.LENGTH_SHORT).show();
                     }
@@ -55,13 +57,12 @@ public class PlayerAPI  {
             @Override
             public void onError(String message) {
                 Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show();
-                FLAG = false;
             }
 
             @Override
             public void onServerError(Exception e) {
+                Toast.makeText(ctx, "Errore di connessione al server", Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "onServerError: " + e);
-                FLAG = false;
             }
         });
         return FLAG;

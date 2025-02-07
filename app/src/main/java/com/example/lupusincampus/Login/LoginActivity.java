@@ -31,11 +31,11 @@ public class LoginActivity extends AppCompatActivity {
 
         sharedActivity = SharedActivity.getInstance(this);
 
-       if (sharedActivity.isLoggedIn()) {
-            Log.i(TAG, "onCreate: User logged");
+        if (sharedActivity.isLoggedIn()) {
+            Log.d(TAG, "Utente già loggato, reindirizzamento a MainActivity , infatti isLoggedIn è " + sharedActivity.isLoggedIn());
             navigateToMainActivity();
-            finish();
-       }
+            return; // Evita di eseguire il resto del codice
+        }
 
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
@@ -53,7 +53,6 @@ public class LoginActivity extends AppCompatActivity {
 
             PlayerAPI playerAPI = new PlayerAPI();
             if (playerAPI.doLogin(email, hashPass, getApplicationContext(), sharedActivity)) {
-                sharedActivity.setLoggedIn(true);
                 navigateToMainActivity();
             }
 

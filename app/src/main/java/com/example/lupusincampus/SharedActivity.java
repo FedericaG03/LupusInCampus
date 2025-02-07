@@ -7,98 +7,107 @@ import android.util.Log;
 import kotlin.jvm.Synchronized;
 
 public class SharedActivity {
-    private static final String TOKEN ="token";
-    private static final String ID = "0";
+    private static final String TAG = "SharedActivity";
     private static final String USER_PREFS = "UserPrefs";
     private static final String IS_LOGGED_IN = "isLoggedIn";
     private static final String NICKNAME = "nickname";
     private static final String EMAIL = "email";
-    private static final String SESSIONID = "sessionId";
-
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
+    private static final String TOKEN = "token";
+    private static final String SESSION_ID = "sessionId";
+    private static final String PUSHY_TOKEN = "pushy_token";
 
     private static SharedActivity instance;
+    private final SharedPreferences sharedPreferences;
+    private final SharedPreferences.Editor editor;
 
-    public static SharedActivity getInstance(Context context){
-        if(instance == null){
+
+    // Singleton thread-safe con lazy initialization
+    public static synchronized SharedActivity getInstance(Context context) {
+        if (instance == null) {
             instance = new SharedActivity(context);
         }
         return instance;
     }
+
+
     private SharedActivity(Context context) {
         this.sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
         this.editor = sharedPreferences.edit();
-        this.setLoggedIn(false);
     }
 
+
+    // Imposta se l'utente è loggato
     public synchronized void setLoggedIn(boolean isLoggedIn) {
-        editor.putBoolean(IS_LOGGED_IN, isLoggedIn);
-        editor.apply();
+        Log.d(TAG, "setLoggedIn: " + isLoggedIn);
+        editor.putBoolean(IS_LOGGED_IN, isLoggedIn).apply();
     }
 
-
-    public synchronized void setSessionid(String sessionid) {
-        editor.putString(SESSIONID, sessionid);
-        editor.apply();
-    }
-
-    public synchronized String getSessionid(){
-        return sharedPreferences.getString(SESSIONID, null);
-    }
+    // Restituisce se l'utente è loggato
     public synchronized boolean isLoggedIn() {
-        Log.d("TAG", "isLoggedIn: " + this + ": " + sharedPreferences.toString());
-        return sharedPreferences.getBoolean(IS_LOGGED_IN, false);
+        boolean loggedIn = sharedPreferences.getBoolean(IS_LOGGED_IN, false);
+        Log.d(TAG, "isLoggedIn: " + loggedIn);
+        return loggedIn;
     }
 
-    //isLoggedIn: com.example.lupusincampus.SharedActivity@28e5058: android.app.SharedPreferencesImpl@f2335b1
-
+    // Salva i dettagli dell'utente (ID, nickname, email)
     public synchronized void saveUserDetails(String id, String nickname, String email) {
-        editor.putString(ID,id);
-        editor.putString(NICKNAME, nickname);
-        editor.putString(EMAIL, email);
-        editor.apply();
+        Log.d(TAG, "saveUserDetails: ID=" + id + ", Nickname=" + nickname + ", Email=" + email);
+        editor.putString("id", id)
+                .putString(NICKNAME, nickname)
+                .putString(EMAIL, email)
+                .apply();
     }
 
     public synchronized String getNickname() {
-        return sharedPreferences.getString(NICKNAME, null);
+        return sharedPreferences.getString(NICKNAME, "");
+    }
+
+    public synchronized void setNickname(String nickname) {
+        saveString(NICKNAME, nickname);
     }
 
     public synchronized String getEmail() {
-        return sharedPreferences.getString(EMAIL, null);
+        return sharedPreferences.getString(EMAIL, "");
     }
 
-    public  synchronized void setEmail(String email) {
-        editor.putString(EMAIL, email).apply();
+    public synchronized void setEmail(String email) {
+        saveString(EMAIL, email);
     }
 
-    public  synchronized void setNickname(String nickname) {
-        editor.putString(NICKNAME, nickname).apply();
+    public synchronized String getToken() {
+        return sharedPreferences.getString(TOKEN, "");
     }
 
-    public  synchronized void setToken(String token){
-        editor.putString(TOKEN, token).apply();
+    public synchronized void setToken(String token) {
+        saveString(TOKEN, token);
     }
 
-    public  synchronized String getToken(){
-        return sharedPreferences.getString(TOKEN,null);
+    public synchronized String getSessionId() {
+        return sharedPreferences.getString(SESSION_ID, "");
     }
 
-    public  synchronized void clear() {
-        editor.clear();
-        editor.apply();
+    public synchronized void setSessionId(String sessionId) {
+        saveString(SESSION_ID, sessionId);
     }
 
-
-    //Per salvare il token Pushy
-    public  synchronized void savePushyToken(String token){
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("pushy_token", token);
-        editor.apply();
+    public synchronized void savePushyToken(String token) {
+        saveString(PUSHY_TOKEN, token);
     }
-    
+
     public synchronized String getPushyToken() {
-        return sharedPreferences.getString("pushy_token", null);
+        return sharedPreferences.getString(PUSHY_TOKEN, "");
+    }
+
+    // Metodo helper per salvare stringhe nelle SharedPreferences
+    private synchronized void saveString(String key, String value) {
+        Log.d(TAG, "saveString: " + key + " = " + value);
+        editor.putString(key, value).apply();
+    }
+
+    // Cancella tutte le preferenze salvate
+    public synchronized void clear() {
+        Log.d(TAG, "clear: Resetting shared preferences");
+        editor.clear().commit();
     }
 }
 

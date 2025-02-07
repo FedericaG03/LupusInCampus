@@ -21,13 +21,8 @@
         android:configChanges="locale"
         > <!--ignora il warning quando metto activity in landscape , (locale ==italiano)-->
 
+        <!-- Login è ora l'activity principale -->
         <activity android:name=".Login.LoginActivity"
-            android:exported="true"
-            android:screenOrientation="landscape">
-        </activity>
-
-        <activity
-            android:name=".MainActivity"
             android:exported="true"
             android:configChanges="locale"
             android:screenOrientation="landscape">
@@ -36,29 +31,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
+        <!-- MainActivity Activity -->
+        <activity android:name=".MainActivity"
+            android:exported="false"
+            android:configChanges="locale"
+            android:screenOrientation="landscape"/>
+        <!-- Amici -->
         <activity android:name=".Amici.ListaAmiciActivity"
-            android:exported ="true"
+            android:exported="false"
             android:screenOrientation="landscape"/>
 
+        <!-- Login / Registrazione -->
         <activity android:name=".Login.ForgotPasswordActivity"
-            android:exported="true"
+            android:exported="false"
             android:screenOrientation="landscape"/>
-
         <activity android:name=".Login.RegisterActivity"
-            android:exported="true"
+            android:exported="false"
             android:screenOrientation="landscape"/>
 
+        <!-- Attività di Gioco -->
         <activity android:name=".Play.PlayActivity"
-            android:exported="true"
+            android:exported="false"
             android:screenOrientation="landscape"/>
-
         <activity android:name=".Play.WordActivity"
-            android:exported="true"
-            android:screenOrientation="landscape"/>
-
-        <activity android:name=".Play.LocalActivity"
-            android:exported="true"
+            android:exported="false"
             android:screenOrientation="landscape"/>
 
     </application>

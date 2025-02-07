@@ -30,10 +30,12 @@ public class MainActivity extends AppCompatActivity {
         boolean isLoggedIn = sharedActivity.isLoggedIn();
         Log.d("MainActivity", "isLoggedIn : " + isLoggedIn);
 
-        if (!isLoggedIn) {
-            Log.d("MainActivity", "Utente non loggato, reindirizzamento a LoginActivity");
+        if (!sharedActivity.isLoggedIn()) {
+            Log.d("MainActivity", "Utente non loggato, chiudo MainActivity e passo a LoginActivity");
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
+            finish(); // Chiude `MainActivity` per evitare loop
+            return;
         }
 
 
