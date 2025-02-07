@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/regole_ruoli_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:tint="#000000"
+    android:tintMode="src_over"
+    android:background="@drawable/sfondo"
+    android:clipChildren="false">
+
+    <!-- Icona Profilo -->
+    <include
+        android:id="@+id/include_profile_mondo_locale"
+        layout="@layout/profile_icon_layout" />
+
+    <include
+        android:id="@+id/profile_sidebar_regole_ruoli"
+        layout="@layout/profile_sidebar"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <!-- Label Regole -->
+        <TextView
+            android:id="@+id/label_regole"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/regole_label_txt"
+            android:textColor="@color/panna"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/label_ruoli"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Label Ruoli -->
+        <TextView
+            android:id="@+id/label_ruoli"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/ruoli_label_txt"
+            android:textColor="@color/panna"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@id/label_regole"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Card Regole -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_rules"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/card_roles"
+            app:layout_constraintTop_toBottomOf="@id/label_regole">
+
+            <ImageButton
+                android:id="@+id/btn_rules"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                android:src="@drawable/logo_regole"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no"/>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Card Ruoli -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_roles"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:layout_constraintStart_toEndOf="@id/card_rules"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/label_ruoli">
+
+            <ImageButton
+                android:id="@+id/btn_roles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                android:src="@drawable/logo_ruoli"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no"/>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <include
+        layout="@layout/back_btn_layout"/>
+
+</RelativeLayout>

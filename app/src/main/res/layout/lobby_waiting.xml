@@ -61,7 +61,7 @@
         android:id="@+id/btn_exit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ESCI DALLA LOBBY"
+        android:text="@string/esci_dalla_lobby"
         android:textColor="#FFF"
         android:background="@android:color/transparent"
         android:padding="10dp"

@@ -37,7 +37,7 @@ public class WordActivity extends AppCompatActivity {
 
         String nickname = sharedActivity.getNickname();
         ConstraintLayout sidebar = findViewById(R.id.profile_sidebar);
-        TextView profileButton = findViewById(R.id.probile_btn);
+        TextView profileButton = findViewById(R.id.profile_btn);
         profileButton.setText(nickname);
         //Bottoni gioco mostra lobby
         btnShowLobby = findViewById(R.id.btnShowLobby);

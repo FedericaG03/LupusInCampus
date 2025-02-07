@@ -25,7 +25,7 @@
         <activity android:name=".Login.LoginActivity"
             android:exported="true"
             android:configChanges="locale"
-            android:screenOrientation="landscape">
+            android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -36,28 +36,37 @@
         <activity android:name=".MainActivity"
             android:exported="false"
             android:configChanges="locale"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="sensorLandscape"/>
         <!-- Amici -->
         <activity android:name=".Amici.ListaAmiciActivity"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="sensorLandscape"/>
 
         <!-- Login / Registrazione -->
         <activity android:name=".Login.ForgotPasswordActivity"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="sensorLandscape"/>
         <activity android:name=".Login.RegisterActivity"
             android:exported="false"
             android:screenOrientation="landscape"/>
 
         <!-- Attività di Gioco -->
-        <activity android:name=".Play.PlayActivity"
-            android:exported="false"
-            android:screenOrientation="landscape"/>
         <activity android:name=".Play.WordActivity"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="sensorLandscape"/>
 
+        <!--Attività regole e ruoli-->
+        <activity android:name=".Regole.RegoleRuoliActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"/>
+
+        <activity android:name=".Regole.RuoliActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"/>
+
+        <activity android:name=".Regole.RegoleActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"/>
     </application>
 
 </manifest>

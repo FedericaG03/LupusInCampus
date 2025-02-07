@@ -1,5 +1,6 @@
 [versions]
 agp = "8.6.0"
+jacksonDatabind = "2.15.0"
 jbcrypt = "0.4"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -14,6 +15,7 @@ lifecycleViewmodelKtx = "2.6.1"
 
 
 [libraries]
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jacksonDatabind" }
 jbcrypt = { module = "org.mindrot:jbcrypt", version.ref = "jbcrypt" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -25,7 +27,6 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
-
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 

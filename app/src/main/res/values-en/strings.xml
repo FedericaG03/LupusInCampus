@@ -27,10 +27,12 @@
     <string name="conferma_nuova_password">Confirm new password</string>
     <string name="resetta_password">Reset Password</string>
     <string name="Nuova_password">Reset password</string>
-    <string name="regole_label_txt">Rules</string>
-    <string name="ruoli_label_txt">Roles</string>
+    <string name="regole_label_txt">RULES</string>
+    <string name="ruoli_label_txt">ROLES</string>
     <string name="in_attesa_che_entrino_tutti_i_giocatori">In attesa che entrino tutti i giocatori...</string>
     <string name="invita_amici">INVITA AMICI</string>
+    <string name="inizia_partita">start game</string>
+    <string name="esci_dalla_lobby">LEAVE LOBBY</string>
 
 
 </resources>

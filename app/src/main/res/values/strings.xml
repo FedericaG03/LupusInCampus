@@ -34,10 +34,11 @@
     <string name="nickname" translatable="false">Nickname</string>
     <string name="email" translatable="false">Email</string>
     <string name="logout_btn_text" translatable="false">LOGOUT</string>
-    <string name="regole_label_txt">Regole</string>
-    <string name="ruoli_label_txt">Ruoli</string>
+    <string name="regole_label_txt">REGOLE</string>
+    <string name="ruoli_label_txt">RUOLI</string>
+    <string name="inizia_partita">inizia partita</string>
+    <string name="esci_dalla_lobby">ESCI DALLA LOBBY</string>
+    <string name="invita_amici">invita amici</string>
     <string name="in_attesa_che_entrino_tutti_i_giocatori">In attesa che entrino tutti i giocatori...</string>
-    <string name="inizia_partita">INIZIA PARTITA</string>
-    <string name="invita_amici">INVITA AMICI</string>
 
 </resources>

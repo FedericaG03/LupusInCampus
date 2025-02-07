@@ -3,6 +3,7 @@ package com.example.lupusincampus;
 import com.example.lupusincampus.Login.LoginActivity;
 import com.example.lupusincampus.Amici.ListaAmiciActivity;
 import com.example.lupusincampus.Play.WordActivity;
+import com.example.lupusincampus.Regole.RuoliActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         ConstraintLayout sidebar = findViewById(R.id.profile_sidebar);
 
 
-        TextView profileButton = findViewById(R.id.probile_btn);
+        TextView profileButton = findViewById(R.id.profile_btn);
         TextView playButton = findViewById(R.id.play_btn);
         TextView rulesButton = findViewById(R.id.rules_btn);
         TextView settingsButton = findViewById(R.id.setting_btn);
@@ -96,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         rulesButton.setOnClickListener(v->{
-            //Intent intent = new Intent(this, RuoliActivity.class);
-            //startActivity(intent);
+            Intent intent = new Intent(this, RuoliActivity.class);
+            startActivity(intent);
         });
 
         logoutButton.setOnClickListener(v->{

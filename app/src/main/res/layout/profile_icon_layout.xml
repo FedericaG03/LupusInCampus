@@ -4,12 +4,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <TextView
-        android:id="@+id/probile_btn"
+        android:id="@+id/profile_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="23sp"
         android:textColor="@color/panna"
         android:gravity="center_vertical"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         app:drawableEndCompat="@drawable/icona_profilo"
         android:drawablePadding="15dp"

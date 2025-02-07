@@ -6,6 +6,6 @@
     <color name="link_blue">#4285F4</color>
     <color name="button_color">#F3E5AB</color>
     <color name="text_red">#7B332E</color>
-    <color name="panna">#F4E5CB</color> <!--TODO controllare validita colore panna su tutti  idispositivi-->
+    <color name="panna">#F4E5CB</color>
     <color name="opaque_white">#E0F4E5CB</color>
 </resources>

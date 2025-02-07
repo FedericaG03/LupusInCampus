@@ -43,7 +43,7 @@ public class PartitaActivity extends  AppCompatActivity {
         sharedActivity = SharedActivity.getInstance(this);
         serverConnector = new ServerConnector();
         String nickname = sharedActivity.getNickname();
-        TextView profileButton = findViewById(R.id.probile_btn);
+        TextView profileButton = findViewById(R.id.profile_btn);
         profileButton.setText(nickname);
 
         btnExit = findViewById(R.id.btn_exit);
