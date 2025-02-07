@@ -1,20 +1,32 @@
 package com.example.lupusincampus.Amici;
 
 import android.content.Intent;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.lupusincampus.Amici.ListaAmiciActivity;
-import com.example.lupusincampus.R;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.ArrayList;
+import com.example.lupusincampus.Model.Player;
+import com.example.lupusincampus.R;
+import com.example.lupusincampus.ServerConnector;
+import com.example.lupusincampus.SharedActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 public class ListaAmiciActivity extends AppCompatActivity {
@@ -27,24 +39,46 @@ public class ListaAmiciActivity extends AppCompatActivity {
 
         ConstraintLayout aggiungiAmicoButton = findViewById(R.id.aggiungi_amico_btn);
 
-        List<String> listaAmici = new ArrayList<>();
-        ListaAmiciAdapter listaAmiciAdapter = new ListaAmiciAdapter(listaAmici);
         RecyclerView recyclerView = findViewById(R.id.recycler_view_amici);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(listaAmiciAdapter);
+
 
         bckButton.setOnClickListener(v->{
             getOnBackPressedDispatcher().onBackPressed();
-            finish();
         });
 
-        /*TODO prendere lista amici dal database*/
-        listaAmici.add("chrizzo");
-        listaAmici.add("Piergiangelo");
-        listaAmici.add("Pippo");
+        ServerConnector serverConnector = new ServerConnector();
+        String nickname = SharedActivity.getInstance(this).getNickname();
+        serverConnector.fetchDataForFriendList(getApplicationContext(),nickname, new ServerConnector.CallbackInterface() {
+            @Override
+            public void onSuccess(JSONObject jsonResponse) {
+                try{
+                    String jsonArrayString = jsonResponse.getJSONArray("body").toString();
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    List<Player> listaAmici = objectMapper.readValue(jsonArrayString, new TypeReference<List<Player>>() {});
+                    ListaAmiciAdapter listaAmiciAdapter = new ListaAmiciAdapter(listaAmici);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    recyclerView.setAdapter(listaAmiciAdapter);
+                } catch (JSONException e) {
+                    this.onError(e.toString());
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            @Override
+            public void onError(String jsonResponse) {
+                Log.e("LoginActivity", "Errore caricamento lista amici");
+                Toast.makeText(ListaAmiciActivity.this, "Errore di nel caricamento lista amici!", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onServerError(Exception e) {
+                Log.e("LoginActivity", "Errore caricamento lista amici", e);
+                Toast.makeText(ListaAmiciActivity.this, "Errore di nel caricamento lista amici!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         aggiungiAmicoButton.setOnClickListener(v->{
-            listaAmiciAdapter.addFriend("Gianni");
+            Intent intent = new Intent(this, AggiungiAmicoActivity.class);
+
         });
     }
 }

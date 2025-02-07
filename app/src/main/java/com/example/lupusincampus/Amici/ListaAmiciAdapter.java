@@ -8,14 +8,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.lupusincampus.Model.Player;
 import com.example.lupusincampus.R;
 
 import java.util.List;
 
 public class ListaAmiciAdapter extends RecyclerView.Adapter<ListaAmiciViewHolder> {
-    private List<String> listaAmici;
+    private List<Player> listaAmici;
 
-    public ListaAmiciAdapter(List<String> listaAmici){
+    public ListaAmiciAdapter(List<Player> listaAmici){
         this.listaAmici = listaAmici;
     }
 
@@ -29,8 +30,8 @@ public class ListaAmiciAdapter extends RecyclerView.Adapter<ListaAmiciViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ListaAmiciViewHolder holder, int position) {
-        String username = listaAmici.get(position) ;
-        holder.usernameTextView.setText(username);
+        Player player = listaAmici.get(position);
+        holder.usernameTextView.setText(player.getNickname());
 
         holder.invitaAmicoBtn.setOnClickListener(v->{
             //definire logica
@@ -64,7 +65,7 @@ public class ListaAmiciAdapter extends RecyclerView.Adapter<ListaAmiciViewHolder
         return listaAmici.size();
     }
 
-    public void addFriend(String newFriend) {
+    public void addFriend(Player newFriend) {
         listaAmici.add(newFriend);
         notifyItemInserted(listaAmici.size() - 1); // Notifica che è stato aggiunto un nuovo item
     }
