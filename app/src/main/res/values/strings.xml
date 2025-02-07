@@ -39,6 +39,18 @@
     <string name="inizia_partita">inizia partita</string>
     <string name="esci_dalla_lobby">ESCI DALLA LOBBY</string>
     <string name="invita_amici">invita amici</string>
-    <string name="in_attesa_che_entrino_tutti_i_giocatori">In attesa che entrino tutti i giocatori...</string>
+    <string name="in_attesa_che_entrino_tutti_i_giocatori">In attesa che entrino tutti i giocatori…</string>
+    <string name="Regole" translatable="false">
+        <b>Obiettivo del Gioco</b>\nI giocatori sono divisi in due fazioni: lupi mannari e villaggio.\nI lupi devono eliminare tutti i cittadini senza farsi scoprire.\nIl villaggio deve individuare ed eliminare i lupi prima che sia troppo tardi.\n\n
+        <b>Preparazione</b>\nOgni giocatore si connette alla partita.\nL’app assegna automaticamente un ruolo segreto a ciascun partecipante.\nIl gioco si svolge alternando notte e giorno.\n\n
+        
+        <b>Fase Notturna</b>\nTutti i giocatori entrano nella modalità notte e non possono comunicare.\nI lupi mannari vedono i loro compagni e votano segretamente un giocatore da eliminare.\nLe figure speciali (come Veggente o Protettore)potranno usare la loro abilità.\nLa notte termina e inizia il giorno.\n\n
+        
+        <b>Fase Diurna</b>\nIl narratore annuncia chi è stato eliminato durante la notte.\nI giocatori discutono su chi possa essere un lupo.\nSi avvia una fase di votazione: ogni giocatore vota un sospettato.\nIl giocatore più votato viene eliminato e il suo ruolo viene rivelato.\nSe la partita non è ancora finita, inizia una nuova notte.\n\n
+        
+        <b>Condizioni di Vittoria</b>\nI lupi vincono se il numero di lupi è uguale o superiore a quello dei cittadini.\nIl villaggio vince se tutti i lupi sono stati eliminati.
+</string>
+
+
 
 </resources>
