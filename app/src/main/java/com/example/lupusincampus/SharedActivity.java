@@ -29,6 +29,7 @@ public class SharedActivity {
     private SharedActivity(Context context) {
         this.sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
         this.editor = sharedPreferences.edit();
+        this.setLoggedIn(false);
     }
 
     public synchronized void setLoggedIn(boolean isLoggedIn) {

@@ -18,6 +18,8 @@ import org.json.JSONObject;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.SharedActivity;
 
+import java.io.IOException;
+
 public class WordActivity extends AppCompatActivity {
 
 
@@ -103,6 +105,12 @@ public class WordActivity extends AppCompatActivity {
                 runOnUiThread(() ->
                         Toast.makeText(WordActivity.this, "Errore durante la connessione: " + e.getMessage(), Toast.LENGTH_SHORT).show()
                 );
+            }
+
+            @Override
+            public void onServerOffline(Exception e) {
+                Toast.makeText(WordActivity.this, "Errore durante la connessione: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
     }

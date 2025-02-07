@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.lupusincampus.Server.PlayerAPI;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.lupusincampus.Play.GiocoActivity;
+import com.example.lupusincampus.MainActivity;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.SharedActivity;
 
@@ -31,11 +31,11 @@ public class LoginActivity extends AppCompatActivity {
 
         sharedActivity = SharedActivity.getInstance(this);
 
-        if (sharedActivity.isLoggedIn()) {
+       if (sharedActivity.isLoggedIn()) {
             Log.i(TAG, "onCreate: User logged");
             navigateToMainActivity();
             finish();
-        }
+       }
 
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
@@ -52,17 +52,11 @@ public class LoginActivity extends AppCompatActivity {
             Log.d("PASSWORD", "onCreate: hasspass " + hashPass);
 
             PlayerAPI playerAPI = new PlayerAPI();
-            boolean isLogged = playerAPI.doLogin(email, hashPass, getApplicationContext(), sharedActivity);
-            sharedActivity.setLoggedIn(isLogged);
-            Log.d(TAG, "onCreate: Terminata chiamata doLogin: " + isLogged);
-            if(sharedActivity.isLoggedIn()){
-                sharedActivity.setLoggedIn(isLogged);
-                Log.i(TAG, "onCreate: User logged");
+            if (playerAPI.doLogin(email, hashPass, getApplicationContext(), sharedActivity)) {
+                sharedActivity.setLoggedIn(true);
                 navigateToMainActivity();
             }
-            else{
-                Log.d(TAG, "onCreate: unable to login");
-            }
+
         });
 
         btnRegister.setOnClickListener(v -> navigateToRegisterActivity());
@@ -70,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void navigateToMainActivity() {
-        Intent intent = new Intent(this, GiocoActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }

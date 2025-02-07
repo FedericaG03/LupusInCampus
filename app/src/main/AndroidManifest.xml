@@ -23,6 +23,12 @@
 
         <activity android:name=".Login.LoginActivity"
             android:exported="true"
+            android:screenOrientation="landscape">
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
             android:configChanges="locale"
             android:screenOrientation="landscape">
             <intent-filter>
@@ -30,11 +36,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".Play.GiocoActivity"
-            android:exported="true"
-            android:screenOrientation="landscape"/>
         
         <activity android:name=".Amici.ListaAmiciActivity"
             android:exported ="true"
