@@ -10,14 +10,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.lupusincampus.MainActivity;
 import com.example.lupusincampus.R;
+import com.example.lupusincampus.Server.PlayerAPI;
 import com.example.lupusincampus.SharedActivity;
-import com.example.lupusincampus.ServerConnector;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import me.pushy.sdk.Pushy;
 
@@ -58,49 +53,12 @@ public class RegisterActivity extends AppCompatActivity {
 
             if (nickname.isEmpty() || email.isEmpty() || hashPass.isEmpty()) {
                 Toast.makeText(RegisterActivity.this, "Per favore, compila tutti i campi.", Toast.LENGTH_SHORT).show();
-            } else if (!email.contains("@")) {
-                Toast.makeText(RegisterActivity.this, "Inserisci un'email valida.", Toast.LENGTH_SHORT).show();
+            //} //else if (!email.contains("@")) {
+              //  Toast.makeText(RegisterActivity.this, "Inserisci un'email valida.", Toast.LENGTH_SHORT).show();
             } else {
-                new ServerConnector().registerRequest(this,nickname, email, hashPass, new ServerConnector.FetchDataCallback() {
-                    @Override
-                    public void onSuccess(String jsonResponse) {
-                        runOnUiThread(() -> {
-                            try {
-                                JSONObject response = new JSONObject(jsonResponse);
-                                if (response != null) {
-                                    JSONObject value = response.getJSONObject("body");
-                                    sharedActivity.saveUserDetails(String.valueOf(value.getInt("id")), value.getString("nickname"), value.getString("email"));
-                                    Toast.makeText(RegisterActivity.this, "Registrazione avvenuta con successo!", Toast.LENGTH_SHORT).show();
-                                    navigateToMainActivity();
-                                } else {
-                                    String errorMessage = response.optString("error", "Registrazione fallita. Riprova.");
-                                    Toast.makeText(RegisterActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                                }
-                            } catch (JSONException e) {
-                                Toast.makeText(RegisterActivity.this, "Errore nella risposta del server!", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                    @Override
-                    public void onError(Exception e) {
-                        runOnUiThread(() -> {
-                            Toast.makeText(RegisterActivity.this, "Errore di connessione: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        });
-                    }
-
-                    @Override
-                    public void onServerOffline(Exception e) {
-                        Toast.makeText(RegisterActivity.this, "Errore di connessione: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-
-                });
+                PlayerAPI playerAPI = new PlayerAPI();
+                playerAPI.doRegister(email, hashPass,nickname, getApplicationContext(), sharedActivity);
             }
         });
-    }
-
-        private void navigateToMainActivity() {
-        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
     }
 }

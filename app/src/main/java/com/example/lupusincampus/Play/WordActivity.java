@@ -87,7 +87,7 @@ public class WordActivity extends AppCompatActivity {
     private void fetchInvitesFromServer() {
         ServerConnector connector = new ServerConnector();
         // Chiama la funzione fetchInvites
-        connector.fetchInvites(this,new ServerConnector.FetchDataCallback() {
+        /*connector.fetchInvites(this,new ServerConnector.FetchDataCallback() {
             @Override
             public void onSuccess(String jsonResponse) {
                 try {
@@ -112,7 +112,7 @@ public class WordActivity extends AppCompatActivity {
                 Toast.makeText(WordActivity.this, "Errore durante la connessione: " + e.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
-        });
+        });*/
     }
     private void updateInviteNotification(int invites) {
         if (invites > 0) {

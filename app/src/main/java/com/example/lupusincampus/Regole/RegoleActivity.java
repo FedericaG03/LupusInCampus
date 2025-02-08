@@ -13,13 +13,17 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.lupusincampus.Login.LoginActivity;
 import com.example.lupusincampus.R;
+import com.example.lupusincampus.Server.PlayerAPI;
 import com.example.lupusincampus.ServerConnector;
+import com.example.lupusincampus.SharedActivity;
 
 public class RegoleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.regole_activity);
+
+        SharedActivity sharedActivity = SharedActivity.getInstance(this);
 
         TextView profileButton = findViewById(R.id.profile_btn);
         TextView backButton = findViewById(R.id.back_btn);
@@ -50,28 +54,8 @@ public class RegoleActivity extends AppCompatActivity {
         });
 
         logoutButton.setOnClickListener(v->{
-            new ServerConnector().logoutReqeust(this,new ServerConnector.FetchDataCallback() {
-                @Override
-                public void onSuccess(String jsonResponse) {
-                    Log.d("MainActivity", "Effettuato logout con successo");
-                    Toast.makeText(getApplicationContext(), "Effettuato logout con successo!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-
-                @Override
-                public void onError(Exception e) {
-                    Log.e("RegoleRuoliActivity", "Impossibile effettuare logout!");
-                    Toast.makeText(getApplicationContext(), "Impossibile effettuare logout!" , Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onServerOffline(Exception e) {
-                    Log.e("RegoleRuoliActivity", "Impossibile effettuare logout!");
-                    Toast.makeText(getApplicationContext(), "Errore server" , Toast.LENGTH_SHORT).show();
-                }
-            });
+            PlayerAPI playerAPI = new PlayerAPI();
+            playerAPI.doLogout(getApplicationContext(), sharedActivity);
         });
     }
 }

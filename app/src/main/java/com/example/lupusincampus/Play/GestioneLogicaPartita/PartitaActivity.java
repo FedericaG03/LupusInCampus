@@ -61,7 +61,7 @@ public class PartitaActivity extends  AppCompatActivity {
         showNextStoryLine();
 
         // Richiesta del ruolo dal server
-        fetchRoleFromServer();
+       // fetchRoleFromServer();
 
         // Listener per uscire dalla partita
         btnExit.setOnClickListener(v -> {
@@ -115,7 +115,7 @@ public class PartitaActivity extends  AppCompatActivity {
 
 
     // Metodo per ottenere il ruolo dal server
-    private void fetchRoleFromServer() {
+ /*   private void fetchRoleFromServer() {
         serverConnector.fetchRole(this,new ServerConnector.FetchDataCallback() {
             @Override
             public void onSuccess(String jsonResponse) {
@@ -151,7 +151,7 @@ public class PartitaActivity extends  AppCompatActivity {
             }
 
         });
-    }
+    }*/
 }
 
 

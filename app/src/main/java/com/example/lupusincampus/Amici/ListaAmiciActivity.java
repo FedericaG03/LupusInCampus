@@ -12,12 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+/*
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+*/
 import com.example.lupusincampus.Model.Player;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.ServerConnector;
@@ -42,7 +42,7 @@ public class ListaAmiciActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler_view_amici);
 
 
-        bckButton.setOnClickListener(v->{
+        /*bckButton.setOnClickListener(v->{
             getOnBackPressedDispatcher().onBackPressed();
         });
 
@@ -77,8 +77,8 @@ public class ListaAmiciActivity extends AppCompatActivity {
         });
 
         aggiungiAmicoButton.setOnClickListener(v->{
-            Intent intent = new Intent(this, AggiungiAmicoActivity.class);
+        //    Intent intent = new Intent(this, AggiungiAmicoActivity.class);
 
-        });
+        });*/
     }
 }

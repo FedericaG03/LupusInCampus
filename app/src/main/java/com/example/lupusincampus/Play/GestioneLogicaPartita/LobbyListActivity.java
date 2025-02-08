@@ -33,8 +33,23 @@ public class LobbyListActivity extends AppCompatActivity {
         ServerConnector serverConnector = new ServerConnector();
 
         // Richiedi i dati dal server
-        serverConnector.fetchDataForListView(this,new ServerConnector.FetchDataCallback() {
+        serverConnector.fetchDataForListView(this,new ServerConnector.CallbackInterface() {
             @Override
+            public void onSuccess(JSONObject jsonResponse) {
+
+            }
+
+            @Override
+            public void onError(String jsonResponse) {
+
+            }
+
+            @Override
+            public void onServerError(Exception e) {
+
+            }
+
+            /*@Override
             public void onSuccess(String jsonResponse) {
                 runOnUiThread(() -> {
                     try {
@@ -66,7 +81,7 @@ public class LobbyListActivity extends AppCompatActivity {
             @Override
             public void onServerOffline(Exception e) {
                 Toast.makeText(LobbyListActivity.this, "Errore connessione server", Toast.LENGTH_SHORT).show();
-            }
+            }*/
         });
     }
 }

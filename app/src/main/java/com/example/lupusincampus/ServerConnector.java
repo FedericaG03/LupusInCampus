@@ -22,7 +22,7 @@ import java.util.concurrent.Executors;
 public class ServerConnector {
 
     private static final String TAG = "ServerConnector";
-    private static final String SERVER_URL = "http://193.205.162.73:8080";
+    private static final String SERVER_URL = "http://172.19.136.56:8080";
     private static String sessionId = null;
 
     // Esegue operazioni di rete su un thread in background
@@ -44,7 +44,7 @@ public class ServerConnector {
     /**
      * Metodo generico per effettuare richieste HTTP GET
      */
-    private void makeGetRequest(Context ctx, String endpoint, FetchDataCallback callback) {
+    public void makeGetRequest(Context ctx, String endpoint, CallbackInterface callback) {
         executor.execute(() -> {
             HttpURLConnection connection = null;
             try {
@@ -58,23 +58,31 @@ public class ServerConnector {
                     connection.setRequestProperty("Cookie", sessionId);
                 }
 
+                Log.d(TAG, "makeGetRequest: Provo a leggere l'id sessione");
                 int responseCode = connection.getResponseCode();
                 String cookie = connection.getHeaderField("Set-Cookie");
                 if (cookie != null) {
                     sessionId = cookie.split(";")[0];
                     SharedActivity.getInstance(ctx).setSessionId(sessionId);
-                    Log.d(TAG, "makePostRequest: " + sessionId);
-                }
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    String response = readStream(connection);
-                    mainThreadHandler.post(() -> callback.onSuccess(response));
-                } else {
-                    mainThreadHandler.post(() -> callback.onError((new IOException("Errore HTTP: " + responseCode))));
+                    Log.d(TAG, "makeGetRequest: " + sessionId);
                 }
 
-            } catch (IOException e) {
-                Log.e(TAG, "Errore nella richiesta GET: " + e.getMessage(), e);
-                mainThreadHandler.post(() -> callback.onServerOffline(e));
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    String response = readStream(connection);
+                    ResponseContent content = parseResponse(response);
+
+                    if (content.code > 0) {
+                        mainThreadHandler.post(() -> callback.onSuccess((JSONObject) content.responseObject));
+                        Log.d(TAG, "onSuccess: stampo response del server " + content.responseObject.toString());
+                    } else {
+                        mainThreadHandler.post(() -> callback.onError((String) content.responseObject));
+                    }
+                } else {
+                    mainThreadHandler.post(() -> callback.onServerError(new IOException("Errore: " + responseCode)));
+                }
+            } catch (Exception ex ) {
+                Log.e(TAG, "Errore nella richiesta POST: ", ex);
+                mainThreadHandler.post(() -> callback.onServerError(ex));
             } finally {
                 if (connection != null) {
                     connection.disconnect();
@@ -179,7 +187,7 @@ public class ServerConnector {
     /**
      * Metodo generico per effettuare richieste HTTP PUT
      */
-    private void makePutRequest(Context ctx, String endpoint, JSONObject jsonBody, FetchDataCallback callback) {
+    public void makePutRequest(Context ctx, String endpoint, JSONObject jsonBody, CallbackInterface callback) {
         executor.execute(() -> {
             HttpURLConnection connection = null;
             try {
@@ -197,26 +205,36 @@ public class ServerConnector {
                 try (OutputStream os = connection.getOutputStream()) {
                     os.write(jsonBody.toString().getBytes());
                     os.flush();
-                    Log.d(TAG, "Sto a fa la richiesta PUT: ");
+                    Log.d(TAG, "makePostRequest: Costruita la richiesta: " + jsonBody.toString());
                 }
 
+                Log.d(TAG, "makePostRequest: Tento di leggere il codice di risposta");
                 int responseCode = connection.getResponseCode();
+
+                Log.d(TAG, "makePostRequest: Provo a leggere l'id sessione");
                 String cookie = connection.getHeaderField("Set-Cookie");
                 if (cookie != null) {
                     sessionId = cookie.split(";")[0];
                     SharedActivity.getInstance(ctx).setSessionId(sessionId);
-                    Log.d(TAG, "makePostRequest: " + sessionId);
+                    Log.d(TAG, "makePostRequest, sessionId: " + sessionId);
                 }
-                String response = readStream(connection);
-                if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
-                    mainThreadHandler.post(() -> callback.onSuccess(response));
-                    Log.d(TAG, "onSuccess:stampo response server " + response);
+
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    String response = readStream(connection);
+                    ResponseContent content = parseResponse(response);
+
+                    if (content.code > 0) {
+                        mainThreadHandler.post(() -> callback.onSuccess((JSONObject) content.responseObject));
+                        Log.d(TAG, "onSuccess: stampo response del server " + content.responseObject.toString());
+                    } else {
+                        mainThreadHandler.post(() -> callback.onError((String) content.responseObject));
+                    }
                 } else {
-                    mainThreadHandler.post(() -> callback.onError(new IOException("Errore" +responseCode)));
+                    mainThreadHandler.post(() -> callback.onServerError(new IOException("Errore: " + responseCode)));
                 }
-            } catch (IOException e) {
-                Log.e(TAG, "Errore nella richiesta PUT: " + e.getMessage(), e);
-                mainThreadHandler.post(() -> callback.onServerOffline(e));
+            } catch (Exception ex ) {
+                Log.e(TAG, "Errore nella richiesta POST: ", ex);
+                mainThreadHandler.post(() -> callback.onServerError(ex));
             } finally {
                 if (connection != null) {
                     connection.disconnect();
@@ -253,50 +271,19 @@ public class ServerConnector {
             return "{}";
         }
     }
-
-
-    /**
-     * Richiesta di registrazione
-     */
-    public void registerRequest(Context ctx, String nickname, String email, String password, FetchDataCallback callback) {
-        try {
-            JSONObject jsonBody = new JSONObject();
-            jsonBody.put("nickname", nickname);
-            jsonBody.put("email", email);
-            jsonBody.put("password", password);
-
-            makePutRequest(ctx, "/controller/player/registration", jsonBody, callback);
-        } catch (JSONException e) {
-            callback.onServerOffline(e);
-        }
-    }
-
-    /**
-     * Recupero password, (invio mail al server)
-     */
-    public void recoverPasswordRequest(Context ctx, String email, CallbackInterface callback) {
-        try {
-            JSONObject jsonBody = new JSONObject();
-            jsonBody.put("email", email);
-
-            makePostRequest(ctx, "", jsonBody, callback);
-        } catch (JSONException e) {
-            callback.onServerError(e);
-        }
-    }
-
+    
 
     /**
      * Recupera la lista di inviti lobby
      */
-    public void fetchInvites(Context ctx, FetchDataCallback callback) {
+    public void fetchInvites(Context ctx, CallbackInterface callback) {
         makeGetRequest(ctx, "", callback);
     }
 
     /**
      * Recupera la lista di lobby disponibili
      */
-    public void fetchDataForListView(Context ctx, FetchDataCallback callback) {
+    public void fetchDataForListView(Context ctx, CallbackInterface callback) {
         makeGetRequest(ctx, "", callback);
     }
 
@@ -310,7 +297,7 @@ public class ServerConnector {
     /**
      * Funzione per ottenere il ruolo dal server (GET)
      */
-    public void fetchRole(Context ctx, FetchDataCallback callback) {
+    public void fetchRole(Context ctx, CallbackInterface callback) {
         makeGetRequest(ctx, "/controller/game/role", callback);
     }
 
@@ -330,26 +317,9 @@ public class ServerConnector {
     /**
      * Funzione per il logout
      */
-    public void logoutReqeust(Context ctx, FetchDataCallback callback) {
-        makeGetRequest(ctx, "/controller/player/logout", callback);
-    }
-
-    /**
-     * Funzione per vedere il numero di amici che entrano
-     */
-
-    /**
-     * Callback generico per gestire i dati del server
-     */
-    public interface FetchDataCallback {
-        void onSuccess(String jsonResponse);
-
-        void onError(Exception e);
-
-        void onServerOffline(Exception e);
-    }
 
 
+    /**Callback generico per gestire i dati del server*/
     public interface CallbackInterface {
         void onSuccess(JSONObject jsonResponse);
         void onError(String jsonResponse);

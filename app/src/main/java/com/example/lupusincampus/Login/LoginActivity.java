@@ -49,12 +49,10 @@ public class LoginActivity extends AppCompatActivity {
             String password = etPassword.getText().toString();
 
             String hashPass = hashSHA256(password);
-            Log.d("PASSWORD", "onCreate: hasspass " + hashPass);
+            Log.d(TAG, "onCreate: hasspass " + hashPass);
 
             PlayerAPI playerAPI = new PlayerAPI();
-            if (playerAPI.doLogin(email, hashPass, getApplicationContext(), sharedActivity)) {
-                navigateToMainActivity();
-            }
+            playerAPI.doLogin(email, hashPass, getApplicationContext(), sharedActivity);
 
         });
 
@@ -75,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void navigateToForgotPasswordActivity() {
-        Log.d("LoginActivity", "Navigating to ForgotPasswordActivity");
+        Log.d(TAG, "Navigating to ForgotPasswordActivity");
         Intent intent = new Intent(this, ForgotPasswordActivity.class);
         startActivity(intent);
     }

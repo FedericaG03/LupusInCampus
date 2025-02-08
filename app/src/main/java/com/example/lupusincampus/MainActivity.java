@@ -4,6 +4,7 @@ import com.example.lupusincampus.Login.LoginActivity;
 import com.example.lupusincampus.Amici.ListaAmiciActivity;
 import com.example.lupusincampus.Play.WordActivity;
 import com.example.lupusincampus.Regole.RuoliActivity;
+import com.example.lupusincampus.Server.PlayerAPI;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -102,28 +103,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         logoutButton.setOnClickListener(v->{
-            new ServerConnector().logoutReqeust(this,new ServerConnector.FetchDataCallback() {
-                @Override
-                public void onSuccess(String jsonResponse) {
-                    Log.d("MainActivity", "Effettuato logout con successo");
-                    Toast.makeText(MainActivity.this, "Effettuato logout con successo!", Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onError(Exception e) {
-                    Log.e("MainActivity", "Impossibile effettuare logout!");
-                    Toast.makeText(MainActivity.this, "Impossibile effettuare logout!" + e, Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onServerOffline(Exception e) {
-                    Toast.makeText(MainActivity.this, "Errore connessione server!" + e, Toast.LENGTH_SHORT).show();
-                }
-            });
-            sharedActivity.setLoggedIn(false);
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(intent);
-            finish();
+            PlayerAPI playerAPI = new PlayerAPI();
+            playerAPI.doLogout(getApplicationContext(), sharedActivity);
         });
     }
 }
