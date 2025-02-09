@@ -10,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.ServerConnector;
 
-import org.json.JSONObject;
-
 public class LobbyListActivity extends AppCompatActivity {
 
     @Override
@@ -33,7 +31,7 @@ public class LobbyListActivity extends AppCompatActivity {
         // Richiedi i dati dal server
         serverConnector.fetchDataForListView(this,new ServerConnector.CallbackInterface() {
             @Override
-            public void onSuccess(JSONObject jsonResponse) {
+            public void onSuccess(Object jsonResponse) {
 
             }
 

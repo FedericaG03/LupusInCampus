@@ -45,8 +45,9 @@ public class PlayerAPI {
         loginRequest(ctx, email, hashPass, new ServerConnector.CallbackInterface() {
 
             @Override
-            public void onSuccess(JSONObject infoPlayer) {
+            public void onSuccess(Object response) {
                 try {
+                    JSONObject infoPlayer = (JSONObject) response;
                     Log.d(TAG, "Risposta completa dal server: " + infoPlayer.toString());
                     // Secondo oggetto JSON con informazioni sul player
                     infoPlayer = infoPlayer.getJSONObject("player");
@@ -124,8 +125,9 @@ public class PlayerAPI {
         registerRequest(ctx, nickname, email, hashPass, new ServerConnector.CallbackInterface() {
 
             @Override
-            public void onSuccess(JSONObject infoPlayer) {
+            public void onSuccess(Object response) {
                 try {
+                    JSONObject infoPlayer = (JSONObject) response;
                     Log.d(TAG, "Risposta completa dal server: " + infoPlayer.toString());
                     // Secondo oggetto JSON con informazioni sul player
                     infoPlayer = infoPlayer.getJSONObject("player");
@@ -163,7 +165,7 @@ public class PlayerAPI {
 
         recoverPasswordRequest(ctx, email, new ServerConnector.CallbackInterface() {
             @Override
-            public void onSuccess(JSONObject infoPlayer) {
+            public void onSuccess(Object infoPlayer) {
                 Toast.makeText(ctx, "Controllare le email", Toast.LENGTH_LONG).show();
                 Log.i(TAG, "onSuccess: Email inviata al server per il recupero password, test, vado alla login");
                 Intent intent = new Intent(ctx, LoginActivity.class);
@@ -224,7 +226,7 @@ public class PlayerAPI {
 
         logoutRequest(ctx, new ServerConnector.CallbackInterface() {
             @Override
-            public void onSuccess(JSONObject jsonResponse) {
+            public void onSuccess(Object jsonResponse) {
                 Log.d(TAG, "Effettuato logout con successo");
                 Toast.makeText(ctx, "Effettuato logout con successo!", Toast.LENGTH_SHORT).show();
                 sharedActivity.setLoggedIn(false);
@@ -253,8 +255,9 @@ public class PlayerAPI {
         changeNameRequest(nickname,ctx, new ServerConnector.CallbackInterface(){
 
             @Override
-            public void onSuccess(JSONObject jsonResponse) {
+            public void onSuccess(Object response) {
                 try {
+                    JSONObject jsonResponse = (JSONObject) response;
                     JSONObject infoPlayer = jsonResponse.getJSONObject("player");
                     Log.d(TAG, "onSuccess: nickname cambiato in: " + infoPlayer.getString("nickname"));
                     SharedActivity.getInstance(ctx).setNickname(infoPlayer.getString("nickname"));
@@ -293,7 +296,7 @@ public class PlayerAPI {
         deleteRequest(ctx, id, new ServerConnector.CallbackInterface(){
 
             @Override
-            public void onSuccess(JSONObject jsonResponse) {
+            public void onSuccess(Object jsonResponse) {
                 Log.d(TAG, "Cancellazione utente");
                 Toast.makeText(ctx, "Utente cancellato!", Toast.LENGTH_SHORT).show();
                 SharedActivity.getInstance(ctx).setLoggedIn(false);
@@ -333,11 +336,13 @@ public class PlayerAPI {
     public void doGetPlayerAreaInfo(Context context) {
         requestPlayetAreaInfo(context, new ServerConnector.CallbackInterface() {
             @Override
-            public void onSuccess(JSONObject jsonResponse) {
+            public void onSuccess(Object response) {
                 try {
-                    JSONObject infoplayer = jsonResponse.getJSONObject("player");
-                    JSONArray gamePartecipated = jsonResponse.getJSONArray("GamePartecipated");
-                    JSONArray pendingRequests = jsonResponse.getJSONArray("PendingFriendRequest");
+                    JSONArray jsonArray = (JSONArray) response;
+                    JSONObject jsonPlayer = (JSONObject) jsonArray.get(0);
+                    JSONObject infoPlayer = jsonPlayer.getJSONObject("player");
+                    JSONArray gamePartecipated = ((JSONObject)jsonArray.get(1)).getJSONArray("GamePartecipated");
+                    JSONArray pendingRequests = ((JSONObject)jsonArray.get(2)).getJSONArray("PendingFriendRequest");
 
                     List<Game> games = new ArrayList<>();
                     List<Player> playerList = new ArrayList<>();
@@ -372,7 +377,7 @@ public class PlayerAPI {
 
                     Log.d("PlayerAPI", "Salvati " + games.size() + " giochi e " + playerList.size() + " amici in SharedActivity");
 
-                    Log.d(TAG, "onSuccess: infoPlayer: " + infoplayer.toString());
+                    Log.d(TAG, "onSuccess: infoPlayer: " + infoPlayer.toString());
                     Log.d(TAG, "onSuccess: gamePartecipated: " + gamePartecipated.toString());
                     Log.d(TAG, "onSuccess: pendingRequests: " + pendingRequests.toString());
 

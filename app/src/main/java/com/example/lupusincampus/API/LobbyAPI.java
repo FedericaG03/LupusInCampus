@@ -16,7 +16,7 @@ public class LobbyAPI {
     public class LobbyCallback implements ServerConnector.CallbackInterface{
 
         @Override
-        public void onSuccess(JSONObject jsonResponse) {
+        public void onSuccess(Object jsonResponse) {
             ;
         }
 

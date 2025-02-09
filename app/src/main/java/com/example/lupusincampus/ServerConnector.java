@@ -16,7 +16,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
@@ -75,7 +74,7 @@ public class ServerConnector {
                     ResponseContent content = parseResponse(response);
 
                     if (content.code > 0) {
-                        mainThreadHandler.post(() -> callback.onSuccess((JSONObject) content.responseObject));
+                        mainThreadHandler.post(() -> callback.onSuccess(content.responseObject));
                         Log.d(TAG, "onSuccess: stampo response del server " + content.responseObject.toString());
                     } else {
                         mainThreadHandler.post(() -> callback.onError((String) content.responseObject));
@@ -175,29 +174,18 @@ public class ServerConnector {
              String messageInfo = succesmessage.getString("message");
              code = succesmessage.getInt("code");
 
-             try {
-                 if (code > 0) {
-                     responseObject = (JSONObject) message.get(1);
-                 } else {
-                     responseObject = messageInfo;
-                 }
-             } catch (ClassCastException | JSONException ex){
-                 JSONArray multipleResponses = (JSONArray) message.get(1);
-                 JSONObject mergedIbj = new JSONObject();
-                 for (int i = 0; i < multipleResponses.length(); i++){
-                     JSONObject tmp = multipleResponses.getJSONObject(i);
-                     for (Iterator<String> it = tmp.keys(); it.hasNext(); ) {
-                         String key = it.next();
-                         mergedIbj.put(key, tmp.get(key));
-                     }
-                 }
-                 responseObject = mergedIbj;
+             if (code > 0) {
+                 responseObject = message.get(1);
+             } else {
+                 responseObject = messageInfo;
              }
          }catch (Exception ex) {
              Log.e(TAG, "parseResponse: Impossibile eseguire l'unmarshal della risposta: ", ex);
              code = 0;
              responseObject = null;
          }
+
+        Log.d(TAG, "parseResponse: Prima di restituire l'oggetto: " + responseObject.toString());
          return new ResponseContent(code, responseObject);
     }
 
@@ -241,7 +229,7 @@ public class ServerConnector {
                     ResponseContent content = parseResponse(response);
 
                     if (content.code > 0) {
-                        mainThreadHandler.post(() -> callback.onSuccess((JSONObject) content.responseObject));
+                        mainThreadHandler.post(() -> callback.onSuccess(content.responseObject));
                         Log.d(TAG, "onSuccess: stampo response del server " + content.responseObject.toString());
                     } else {
                         mainThreadHandler.post(() -> callback.onError((String) content.responseObject));
@@ -338,7 +326,7 @@ public class ServerConnector {
 
     /**Callback generico per gestire i dati del server*/
     public interface CallbackInterface {
-        void onSuccess(JSONObject jsonResponse);
+        void onSuccess(Object jsonResponse);
         void onError(String jsonResponse);
         void onServerError(Exception e);
     }
