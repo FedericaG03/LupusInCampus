@@ -47,6 +47,6 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation(libs.jbcrypt)
     implementation("me.pushy:sdk:1.0.109")
-    implementation (libs.jackson.databind)
+    implementation(libs.jackson.databind)
 
 }

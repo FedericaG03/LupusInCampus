@@ -1,20 +1,16 @@
 package com.example.lupusincampus.API;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.example.lupusincampus.Login.LoginActivity;
 import com.example.lupusincampus.MainActivity;
 import com.example.lupusincampus.Model.Game;
 import com.example.lupusincampus.Model.Player;
 import com.example.lupusincampus.ServerConnector;
 import com.example.lupusincampus.SharedActivity;
-import com.fasterxml.jackson.core.JsonParser;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,8 +20,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.pushy.sdk.lib.jackson.core.JsonParseException;
+import me.pushy.sdk.lib.jackson.databind.JsonMappingException;
 import me.pushy.sdk.lib.jackson.databind.ObjectMapper;
-
 
 public class PlayerAPI {
     private static ServerConnector serverConnector = new ServerConnector();
@@ -347,26 +344,27 @@ public class PlayerAPI {
                     ObjectMapper objectMapper = new ObjectMapper();
 
                     // Parsing della lista delle partite
-                    // Parsing della lista delle partite
                     for (int i = 0; i < gamePartecipated.length(); i++) {
                         JSONObject gameJson = gamePartecipated.getJSONObject(i);
 
                         // Chiamata alla funzione parseGame per ottenere l'oggetto Game
                         Game game = parseGame(gameJson);
+                        Log.d(TAG, "Game " + i + ": " + game.toString());
                         if (game != null) {
                             games.add(game);
                             Log.d(TAG, "Game " + i + ": " + game.toString());
                         }
                     }
 
-                    /*
+
                     // Parsing della lista degli amici
                     for (int i = 0; i < pendingRequests.length(); i++) {
                         JSONObject friendJson = pendingRequests.getJSONObject(i);
                         Player friend = objectMapper.readValue(friendJson.toString().substring(10), Player.class);
                         playerList.add(friend);
-                        Log.d(TAG, "Friend " + i + ": " + friend.toString());
-                    }*/
+
+                    }
+
 
                     SharedActivity sharedActivity = SharedActivity.getInstance(context);
                     sharedActivity.setGameList(games);
@@ -380,6 +378,12 @@ public class PlayerAPI {
 
                 }catch(JSONException  e){
                     Log.e(TAG, "onSuccess: ", e);
+                } catch (JsonMappingException e) {
+                    throw new RuntimeException(e);
+                } catch (JsonParseException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
             }
 
@@ -400,34 +404,51 @@ public class PlayerAPI {
     public Game parseGame(JSONObject gameJson) {
         try {
             // Parsing dei dati dalla JSONObject game
-            int id = gameJson.getInt("id");
-            int creatorId = gameJson.getInt("creatorId");
-            int winningPlayerId = gameJson.getInt("winningPlayerId");
-            String gameDate = gameJson.getString("gameDate");
+            JSONObject games = gameJson.getJSONObject("Game");
+            int id = games.getInt("id");
+            int creatorId = games.getInt("creatorId");
+            int winningPlayerId = games.getInt("winningPlayerId");
+            String gameDate = games.getString("gameDate");
 
             // Parsing della data come LocalDateTime
             LocalDateTime localDateTime = LocalDateTime.parse(gameDate);
 
             // Parsing della lista di partecipanti
             List<Player> partecipants = new ArrayList<>();
-            JSONArray playersArray = gameJson.getJSONArray("partecipants");
+            JSONArray playersArray = games.getJSONArray("participants");
+            //dev leggere il plyer
+
             for (int j = 0; j < playersArray.length(); j++) {
                 JSONObject playerJson = playersArray.getJSONObject(j);
-                Player player = new Player();  // Crea un oggetto Player vuoto
-                player.setId(playerJson.getInt("id"));
-                player.setNickname(playerJson.getString("nickname"));
-                player.setEmail(gameJson.getString("email"));  // Email
-                player.setPassword(gameJson.getString("password"));  // Password
-                player.setRole(gameJson.getString("role"));  // Ruolo
-                partecipants.add(player);
+                Player player = parsePlayerWithoutFrindsList(playerJson.getJSONObject("player"));
+                if (player != null) {
+                    partecipants.add(player);
+                }
             }
             // Creazione dell'oggetto Game
-            return new Game(id, creatorId, localDateTime, partecipants,winningPlayerId);
+            return new Game(id, creatorId, localDateTime, partecipants, winningPlayerId);
 
         } catch (JSONException e) {
             Log.e(TAG, "Error parsing game data: " + e.getMessage());
+            return null;
+        }
+    }
+
+    // Metodo per il parsing del giocatore senza salvare la lista amici
+    public Player parsePlayerWithoutFrindsList(JSONObject playerJson) {
+        try {
+            Player player = new Player();
+            player.setId(playerJson.getInt("id"));
+            player.setNickname(playerJson.getString("nickname"));
+            player.setEmail(playerJson.getString("email"));  // Email
+            player.setPassword(playerJson.getString("password"));  // Password
+            player.setRole(playerJson.getString("role"));// Ruolo
+            return player;
+        } catch (JSONException e) {
+            Log.e(TAG, "Error parsing player data: " + e.getMessage());
             return null;  // O gestisci l'errore come necessario
         }
     }
+
 
 }

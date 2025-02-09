@@ -26,6 +26,9 @@ public class LobbyListActivity extends AppCompatActivity {
         listView.addHeaderView(headerView);
 
         ServerConnector serverConnector = new ServerConnector();
+        // mostra lobby attive endpoint = controller/lobby/active-public-lobbies
+        //GET
+        //MI MANDI
 
         // Richiedi i dati dal server
         serverConnector.fetchDataForListView(this,new ServerConnector.CallbackInterface() {
