@@ -185,7 +185,7 @@ public class ServerConnector {
              responseObject = null;
          }
 
-        Log.d(TAG, "parseResponse: Prima di restituire l'oggetto: " + responseObject.toString());
+         Log.d(TAG, "parseResponse: Prima di restituire l'oggetto: " + responseObject.toString());
          return new ResponseContent(code, responseObject);
     }
 

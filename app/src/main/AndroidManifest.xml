@@ -50,6 +50,11 @@
             android:screenOrientation="sensorLandscape"/>
 
 
+        <!-- Lobby -->
+        <activity android:name=".Play.GestioneLogicaPartita.LobbyListActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"/>
+
         <!-- Login / Registrazione -->
         <activity android:name=".Login.ForgotPasswordActivity"
             android:exported="false"

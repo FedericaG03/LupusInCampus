@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyDatabaseHelper;
 import com.example.lupusincampus.ServerConnector;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,20 +20,22 @@ public class LobbyAPI {
 
 
     public void showLobbyRequest(Context ctx, ServerConnector.CallbackInterface callback){
-        serverConnector.makeGetRequest(ctx,"controller/lobby/active-public-lobbies", callback);
+        serverConnector.makeGetRequest(ctx,"/controller/lobby/active-public-lobbies", callback);
     }
     public void doShowLoddy(Context ctx) {
         Log.d(TAG, "doShowLoddy: Richiesta al server per le lobby");
 
         showLobbyRequest(ctx, new ServerConnector.CallbackInterface() {
             @Override
-            public void onSuccess(JSONObject jsonResponse) {
+            public void onSuccess(Object response) {
                 try{
+
+                    JSONArray jsonResponse = (JSONArray) response;
                     // Crea un'istanza di LobbyDatabaseHelper e salva i dati
                     LobbyDatabaseHelper dbHelper = new LobbyDatabaseHelper(ctx);
 
                     for(int i = 0; i < jsonResponse.length(); i++){
-                        JSONObject lobbies = jsonResponse.getJSONObject("lobby");
+                        JSONObject lobbies = ((JSONObject)jsonResponse.get(i)).getJSONObject("lobby");
                         int code = lobbies.getInt("code");
                         int creatorID = lobbies.getInt("creatorID");
                         String creationDate = lobbies.getString("creationDate");

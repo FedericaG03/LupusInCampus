@@ -1,14 +1,20 @@
 package com.example.lupusincampus;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.lupusincampus.API.LobbyAPI;
 import com.example.lupusincampus.API.PlayerAPI;
+import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyListActivity;
 import com.example.lupusincampus.SharedActivity;
 
 public class TestActivity extends AppCompatActivity {
@@ -40,7 +46,24 @@ public class TestActivity extends AppCompatActivity {
         Button btnDeleteUser = findViewById(R.id.btnDeleteUser);
         Button btnGetPlayerInfo = findViewById(R.id.btnGetPlayerInfo);
 
-        // Login
+        // Views for Lobby Testing
+        Button btnFetchLobbies = findViewById(R.id.btnFetchLobbies);
+        Button lobbyData = findViewById(R.id.btnShowLobbies);
+
+        LobbyAPI lobbyAPI = new LobbyAPI();
+
+        btnFetchLobbies.setOnClickListener(v -> {
+                    Toast.makeText(this, "Fetching lobbies...", Toast.LENGTH_SHORT).show();
+                    lobbyAPI.doShowLoddy(this);
+        });
+
+        lobbyData.setOnClickListener(v -> {
+            Intent intent = new Intent(this, LobbyListActivity.class);
+            intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        });
+
+            // Login
         btnLogin.setOnClickListener(v -> {
             String email = inputEmail.getText().toString();
             String password = inputPassword.getText().toString();

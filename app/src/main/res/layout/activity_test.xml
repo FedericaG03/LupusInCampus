@@ -101,5 +101,22 @@
             android:text="Ottieni Info Giocatore"
             android:layout_marginBottom="8dp" />
 
+        <!-- Button to Fetch Lobbies -->
+        <Button
+            android:id="@+id/btnFetchLobbies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fetch Active Lobbies"
+            android:layout_marginBottom="8dp" />
+
+        <!-- TextView to display lobby data -->
+        <!-- Button to Fetch Lobbies -->
+        <Button
+            android:id="@+id/btnShowLobbies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show Active Lobbies"
+            android:layout_marginBottom="8dp" />
+
     </LinearLayout>
 </ScrollView>
