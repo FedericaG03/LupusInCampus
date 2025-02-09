@@ -9,12 +9,22 @@ import android.widget.Toast;
 
 import com.example.lupusincampus.Login.LoginActivity;
 import com.example.lupusincampus.MainActivity;
+import com.example.lupusincampus.Model.Game;
+import com.example.lupusincampus.Model.Player;
 import com.example.lupusincampus.ServerConnector;
 import com.example.lupusincampus.SharedActivity;
+import com.fasterxml.jackson.core.JsonParser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import me.pushy.sdk.lib.jackson.databind.ObjectMapper;
 
 
 public class PlayerAPI {
@@ -101,8 +111,6 @@ public class PlayerAPI {
             callback.onServerError(e);
         }
     }
-
-
     /**
      * Questo metodo si occupa di effettuare la richiesta di registrazione al server e di interpretare la risposta
      *
@@ -153,7 +161,6 @@ public class PlayerAPI {
             }
         });
     }
-
     public void doForgotPassword(String email, Context ctx) {
         Log.d(TAG, "Avvio richiesta cambio password per: " + email);
 
@@ -244,8 +251,6 @@ public class PlayerAPI {
 
     }
 
-    //e
-
     public void doChangeName(String nickname, Context ctx){
         Log.d(TAG, "doChangeName: invia richiesta al server");
         changeNameRequest(nickname,ctx, new ServerConnector.CallbackInterface(){
@@ -273,7 +278,6 @@ public class PlayerAPI {
             }
         });
     }
-
     private void changeNameRequest(String nickname,Context ctx, ServerConnector.CallbackInterface callback) {
         try {
             JSONObject jsonBody = new JSONObject();
@@ -315,7 +319,6 @@ public class PlayerAPI {
         });
 
     }
-
     public void deleteRequest(Context ctx, int id, ServerConnector.CallbackInterface callback){
         try {
             JSONObject jsonBody = new JSONObject();
@@ -327,4 +330,104 @@ public class PlayerAPI {
             callback.onServerError(e);
         }
     }
+
+
+    public void requestPlayetAreaInfo(Context ctx, ServerConnector.CallbackInterface callback){serverConnector.makeGetRequest(ctx,"/controller/player-area/my", callback);}
+    public void doGetPlayerAreaInfo(Context context) {
+        requestPlayetAreaInfo(context, new ServerConnector.CallbackInterface() {
+            @Override
+            public void onSuccess(JSONObject jsonResponse) {
+                try {
+                    JSONObject infoplayer = jsonResponse.getJSONObject("player");
+                    JSONArray gamePartecipated = jsonResponse.getJSONArray("GamePartecipated");
+                    JSONArray pendingRequests = jsonResponse.getJSONArray("PendingFriendRequest");
+
+                    List<Game> games = new ArrayList<>();
+                    List<Player> playerList = new ArrayList<>();
+                    ObjectMapper objectMapper = new ObjectMapper();
+
+                    // Parsing della lista delle partite
+                    // Parsing della lista delle partite
+                    for (int i = 0; i < gamePartecipated.length(); i++) {
+                        JSONObject gameJson = gamePartecipated.getJSONObject(i);
+
+                        // Chiamata alla funzione parseGame per ottenere l'oggetto Game
+                        Game game = parseGame(gameJson);
+                        if (game != null) {
+                            games.add(game);
+                            Log.d(TAG, "Game " + i + ": " + game.toString());
+                        }
+                    }
+
+                    /*
+                    // Parsing della lista degli amici
+                    for (int i = 0; i < pendingRequests.length(); i++) {
+                        JSONObject friendJson = pendingRequests.getJSONObject(i);
+                        Player friend = objectMapper.readValue(friendJson.toString().substring(10), Player.class);
+                        playerList.add(friend);
+                        Log.d(TAG, "Friend " + i + ": " + friend.toString());
+                    }*/
+
+                    SharedActivity sharedActivity = SharedActivity.getInstance(context);
+                    sharedActivity.setGameList(games);
+                    sharedActivity.setPlayerList(playerList);
+
+                    Log.d("PlayerAPI", "Salvati " + games.size() + " giochi e " + playerList.size() + " amici in SharedActivity");
+
+                    Log.d(TAG, "onSuccess: infoPlayer: " + infoplayer.toString());
+                    Log.d(TAG, "onSuccess: gamePartecipated: " + gamePartecipated.toString());
+                    Log.d(TAG, "onSuccess: pendingRequests: " + pendingRequests.toString());
+
+                }catch(JSONException  e){
+                    Log.e(TAG, "onSuccess: ", e);
+                }
+            }
+
+            @Override
+            public void onError(String jsonResponse) {
+                Log.d(TAG, "onError: Errore doGetPlayerAreaInfo");
+                Toast.makeText(context,jsonResponse,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onServerError(Exception e) {
+                Log.e(TAG, "onServerError: ");
+                Toast.makeText(context,"Errore nel server", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public Game parseGame(JSONObject gameJson) {
+        try {
+            // Parsing dei dati dalla JSONObject game
+            int id = gameJson.getInt("id");
+            int creatorId = gameJson.getInt("creatorId");
+            int winningPlayerId = gameJson.getInt("winningPlayerId");
+            String gameDate = gameJson.getString("gameDate");
+
+            // Parsing della data come LocalDateTime
+            LocalDateTime localDateTime = LocalDateTime.parse(gameDate);
+
+            // Parsing della lista di partecipanti
+            List<Player> partecipants = new ArrayList<>();
+            JSONArray playersArray = gameJson.getJSONArray("partecipants");
+            for (int j = 0; j < playersArray.length(); j++) {
+                JSONObject playerJson = playersArray.getJSONObject(j);
+                Player player = new Player();  // Crea un oggetto Player vuoto
+                player.setId(playerJson.getInt("id"));
+                player.setNickname(playerJson.getString("nickname"));
+                player.setEmail(gameJson.getString("email"));  // Email
+                player.setPassword(gameJson.getString("password"));  // Password
+                player.setRole(gameJson.getString("role"));  // Ruolo
+                partecipants.add(player);
+            }
+            // Creazione dell'oggetto Game
+            return new Game(id, creatorId, localDateTime, partecipants,winningPlayerId);
+
+        } catch (JSONException e) {
+            Log.e(TAG, "Error parsing game data: " + e.getMessage());
+            return null;  // O gestisci l'errore come necessario
+        }
+    }
+
 }

@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         btnLogin.setOnClickListener(v -> {
+            Log.d(TAG, "onCreate: la fessa tasto cliccato");
             String email = etEmail.getText().toString();
             String password = etPassword.getText().toString();
 

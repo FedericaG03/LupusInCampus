@@ -4,6 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.lupusincampus.Model.Game;
+import com.example.lupusincampus.Model.Player;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import kotlin.jvm.Synchronized;
 
 public class SharedActivity {
@@ -21,6 +27,11 @@ public class SharedActivity {
     private final SharedPreferences sharedPreferences;
     private final SharedPreferences.Editor editor;
 
+    //Liste per amici e partite
+    private List<Player> playerRequestList = new ArrayList<>();
+    private List<Player> playerList = new ArrayList<>();
+    private List<Game> gameList = new ArrayList<>();
+
 
     // Singleton thread-safe con lazy initialization
     public static synchronized SharedActivity getInstance(Context context) {
@@ -30,6 +41,29 @@ public class SharedActivity {
         return instance;
     }
 
+    public List<Player> getPlayerRequestList() {
+        return playerRequestList;
+    }
+
+    public void setPlayerRequestList(List<Player> playerRequestList) {
+        this.playerRequestList = playerRequestList;
+    }
+
+    public List<Player> getPlayerList() {
+        return playerList;
+    }
+
+    public void setPlayerList(List<Player> playerList) {
+        this.playerList = playerList;
+    }
+
+    public List<Game> getGameList() {
+        return gameList;
+    }
+
+    public void setGameList(List<Game> gameList) {
+        this.gameList = gameList;
+    }
 
     private SharedActivity(Context context) {
         this.sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);

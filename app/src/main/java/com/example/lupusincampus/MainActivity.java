@@ -1,6 +1,7 @@
 package com.example.lupusincampus;
 
 import com.example.lupusincampus.Amici.ListaAmiciActivity;
+import com.example.lupusincampus.Amici.ListaRichiesteAmici;
 import com.example.lupusincampus.Login.LoginActivity;
 import com.example.lupusincampus.Play.WordActivity;
 import com.example.lupusincampus.PlayerArea.PlayerAreaActivity;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-
+        PlayerAPI playerAPI = new PlayerAPI();
 
         // Recupere nickname e password salvata
         String nickname = sharedActivity.getNickname();
@@ -60,17 +61,22 @@ public class MainActivity extends AppCompatActivity {
         TextView areaUtenteButton = findViewById(R.id.area_utente_btn);
         TextView logoutButton = findViewById(R.id.logout_btn);
         TextView usernameSidebar = findViewById(R.id.username_sdb);
+        TextView richiesteAmiciziaBtn = findViewById(R.id.richiesta_amicizia_btn);
 
         profileButton.setText(nickname);
         usernameSidebar.setText(nickname);
 
 
         profileButton.setOnClickListener( v->{
+            //request al server per Lista Amici storico partite
+            playerAPI.doGetPlayerAreaInfo(getApplicationContext());
             if(profileButton.getVisibility() == View.VISIBLE){
                 profileButton.setVisibility(View.GONE);
                 sidebar.setVisibility(View.VISIBLE);
             }
+
         });
+
 
         mainLayout.setOnClickListener(v->{
             if(sidebar.getVisibility() == View.VISIBLE){
@@ -99,13 +105,17 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        richiesteAmiciziaBtn.setOnClickListener(v->{
+            Intent intent = new Intent(getApplicationContext(), ListaRichiesteAmici.class);
+            startActivity(intent);
+        });
+
         rulesButton.setOnClickListener(v->{
             Intent intent = new Intent(getApplicationContext(), RuoliActivity.class);
             startActivity(intent);
         });
 
         logoutButton.setOnClickListener(v->{
-            PlayerAPI playerAPI = new PlayerAPI();
             playerAPI.doLogout(getApplicationContext(), sharedActivity);
         });
 

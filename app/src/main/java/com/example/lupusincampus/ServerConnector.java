@@ -15,6 +15,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -159,6 +162,7 @@ public class ServerConnector {
     private ResponseContent parseResponse(String response) {
          int code;
          Object responseObject = null;
+         List<Object> responses = new ArrayList<>();
          try {
              JSONObject messagesresponse = new JSONObject(response);
              messagesresponse = messagesresponse.getJSONObject("MessagesResponse");
@@ -171,10 +175,23 @@ public class ServerConnector {
              String messageInfo = succesmessage.getString("message");
              code = succesmessage.getInt("code");
 
-             if (code > 0) {
-                 responseObject = (JSONObject) message.get(1);
-             } else if (code < 0) {
-                 responseObject = messageInfo;
+             try {
+                 if (code > 0) {
+                     responseObject = (JSONObject) message.get(1);
+                 } else {
+                     responseObject = messageInfo;
+                 }
+             } catch (ClassCastException | JSONException ex){
+                 JSONArray multipleResponses = (JSONArray) message.get(1);
+                 JSONObject mergedIbj = new JSONObject();
+                 for (int i = 0; i < multipleResponses.length(); i++){
+                     JSONObject tmp = multipleResponses.getJSONObject(i);
+                     for (Iterator<String> it = tmp.keys(); it.hasNext(); ) {
+                         String key = it.next();
+                         mergedIbj.put(key, tmp.get(key));
+                     }
+                 }
+                 responseObject = mergedIbj;
              }
          }catch (Exception ex) {
              Log.e(TAG, "parseResponse: Impossibile eseguire l'unmarshal della risposta: ", ex);

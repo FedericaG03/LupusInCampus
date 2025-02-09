@@ -50,7 +50,7 @@
         
         <b>Condizioni di Vittoria</b>\nI lupi vincono se il numero di lupi è uguale o superiore a quello dei cittadini.\nIl villaggio vince se tutti i lupi sono stati eliminati.
 </string>
-
+    <string name="richiesta_amicizia">Richieste di amicizia</string>
 
 
 </resources>
