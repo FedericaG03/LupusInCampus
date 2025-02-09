@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Test delle API"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Input Email -->
+        <EditText
+            android:id="@+id/inputEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:layout_marginBottom="8dp"
+            android:inputType="textEmailAddress" />
+
+        <!-- Input Password -->
+        <EditText
+            android:id="@+id/inputPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:layout_marginBottom="8dp"
+            android:inputType="textPassword" />
+
+        <!-- Input Nickname -->
+        <EditText
+            android:id="@+id/inputNickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nickname"
+            android:layout_marginBottom="8dp"
+            android:inputType="text" />
+
+        <!-- Pulsante Login -->
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Effettua Login"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Pulsante Registrazione -->
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Effettua Registrazione"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Pulsante Recupera Password -->
+        <Button
+            android:id="@+id/btnRecoverPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Recupera Password"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Pulsante Logout -->
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Effettua Logout"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Pulsante Cambia Nome -->
+        <Button
+            android:id="@+id/btnChangeName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cambia Nickname"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Pulsante Cancella Utente -->
+        <Button
+            android:id="@+id/btnDeleteUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cancella Utente"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Pulsante Ottieni Info -->
+        <Button
+            android:id="@+id/btnGetPlayerInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ottieni Info Giocatore"
+            android:layout_marginBottom="8dp" />
+
+    </LinearLayout>
+</ScrollView>
