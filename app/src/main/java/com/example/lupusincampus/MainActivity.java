@@ -1,17 +1,17 @@
 package com.example.lupusincampus;
 
-import com.example.lupusincampus.Login.LoginActivity;
 import com.example.lupusincampus.Amici.ListaAmiciActivity;
+import com.example.lupusincampus.Login.LoginActivity;
 import com.example.lupusincampus.Play.WordActivity;
+import com.example.lupusincampus.PlayerArea.PlayerAreaActivity;
 import com.example.lupusincampus.Regole.RuoliActivity;
-import com.example.lupusincampus.Server.PlayerAPI;
+import com.example.lupusincampus.API.PlayerAPI;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
         // Recupere nickname e password salvata
         String nickname = sharedActivity.getNickname();
         String mail = sharedActivity.getEmail();
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         TextView settingsButton = findViewById(R.id.setting_btn);
         TextView exitButton = findViewById(R.id.exit_btn);
         TextView friendsListButton = findViewById(R.id.lista_amici_btn);
+        TextView areaUtenteButton = findViewById(R.id.area_utente_btn);
         TextView logoutButton = findViewById(R.id.logout_btn);
         TextView usernameSidebar = findViewById(R.id.username_sdb);
 
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         exitButton.setOnClickListener(v->{
-            new AlertDialog.Builder(MainActivity.this)
+            new AlertDialog.Builder(getApplicationContext())
                     .setTitle("Conferma uscita")
                     .setMessage("Sei sicuro di voler uscire dall'app?")
                     .setPositiveButton("Sì", (dialog, which) -> finish())
@@ -93,12 +95,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         friendsListButton.setOnClickListener(v->{
-            Intent intent = new Intent(this, ListaAmiciActivity.class);
+            Intent intent = new Intent(getApplicationContext(), ListaAmiciActivity.class);
             startActivity(intent);
         });
 
         rulesButton.setOnClickListener(v->{
-            Intent intent = new Intent(this, RuoliActivity.class);
+            Intent intent = new Intent(getApplicationContext(), RuoliActivity.class);
             startActivity(intent);
         });
 
@@ -106,5 +108,21 @@ public class MainActivity extends AppCompatActivity {
             PlayerAPI playerAPI = new PlayerAPI();
             playerAPI.doLogout(getApplicationContext(), sharedActivity);
         });
+
+        areaUtenteButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), PlayerAreaActivity.class);
+            startActivity(intent);
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TextView usernameSidebar = findViewById(R.id.username_sdb);
+        TextView profileButton = findViewById(R.id.profile_btn);
+
+        profileButton.setText(SharedActivity.getInstance(getApplicationContext()).getNickname());
+        usernameSidebar.setText(SharedActivity.getInstance(getApplicationContext()).getNickname());
     }
 }

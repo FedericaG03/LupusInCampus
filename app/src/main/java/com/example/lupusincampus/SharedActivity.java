@@ -15,6 +15,7 @@ public class SharedActivity {
     private static final String TOKEN = "token";
     private static final String SESSION_ID = "sessionId";
     private static final String PUSHY_TOKEN = "pushy_token";
+    private static final String ID = "id";
 
     private static SharedActivity instance;
     private final SharedPreferences sharedPreferences;
@@ -35,6 +36,13 @@ public class SharedActivity {
         this.editor = sharedPreferences.edit();
     }
 
+    public synchronized void setId(int id) {
+        editor.putInt(ID, id).apply();
+    }
+
+    public synchronized int getId() {
+       return sharedPreferences.getInt(ID,-1);
+    }
 
     // Imposta se l'utente è loggato
     public synchronized void setLoggedIn(boolean isLoggedIn) {

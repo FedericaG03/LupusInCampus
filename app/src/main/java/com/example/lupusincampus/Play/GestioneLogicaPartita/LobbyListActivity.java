@@ -4,18 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.ServerConnector;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
 
 public class LobbyListActivity extends AppCompatActivity {
 

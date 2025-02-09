@@ -1,5 +1,6 @@
 package com.example.lupusincampus.Login;
 
+
 import static com.example.lupusincampus.Login.SHA256.hashSHA256;
 
 import android.content.Intent;
@@ -9,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.lupusincampus.Server.PlayerAPI;
+import com.example.lupusincampus.API.PlayerAPI;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.lupusincampus.MainActivity;
 import com.example.lupusincampus.R;

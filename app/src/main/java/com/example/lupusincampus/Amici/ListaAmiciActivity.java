@@ -1,16 +1,10 @@
 package com.example.lupusincampus.Amici;
 
-import android.content.Intent;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 /*
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -18,16 +12,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 */
-import com.example.lupusincampus.Model.Player;
 import com.example.lupusincampus.R;
-import com.example.lupusincampus.ServerConnector;
-import com.example.lupusincampus.SharedActivity;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.List;
 
 public class ListaAmiciActivity extends AppCompatActivity {
     @Override

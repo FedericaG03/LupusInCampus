@@ -1,6 +1,5 @@
 package com.example.lupusincampus.Login;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,13 +9,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lupusincampus.R;
-import com.example.lupusincampus.ServerConnector;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
-
-import java.io.IOException;
 
 public class ResetPasswordActivity extends AppCompatActivity {
     private EditText etNewPwd;

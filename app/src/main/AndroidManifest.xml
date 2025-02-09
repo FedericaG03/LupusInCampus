@@ -48,7 +48,7 @@
             android:screenOrientation="sensorLandscape"/>
         <activity android:name=".Login.RegisterActivity"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="sensorLandscape"/>
 
         <!-- Attività di Gioco -->
         <activity android:name=".Play.WordActivity"
@@ -67,6 +67,12 @@
         <activity android:name=".Regole.RegoleActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape"/>
+
+        <!--Area Utente-->
+        <activity android:name=".PlayerArea.PlayerAreaActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"/>
+
     </application>
 
 </manifest>

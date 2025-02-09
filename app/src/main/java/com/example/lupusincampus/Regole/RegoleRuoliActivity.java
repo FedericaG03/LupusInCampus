@@ -7,18 +7,14 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.lupusincampus.Amici.ListaAmiciActivity;
-import com.example.lupusincampus.Login.LoginActivity;
 import com.example.lupusincampus.Play.LocalActivity;
 import com.example.lupusincampus.R;
-import com.example.lupusincampus.Server.PlayerAPI;
-import com.example.lupusincampus.ServerConnector;
+import com.example.lupusincampus.API.PlayerAPI;
 import com.example.lupusincampus.SharedActivity;
 
 public class RegoleRuoliActivity extends AppCompatActivity {

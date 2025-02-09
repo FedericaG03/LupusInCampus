@@ -2,7 +2,6 @@ package com.example.lupusincampus.Login;
 
 import static com.example.lupusincampus.Login.SHA256.hashSHA256;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.lupusincampus.R;
-import com.example.lupusincampus.Server.PlayerAPI;
+import com.example.lupusincampus.API.PlayerAPI;
 import com.example.lupusincampus.SharedActivity;
 
 import me.pushy.sdk.Pushy;

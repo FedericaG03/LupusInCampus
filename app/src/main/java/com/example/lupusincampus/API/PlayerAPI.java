@@ -1,4 +1,4 @@
-package com.example.lupusincampus.Server;
+package com.example.lupusincampus.API;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
@@ -12,6 +12,7 @@ import com.example.lupusincampus.MainActivity;
 import com.example.lupusincampus.ServerConnector;
 import com.example.lupusincampus.SharedActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,7 +21,6 @@ public class PlayerAPI {
     private static ServerConnector serverConnector = new ServerConnector();
     private static final String TAG = "PlayerAPI";
     private static boolean FLAG = false;
-
 
     /**
      * Questo metodo si occupa di effettuare la richiesta di login al server e di interpretare la risposta
@@ -48,8 +48,10 @@ public class PlayerAPI {
                     // Solo in caso di LOGIN_SUCCESS confrontiamo la password
                     if (hashPass.equals(storedHash)) {
                         sharedActivity.setEmail(infoPlayer.getString("email")); // Salva email
-                        Log.i(TAG, "onSuccess: Imposto logged a true");
+                        sharedActivity.setNickname(infoPlayer.getString("nickname"));
+                        Log.d(TAG, "onSuccess: nickname is:" + sharedActivity.getNickname());
                         sharedActivity.setLoggedIn(true);
+                        sharedActivity.setId(Integer.parseInt(infoPlayer.getString("id")));
                         FLAG = true;
                         Log.d(TAG, "Login riuscito per: " + email);
                         Intent intent = new Intent(ctx, MainActivity.class);
@@ -123,9 +125,10 @@ public class PlayerAPI {
                     // Secondo oggetto JSON con informazioni sul player
                     infoPlayer = infoPlayer.getJSONObject("player");
 
-                    Log.i(TAG, "onSuccess: Imposto logged a true");
+                    Log.i(TAG, "onSuccess: Imposto logged a true" + infoPlayer.getString("nickname"));
                     sharedActivity.setEmail(infoPlayer.getString("email")); // Salva email
                     sharedActivity.setNickname(infoPlayer.getString("nickname")); // Salva nick
+                    sharedActivity.setId(Integer.parseInt(infoPlayer.getString("id")));
                     sharedActivity.setLoggedIn(true);
 
                     Intent intent = new Intent(ctx, MainActivity.class);
@@ -176,7 +179,6 @@ public class PlayerAPI {
             }
         });
     }
-
     /**
      * Richiesta di registrazione
      *
@@ -198,7 +200,6 @@ public class PlayerAPI {
             callback.onServerError(e);
         }
     }
-
     /**
      * Recupero password, (invio mail al server)
      */
@@ -213,18 +214,19 @@ public class PlayerAPI {
         }
     }
 
-    public void registerRequest(Context ctx, ServerConnector.CallbackInterface callback) {
-        serverConnector.makeGetRequest(ctx, "/controller/player/logout", callback);
-    }
-
+    public void logoutRequest(Context ctx, ServerConnector.CallbackInterface callback) {serverConnector.makeGetRequest(ctx, "/controller/player/logout", callback);}
     public void doLogout(Context ctx, SharedActivity sharedActivity) {
         Log.d(TAG, "Avvio richiesta di logout");
 
-        registerRequest(ctx, new ServerConnector.CallbackInterface() {
+        logoutRequest(ctx, new ServerConnector.CallbackInterface() {
             @Override
             public void onSuccess(JSONObject jsonResponse) {
-                Log.d("MainActivity", "Effettuato logout con successo");
+                Log.d(TAG, "Effettuato logout con successo");
                 Toast.makeText(ctx, "Effettuato logout con successo!", Toast.LENGTH_SHORT).show();
+                sharedActivity.setLoggedIn(false);
+                Intent intent = new Intent(ctx, LoginActivity.class);
+                intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                ctx.startActivity(intent);
             }
 
             @Override
@@ -237,12 +239,92 @@ public class PlayerAPI {
             public void onServerError(Exception e) {
                 Log.d(TAG, "onError: Impossibile effettuare logout! Problema del serve");
                 Toast.makeText(ctx, "Errore nel server impossibile effettuare logout!", Toast.LENGTH_LONG).show();
-                sharedActivity.setLoggedIn(false);
+            }
+        });
+
+    }
+
+    //e
+
+    public void doChangeName(String nickname, Context ctx){
+        Log.d(TAG, "doChangeName: invia richiesta al server");
+        changeNameRequest(nickname,ctx, new ServerConnector.CallbackInterface(){
+
+            @Override
+            public void onSuccess(JSONObject jsonResponse) {
+                try {
+                    JSONObject infoPlayer = jsonResponse.getJSONObject("player");
+                    Log.d(TAG, "onSuccess: nickname cambiato in: " + infoPlayer.getString("nickname"));
+                    SharedActivity.getInstance(ctx).setNickname(infoPlayer.getString("nickname"));
+                    Toast.makeText(ctx, "Nickname aggiornato in:" + infoPlayer.getString("nickname"), Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            @Override
+            public void onError(String jsonResponse) {
+                Toast.makeText(ctx, jsonResponse, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onServerError(Exception e) {
+                Toast.makeText(ctx,"Errore nella risposta dal server!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void changeNameRequest(String nickname,Context ctx, ServerConnector.CallbackInterface callback) {
+        try {
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("newNickname", nickname);
+
+            serverConnector.makePostRequest(ctx, "/controller/player-area/edit-player-data", jsonBody, callback);
+        } catch (JSONException e) {
+            Log.e("ERRORE JSON", e.toString());
+            callback.onServerError(e);
+        }
+    }
+
+    public void doDelete(int id, Context ctx){
+        Log.d(TAG, "doDelete: Cancellazione account");
+
+        deleteRequest(ctx, id, new ServerConnector.CallbackInterface(){
+
+            @Override
+            public void onSuccess(JSONObject jsonResponse) {
+                Log.d(TAG, "Cancellazione utente");
+                Toast.makeText(ctx, "Utente cancellato!", Toast.LENGTH_SHORT).show();
+                SharedActivity.getInstance(ctx).setLoggedIn(false);
                 Intent intent = new Intent(ctx, LoginActivity.class);
                 intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
                 ctx.startActivity(intent);
             }
+
+            @Override
+            public void onError(String jsonResponse) {
+                Log.d(TAG, "Errore ancellazione utente ");
+                Toast.makeText(ctx, "Utente non cancellato!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onServerError(Exception e) {
+                Log.d(TAG, "onError: Impossibile cancellare l'utente! Problema del serve");
+                Toast.makeText(ctx, "Errore nel server impossibile cancellare l'account!", Toast.LENGTH_LONG).show();
+            }
         });
 
+    }
+
+    public void deleteRequest(Context ctx, int id, ServerConnector.CallbackInterface callback){
+        try {
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("id", id);
+
+            serverConnector.makePostRequest(ctx, "/controller/player/delete", jsonBody, callback);
+        } catch (JSONException e) {
+            Log.e("ERRORE JSON", e.toString());
+            callback.onServerError(e);
+        }
     }
 }

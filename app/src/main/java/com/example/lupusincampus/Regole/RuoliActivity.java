@@ -2,10 +2,8 @@ package com.example.lupusincampus.Regole;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,12 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lupusincampus.Amici.ListaAmiciActivity;
-import com.example.lupusincampus.Login.LoginActivity;
-import com.example.lupusincampus.Model.Ruolo;
 import com.example.lupusincampus.R;
-import com.example.lupusincampus.Server.PlayerAPI;
-import com.example.lupusincampus.ServerConnector;
+import com.example.lupusincampus.API.PlayerAPI;
 import com.example.lupusincampus.SharedActivity;
+import com.example.lupusincampus.Model.Ruolo;
 
 import java.util.ArrayList;
 import java.util.List;

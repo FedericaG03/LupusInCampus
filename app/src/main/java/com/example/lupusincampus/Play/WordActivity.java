@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -13,12 +12,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyListActivity;
 import com.example.lupusincampus.ServerConnector;
 
-import org.json.JSONObject;
-
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.SharedActivity;
-
-import java.io.IOException;
 
 public class WordActivity extends AppCompatActivity {
 

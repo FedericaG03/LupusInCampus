@@ -9,13 +9,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.lupusincampus.Model.Ruolo;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.ServerConnector;
 import com.example.lupusincampus.SharedActivity;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;

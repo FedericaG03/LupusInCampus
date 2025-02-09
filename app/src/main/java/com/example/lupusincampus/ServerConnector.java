@@ -100,7 +100,7 @@ public class ServerConnector {
      * @param callback Callback da chiamare quando arriva la risposta
      * @return Il json che il server restituisce
      */
-     public void makePostRequest(Context ctx, String endpoint, JSONObject jsonBody, CallbackInterface callback) {
+    public void makePostRequest(Context ctx, String endpoint, JSONObject jsonBody, CallbackInterface callback) {
         executor.execute(() -> {
             HttpURLConnection connection = null;
             try {

@@ -9,7 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lupusincampus.R;
-import com.example.lupusincampus.Server.PlayerAPI;
+import com.example.lupusincampus.API.PlayerAPI;
 
 
 public class ForgotPasswordActivity extends AppCompatActivity {
