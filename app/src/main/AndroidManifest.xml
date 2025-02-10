@@ -95,10 +95,18 @@
         <activity android:name="com.example.lupusincampus.PlayerArea.PlayerAreaActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape"/>
+
         <activity android:name="com.example.lupusincampus.PlayerArea.HistoryGames"
             android:exported="false"
             android:screenOrientation="sensorLandscape"/>
 
+        <activity android:name=".Play.GestioneLogicaPartita.LobbyActivityWait"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"/>
+
+        <activity android:name=".Settings.SettingsActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"/>
     </application>
 
 </manifest>

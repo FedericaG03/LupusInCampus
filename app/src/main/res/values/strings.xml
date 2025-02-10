@@ -12,7 +12,7 @@
     <string name="back_btn_txt">INDIETRO</string>
     <string name="username_lista_amici" translatable="false">UserName</string>
     <string name="aggiungi_amico_btn_txt">AGGIUNGI AMICO</string>
-    <string name="Login" translatable="false">LOGIN</string>
+    <string name="Login">LOGIN</string>
     <string name="action_sign_in">Entra o registrati</string>
     <string name="action_sign_in_short">Entra </string>
     <string name="welcome">"Benvenuto!"</string>
@@ -33,14 +33,14 @@
     <string name="Nuova_password">Reimposta password</string>
     <string name="nickname" translatable="false">Nickname</string>
     <string name="email" translatable="false">Email</string>
-    <string name="logout_btn_text" translatable="false">LOGOUT</string>
+    <string name="logout_btn_text">LOGOUT</string>
     <string name="regole_label_txt">REGOLE</string>
     <string name="ruoli_label_txt">RUOLI</string>
     <string name="inizia_partita">inizia partita</string>
     <string name="esci_dalla_lobby">ESCI DALLA LOBBY</string>
     <string name="invita_amici">invita amici</string>
     <string name="in_attesa_che_entrino_tutti_i_giocatori">In attesa che entrino tutti i giocatori…</string>
-    <string name="Regole" translatable="false">
+    <string name="Regole">
         <b>Obiettivo del Gioco</b>\nI giocatori sono divisi in due fazioni: lupi mannari e villaggio.\nI lupi devono eliminare tutti i cittadini senza farsi scoprire.\nIl villaggio deve individuare ed eliminare i lupi prima che sia troppo tardi.\n\n
         <b>Preparazione</b>\nOgni giocatore si connette alla partita.\nL’app assegna automaticamente un ruolo segreto a ciascun partecipante.\nIl gioco si svolge alternando notte e giorno.\n\n
         
@@ -51,6 +51,8 @@
         <b>Condizioni di Vittoria</b>\nI lupi vincono se il numero di lupi è uguale o superiore a quello dei cittadini.\nIl villaggio vince se tutti i lupi sono stati eliminati.
 </string>
     <string name="richiesta_amicizia">Richieste di amicizia</string>
-
+    <string name="Effetti_setting_txt">Effetti</string>
+    <string name="musica_setting_txt">Musica</string>
+    <string name="lingua_setting_txt">Lingua</string>
 
 </resources>

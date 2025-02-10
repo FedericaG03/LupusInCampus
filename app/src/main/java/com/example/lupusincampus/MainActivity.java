@@ -5,10 +5,13 @@ import com.example.lupusincampus.Amici.ListaRichiesteAmici;
 import com.example.lupusincampus.Login.LoginActivity;
 import com.example.lupusincampus.Play.WordActivity;
 import com.example.lupusincampus.PlayerArea.PlayerAreaActivity;
-import com.example.lupusincampus.Regole.RuoliActivity;
 import com.example.lupusincampus.API.PlayerAPI;
+import com.example.lupusincampus.Regole.RegoleRuoliActivity;
+import com.example.lupusincampus.Settings.SettingsActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,15 +21,16 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends BaseActivity {
     private SharedActivity sharedActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
         CookieHelper.init();
 
         sharedActivity = SharedActivity.getInstance(this);
@@ -92,10 +96,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         exitButton.setOnClickListener(v->{
-            new AlertDialog.Builder(getApplicationContext())
+            new AlertDialog.Builder(this)
                     .setTitle("Conferma uscita")
                     .setMessage("Sei sicuro di voler uscire dall'app?")
-                    .setPositiveButton("Sì", (dialog, which) -> finish())
+                    .setPositiveButton("Sì", (dialog, which) ->{finishAffinity();System.exit(0);})
                     .setNegativeButton("No", null)
                     .show();
         });
@@ -111,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         rulesButton.setOnClickListener(v->{
-            Intent intent = new Intent(getApplicationContext(), RuoliActivity.class);
+            Intent intent = new Intent(getApplicationContext(), RegoleRuoliActivity.class);
             startActivity(intent);
         });
 
@@ -121,6 +125,11 @@ public class MainActivity extends AppCompatActivity {
 
         areaUtenteButton.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), PlayerAreaActivity.class);
+            startActivity(intent);
+        });
+
+        settingsButton.setOnClickListener(v->{
+            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
             startActivity(intent);
         });
 
@@ -135,4 +144,5 @@ public class MainActivity extends AppCompatActivity {
         profileButton.setText(SharedActivity.getInstance(getApplicationContext()).getNickname());
         usernameSidebar.setText(SharedActivity.getInstance(getApplicationContext()).getNickname());
     }
+
 }

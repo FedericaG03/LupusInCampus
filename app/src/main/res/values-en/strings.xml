@@ -1,38 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="exit_btn_txt">EXIT</string>
+    <string name="exit_btn_txt">YOU GO OUT</string>
     <string name="setting_btn_txt">SETTINGS</string>
-    <string name="rules_btn_txt">GAME RULE</string>
+    <string name="rules_btn_txt">RULES OF THE GAME</string>
     <string name="play_btn_text">PLAY</string>
     <string name="icona_profilo_desc_txt">profile_icon_desc</string>
     <string name="area_utente_btn_txt">User Area</string>
-    <string name="lista_amici_btn_txt">Friends</string>
-    <string name="lista_inviti_btn_txt">Invites</string>
-    <string name="back_btn_txt">BACK</string>
+    <string name="lista_amici_btn_txt">Friends List</string>
+    <string name="lista_inviti_btn_txt">Invitation List</string>
+    <string name="back_btn_txt">BACKWARDS</string>
     <string name="aggiungi_amico_btn_txt">ADD FRIEND</string>
     <string name="Login">LOGIN</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome!"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be longer then 5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="password_dimenticata">Forgotten password?</string>
+    <string name="action_sign_in">Log in or register</string>
+    <string name="action_sign_in_short">Enter </string>
+    <string name="welcome">&amp;quot;Welcome!&amp;quot;</string>
+    <string name="invalid_username">Invalid username</string>
+    <string name="invalid_password">Password must contain more than 5 characters</string>
+    <string name="login_failed">&amp;quot;Login failed&amp;quot;</string>
+    <string name="password_dimenticata">Forgot your password?</string>
     <string name="registrati">Register</string>
-     <string name="mondo">Word</string>
-    <string name="crea_partita">Create game</string>
-    <string name="Mostralobby">Show lobby</string>
-    <string name="indietro">Back</string>
-    <string name="inserire_nuova_password">Insert new password</string>
+    <string name="mondo">WORLD</string>
+    <string name="crea_partita">CREATE GAME</string>
+    <string name="Mostralobby">LOBBY SHOW</string>
+    <string name="indietro">BACKWARDS</string>
+    <string name="inserire_nuova_password">Enter new password</string>
     <string name="conferma_nuova_password">Confirm new password</string>
     <string name="resetta_password">Reset Password</string>
     <string name="Nuova_password">Reset password</string>
+    <string name="logout_btn_text">LOGOUT</string>
     <string name="regole_label_txt">RULES</string>
     <string name="ruoli_label_txt">ROLES</string>
-    <string name="in_attesa_che_entrino_tutti_i_giocatori">In attesa che entrino tutti i giocatori...</string>
-    <string name="invita_amici">INVITA AMICI</string>
-    <string name="inizia_partita">start game</string>
-    <string name="esci_dalla_lobby">LEAVE LOBBY</string>
-
+    <string name="inizia_partita">game starts</string>
+    <string name="esci_dalla_lobby">EXIT THE LOBBY</string>
+    <string name="invita_amici">invite friends</string>
+    <string name="in_attesa_che_entrino_tutti_i_giocatori">Waiting for all the players to enter…</string>
+    <string name="Regole">
+        <b>Obiettivo del Gioco</b>\nI giocatori sono divisi in due fazioni: lupi mannari e villaggio.\nI lupi devono eliminare tutti i cittadini senza farsi scoprire.\nIl villaggio deve individuare ed eliminare i lupi prima che sia troppo tardi.\n\n
+        <b>Preparazione</b>\nOgni giocatore si connette alla partita.\nL’app assegna automaticamente un ruolo segreto a ciascun partecipante.\nIl gioco si svolge alternando notte e giorno.\n\n
+        
+        <b>Fase Notturna</b>\nTutti i giocatori entrano nella modalità notte e non possono comunicare.\nI lupi mannari vedono i loro compagni e votano segretamente un giocatore da eliminare.\nLe figure speciali (come Veggente o Protettore)potranno usare la loro abilità.\nLa notte termina e inizia il giorno.\n\n
+        
+        <b>Fase Diurna</b>\nIl narratore annuncia chi è stato eliminato durante la notte.\nI giocatori discutono su chi possa essere un lupo.\nSi avvia una fase di votazione: ogni giocatore vota un sospettato.\nIl giocatore più votato viene eliminato e il suo ruolo viene rivelato.\nSe la partita non è ancora finita, inizia una nuova notte.\n\n
+        
+        <b>Condizioni di Vittoria</b>\nI lupi vincono se il numero di lupi è uguale o superiore a quello dei cittadini.\nIl villaggio vince se tutti i lupi sono stati eliminati.
+</string>
+    <string name="richiesta_amicizia">Friend requests</string>
+    <string name="Effetti_setting_txt">Effects</string>
+    <string name="musica_setting_txt">Music</string>
+    <string name="lingua_setting_txt">Tongue</string>
 
 </resources>

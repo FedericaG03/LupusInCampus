@@ -9,13 +9,16 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.lupusincampus.BaseActivity;
+import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyActivityWait;
 import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyListActivity;
 import com.example.lupusincampus.ServerConnector;
 
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.SharedActivity;
+import com.example.lupusincampus.databinding.LobbyWaitingBinding;
 
-public class WordActivity extends AppCompatActivity {
+public class WordActivity extends BaseActivity {
 
 
     private static final String TAG = "WordActivity";
@@ -33,6 +36,7 @@ public class WordActivity extends AppCompatActivity {
         String nickname = sharedActivity.getNickname();
         ConstraintLayout sidebar = findViewById(R.id.profile_sidebar);
         TextView profileButton = findViewById(R.id.profile_btn);
+        TextView bckButton = findViewById(R.id.back_btn);
         profileButton.setText(nickname);
         //Bottoni gioco mostra lobby
         btnShowLobby = findViewById(R.id.btnShowLobby);
@@ -50,7 +54,7 @@ public class WordActivity extends AppCompatActivity {
 
         btnCreateGame.setOnClickListener(view -> {
             //TODO: CREARE LA CLASSE CHE TI CREARE UNA LOBBY ( ANCHE L'XML)
-            Intent intent = new Intent();
+            Intent intent = new Intent(this, LobbyActivityWait.class);
             startActivity(intent);
             Log.d(TAG, "onCreate: vado al lobbyActivity");
         });
@@ -64,7 +68,6 @@ public class WordActivity extends AppCompatActivity {
         });
 
         inviteNotification = findViewById(R.id.inviteNotification);
-        bckButton = findViewById(R.id.back_btn);
         // Recupera il numero di inviti dal server
         fetchInvitesFromServer();
 

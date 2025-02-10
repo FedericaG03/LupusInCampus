@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="exit_btn_txt">Du gehst</string>
+    <string name="setting_btn_txt">PARAMETER</string>
+    <string name="rules_btn_txt">SPIELREGELN</string>
+    <string name="play_btn_text">SPIELER</string>
+    <string name="icona_profilo_desc_txt">Profilsymbol_Beschreibung</string>
+    <string name="area_utente_btn_txt">Benutzerbereich</string>
+    <string name="lista_amici_btn_txt">Listen mit Freunden</string>
+    <string name="lista_inviti_btn_txt">Gästelisten</string>
+    <string name="back_btn_txt">ZURÜCK</string>
+    <string name="aggiungi_amico_btn_txt">WERDEN SIE TEIL EINES FREUNDES</string>
+    <string name="Login">ES VERBINDET</string>
+    <string name="action_sign_in">Verbinden oder registrieren</string>
+    <string name="action_sign_in_short">Zur Eingabe </string>
+    <string name="welcome">&amp;quot;Willkommen!&amp;quot;</string>
+    <string name="invalid_username">Ungültiger Benutzername</string>
+    <string name="invalid_password">Das Passwort muss mehr als 5 Zeichen enthalten.</string>
+    <string name="login_failed">„Die Verbindung wurde unterbrochen“</string>
+    <string name="password_dimenticata">Gegenzeichen vergessen?</string>
+    <string name="registrati">Registrieren</string>
+    <string name="mondo">WELT</string>
+    <string name="crea_partita">ERSTELLE EIN SPIEL</string>
+    <string name="Mostralobby">IN DER LOBBY ANSEHEN</string>
+    <string name="indietro">ZURÜCK</string>
+    <string name="inserire_nuova_password">Ein neues Gegenzeichen einführen</string>
+    <string name="conferma_nuova_password">Bestätigen Sie die neue Signatur</string>
+    <string name="resetta_password">Wiederherstellen der Signatur</string>
+    <string name="Nuova_password">Wiederherstellen der Signatur</string>
+    <string name="logout_btn_text">TRENNUNG</string>
+    <string name="regole_label_txt">NORMEN</string>
+    <string name="ruoli_label_txt">ROLLEN</string>
+    <string name="inizia_partita">Das Spiel beginnt</string>
+    <string name="esci_dalla_lobby">AUSSERHALB DES VORHAUSES</string>
+    <string name="invita_amici">Freunde einladen</string>
+    <string name="in_attesa_che_entrino_tutti_i_giocatori">Wir hoffen, dass alle Spieler mitmachen …</string>
+    <string name="Regole">
+        <b>Obiettivo del Gioco</b>\nI giocatori sono divisi in due fazioni: lupi mannari e villaggio.\nI lupi devono eliminare tutti i cittadini senza farsi scoprire.\nIl villaggio deve individuare ed eliminare i lupi prima che sia troppo tardi.\n\n
+        <b>Preparazione</b>\nOgni giocatore si connette alla partita.\nL’app assegna automaticamente un ruolo segreto a ciascun partecipante.\nIl gioco si svolge alternando notte e giorno.\n\n
+        
+        <b>Fase Notturna</b>\nTutti i giocatori entrano nella modalità notte e non possono comunicare.\nI lupi mannari vedono i loro compagni e votano segretamente un giocatore da eliminare.\nLe figure speciali (come Veggente o Protettore)potranno usare la loro abilità.\nLa notte termina e inizia il giorno.\n\n
+        
+        <b>Fase Diurna</b>\nIl narratore annuncia chi è stato eliminato durante la notte.\nI giocatori discutono su chi possa essere un lupo.\nSi avvia una fase di votazione: ogni giocatore vota un sospettato.\nIl giocatore più votato viene eliminato e il suo ruolo viene rivelato.\nSe la partita non è ancora finita, inizia una nuova notte.\n\n
+        
+        <b>Condizioni di Vittoria</b>\nI lupi vincono se il numero di lupi è uguale o superiore a quello dei cittadini.\nIl villaggio vince se tutti i lupi sono stati eliminati.
+</string>
+    <string name="richiesta_amicizia">Petitionen von Freunden</string>
+    <string name="Effetti_setting_txt">Auswirkungen</string>
+    <string name="musica_setting_txt">Musik</string>
+    <string name="lingua_setting_txt">Idiom</string>
+
+</resources>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/Theme.Material3.DayNight.NoActionBar"
+    android:id="@+id/setting_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sfondo">
+
+    <include android:id="@+id/profile_sidebar_settings"
+        layout="@layout/profile_sidebar"/>
+
+    <include android:id="@+id/profile_icon_settings"
+        layout="@layout/profile_icon_layout"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lista_regole"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.75"
+        app:layout_constraintHeight_percent="0.58"
+        android:layout_marginTop="80dp"
+        android:layout_marginHorizontal="40dp"
+        android:paddingHorizontal="50dp"
+        android:paddingVertical="20dp"
+        android:background="@drawable/white_border_grey_bg"
+        android:columnCount="3"
+        android:rowCount="6"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Selettore Lingua -->
+        <LinearLayout
+            android:id="@+id/layout_lingua"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/layout_musica"
+            app:layout_constraintVertical_chainStyle="spread">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lingua_setting_txt"
+                android:textSize="18sp"
+                android:textColor="@color/panna"
+                android:layout_marginEnd="16dp" />
+
+            <Spinner
+                android:id="@+id/spinner_lingua"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:background="@color/panna" />
+
+        </LinearLayout>
+
+        <!-- Slider Volume Musica -->
+        <LinearLayout
+            android:id="@+id/layout_musica"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/layout_lingua"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/layout_effetti"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/musica_setting_txt"
+                android:textSize="18sp"
+                android:textColor="@color/panna"
+                android:layout_marginEnd="16dp" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slider_musica"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:valueFrom="0"
+                android:valueTo="100"
+                android:value="100"
+                app:trackColor="@color/panna"
+                app:thumbColor="@android:color/black"/>
+
+
+        </LinearLayout>
+
+        <!-- Slider Volume Effetti Sonori -->
+        <LinearLayout
+            android:id="@+id/layout_effetti"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/layout_musica"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Effetti_setting_txt"
+                android:textSize="18sp"
+                android:textColor="@color/panna"
+                android:layout_marginEnd="16dp" />
+
+            <com.google.android.material.slider.Slider
+            android:id="@+id/slider_effetti"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:valueFrom="0"
+            android:valueTo="100"
+            android:value="100"
+            app:trackColor="@color/panna"
+            app:thumbColor="@android:color/black"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include android:id="@+id/back_btn_setting"
+        layout="@layout/back_btn_layout"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

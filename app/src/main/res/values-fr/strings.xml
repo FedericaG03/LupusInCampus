@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="exit_btn_txt">TU SORTIS</string>
+    <string name="setting_btn_txt">PARAMÈTRES</string>
+    <string name="rules_btn_txt">RÈGLES DU JEU</string>
+    <string name="play_btn_text">JOUER</string>
+    <string name="icona_profilo_desc_txt">profile_icon_desc</string>
+    <string name="area_utente_btn_txt">Espace utilisateur</string>
+    <string name="lista_amici_btn_txt">Liste d&amp;#39;amis</string>
+    <string name="lista_inviti_btn_txt">Liste d&amp;#39;invitation</string>
+    <string name="back_btn_txt">EN ARRIÈRE</string>
+    <string name="aggiungi_amico_btn_txt">AJOUTER UN AMI</string>
+    <string name="Login">SE CONNECTER</string>
+    <string name="action_sign_in">Connectez-vous ou inscrivez-vous</string>
+    <string name="action_sign_in_short">Entrer </string>
+    <string name="welcome">&amp;quot;Accueillir!&amp;quot;</string>
+    <string name="invalid_username">Nom d&amp;#39;utilisateur invalide</string>
+    <string name="invalid_password">Le mot de passe doit contenir plus de 5 caractères</string>
+    <string name="login_failed">&amp;quot;La connexion a échoué&amp;quot;</string>
+    <string name="password_dimenticata">Mot de passe oublié ?</string>
+    <string name="registrati">Registre</string>
+    <string name="mondo">MONDE</string>
+    <string name="crea_partita">CRÉER UN JEU</string>
+    <string name="Mostralobby">SPECTACLE DANS LE LOBBY</string>
+    <string name="indietro">EN ARRIÈRE</string>
+    <string name="inserire_nuova_password">Entrez un nouveau mot de passe</string>
+    <string name="conferma_nuova_password">Confirmer le nouveau mot de passe</string>
+    <string name="resetta_password">Réinitialiser le mot de passe</string>
+    <string name="Nuova_password">Réinitialiser le mot de passe</string>
+    <string name="logout_btn_text">DÉCONNEXION</string>
+    <string name="regole_label_txt">RÈGLES</string>
+    <string name="ruoli_label_txt">RÔLES</string>
+    <string name="inizia_partita">le jeu commence</string>
+    <string name="esci_dalla_lobby">SORTEZ DU LOBBY</string>
+    <string name="invita_amici">inviter des amis</string>
+    <string name="in_attesa_che_entrino_tutti_i_giocatori">En attendant que tous les joueurs entrent…</string>
+    <string name="Regole">
+        <b>Obiettivo del Gioco</b>\nI giocatori sono divisi in due fazioni: lupi mannari e villaggio.\nI lupi devono eliminare tutti i cittadini senza farsi scoprire.\nIl villaggio deve individuare ed eliminare i lupi prima che sia troppo tardi.\n\n
+        <b>Preparazione</b>\nOgni giocatore si connette alla partita.\nL’app assegna automaticamente un ruolo segreto a ciascun partecipante.\nIl gioco si svolge alternando notte e giorno.\n\n
+        
+        <b>Fase Notturna</b>\nTutti i giocatori entrano nella modalità notte e non possono comunicare.\nI lupi mannari vedono i loro compagni e votano segretamente un giocatore da eliminare.\nLe figure speciali (come Veggente o Protettore)potranno usare la loro abilità.\nLa notte termina e inizia il giorno.\n\n
+        
+        <b>Fase Diurna</b>\nIl narratore annuncia chi è stato eliminato durante la notte.\nI giocatori discutono su chi possa essere un lupo.\nSi avvia una fase di votazione: ogni giocatore vota un sospettato.\nIl giocatore più votato viene eliminato e il suo ruolo viene rivelato.\nSe la partita non è ancora finita, inizia una nuova notte.\n\n
+        
+        <b>Condizioni di Vittoria</b>\nI lupi vincono se il numero di lupi è uguale o superiore a quello dei cittadini.\nIl villaggio vince se tutti i lupi sono stati eliminati.
+</string>
+    <string name="richiesta_amicizia">Demandes d&amp;#39;amis</string>
+    <string name="Effetti_setting_txt">Effets</string>
+    <string name="musica_setting_txt">Musique</string>
+    <string name="lingua_setting_txt">Langue</string>
+
+</resources>
