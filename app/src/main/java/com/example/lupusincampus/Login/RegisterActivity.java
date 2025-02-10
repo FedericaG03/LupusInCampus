@@ -2,6 +2,7 @@ package com.example.lupusincampus.Login;
 
 import static com.example.lupusincampus.Login.SHA256.hashSHA256;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,13 +10,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.lupusincampus.BaseActivity;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.API.PlayerAPI;
 import com.example.lupusincampus.SharedActivity;
 
 import me.pushy.sdk.Pushy;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BaseActivity {
 
     private EditText etNickname, etEmail, etPassword;
     private Button btnRegister;
@@ -25,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.register_activity);
 
         sharedActivity = SharedActivity.getInstance(this);
 

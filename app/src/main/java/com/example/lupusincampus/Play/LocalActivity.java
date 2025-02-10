@@ -5,9 +5,10 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.lupusincampus.BaseActivity;
 import com.example.lupusincampus.R;
 
-public class LocalActivity extends AppCompatActivity {
+public class LocalActivity extends BaseActivity {
     View bckButton;
 
     @Override

@@ -8,13 +8,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.lupusincampus.BaseActivity;
 import com.example.lupusincampus.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 
-public class ResetPasswordActivity extends AppCompatActivity {
+public class ResetPasswordActivity extends BaseActivity {
     private EditText etNewPwd;
     private EditText etConPwd;
     private Button btnRest;

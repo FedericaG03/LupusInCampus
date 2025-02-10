@@ -9,9 +9,10 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lupusincampus.API.LobbyAPI;
+import com.example.lupusincampus.BaseActivity;
 import com.example.lupusincampus.R;
 
-public class LobbyListActivity extends AppCompatActivity {
+public class LobbyListActivity extends BaseActivity {
 
     private LobbyAdapter adapter;
     private LobbyDatabaseHelper dbHelper;

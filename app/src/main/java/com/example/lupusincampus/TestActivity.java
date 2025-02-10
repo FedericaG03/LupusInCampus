@@ -17,7 +17,7 @@ import com.example.lupusincampus.API.PlayerAPI;
 import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyListActivity;
 import com.example.lupusincampus.SharedActivity;
 
-public class TestActivity extends AppCompatActivity {
+public class TestActivity extends BaseActivity {
 
     private static final String TAG = "TestActivity";
     private PlayerAPI playerAPI;

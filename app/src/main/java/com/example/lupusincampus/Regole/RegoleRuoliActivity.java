@@ -12,12 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.lupusincampus.Amici.ListaAmiciActivity;
+import com.example.lupusincampus.BaseActivity;
 import com.example.lupusincampus.Play.LocalActivity;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.API.PlayerAPI;
 import com.example.lupusincampus.SharedActivity;
 
-public class RegoleRuoliActivity extends AppCompatActivity {
+public class RegoleRuoliActivity extends BaseActivity {
 
     private static final String TAG = "PlayActivity";
 
@@ -61,7 +62,7 @@ public class RegoleRuoliActivity extends AppCompatActivity {
         });
 
         btnRules.setOnClickListener(v -> {
-            Intent intent = new Intent(RegoleRuoliActivity.this, LocalActivity.class);
+            Intent intent = new Intent(RegoleRuoliActivity.this, RegoleActivity.class);
             startActivity(intent);
         });
 

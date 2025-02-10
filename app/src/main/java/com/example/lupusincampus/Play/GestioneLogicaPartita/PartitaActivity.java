@@ -9,9 +9,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.lupusincampus.BaseActivity;
+import com.example.lupusincampus.Model.Ruolo;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.ServerConnector;
 import com.example.lupusincampus.SharedActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PartitaActivity extends  AppCompatActivity {
+public class PartitaActivity extends BaseActivity {
     private static final String TAG = "PartitaActivity";
     private Button btnExit, btnPlayers;
     private ImageView micButton, playerAvatar;
@@ -34,7 +39,7 @@ public class PartitaActivity extends  AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_partita);
+        setContentView(R.layout.partita_activity);
 
         sharedActivity = SharedActivity.getInstance(this);
         serverConnector = new ServerConnector();

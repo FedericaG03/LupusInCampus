@@ -8,10 +8,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.lupusincampus.BaseActivity;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.SharedActivity;
+import com.fasterxml.jackson.databind.ser.Serializers;
 
-public class ListaRichiesteAmici extends AppCompatActivity{
+public class ListaRichiesteAmici extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstance) {

@@ -8,11 +8,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.lupusincampus.BaseActivity;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.API.PlayerAPI;
 import com.example.lupusincampus.SharedActivity;
 
-public class RegoleActivity extends AppCompatActivity {
+public class RegoleActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

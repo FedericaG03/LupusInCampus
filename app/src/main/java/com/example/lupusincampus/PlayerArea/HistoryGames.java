@@ -7,10 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.lupusincampus.BaseActivity;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.SharedActivity;
 
-public class HistoryGames extends AppCompatActivity {
+public class HistoryGames extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstance) {

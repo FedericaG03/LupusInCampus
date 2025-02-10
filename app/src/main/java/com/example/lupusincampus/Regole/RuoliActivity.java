@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lupusincampus.Amici.ListaAmiciActivity;
+import com.example.lupusincampus.BaseActivity;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.API.PlayerAPI;
 import com.example.lupusincampus.SharedActivity;
@@ -20,7 +21,7 @@ import com.example.lupusincampus.Model.Ruolo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RuoliActivity extends AppCompatActivity {
+public class RuoliActivity extends BaseActivity {
 
 
     @Override

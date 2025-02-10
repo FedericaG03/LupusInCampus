@@ -12,11 +12,13 @@ import android.widget.TextView;
 
 import com.example.lupusincampus.API.PlayerAPI;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.lupusincampus.BaseActivity;
 import com.example.lupusincampus.MainActivity;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.SharedActivity;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity  {
     private EditText etEmail;
     private EditText etPassword;
     private Button btnLogin;

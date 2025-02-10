@@ -8,10 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.lupusincampus.BaseActivity;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.ServerConnector;
 
-public class LobbyActivityWait extends AppCompatActivity {
+public class LobbyActivityWait extends BaseActivity {
 
     private TextView numberPlayer;
     private RecyclerView recyclerFriends;

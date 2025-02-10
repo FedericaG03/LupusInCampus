@@ -6,6 +6,8 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.lupusincampus.BaseActivity;
 import com.example.lupusincampus.PlayerArea.HistoryGames;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +15,7 @@ import com.example.lupusincampus.API.PlayerAPI;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.SharedActivity;
 
-public class PlayerAreaActivity extends AppCompatActivity implements ChangeNicknameDialogFragment.OnNicknameChangeListener {
+public class PlayerAreaActivity extends BaseActivity implements ChangeNicknameDialogFragment.OnNicknameChangeListener {
 
     private TextView tvPlayerName;
     private Button btnDeleteAccount, btnChangeNickname, btnGameHistory, btnChangePassword;
