@@ -33,5 +33,8 @@ public class ListaAmiciActivity extends AppCompatActivity {
         ListaAmiciAdapter listaAmiciAdapter = new ListaAmiciAdapter(SharedActivity.getInstance(getApplicationContext()).getPlayerList());
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(listaAmiciAdapter);
+
+
+
     }
 }
