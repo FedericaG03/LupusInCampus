@@ -34,6 +34,7 @@ public class MainActivity extends BaseActivity {
         CookieHelper.init();
 
         sharedActivity = SharedActivity.getInstance(this);
+        
         boolean isLoggedIn = sharedActivity.isLoggedIn();
         Log.d("MainActivity", "isLoggedIn : " + isLoggedIn);
 
