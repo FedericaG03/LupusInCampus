@@ -248,6 +248,68 @@ public class ServerConnector {
         });
     }
 
+    /**
+     * Metodo generico per richieste DELETE
+     * @param ctx
+     * @param endpoint
+     * @param callback
+     */
+    public void makeDeleteRequest(Context ctx, String endpoint,JSONObject jsonBody, CallbackInterface callback) {
+        executor.execute(() -> {
+            HttpURLConnection connection = null;
+            try {
+                URL url = new URL(SERVER_URL + endpoint); // Usa l'URL base del server
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("DELETE");
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setDoOutput(true);
+
+                sessionId = SharedActivity.getInstance(ctx).getSessionId();
+                if (sessionId != null) {
+                    connection.setRequestProperty("Cookie", sessionId);
+                }
+
+                try (OutputStream os = connection.getOutputStream()) {
+                    os.write(jsonBody.toString().getBytes());
+                    os.flush();
+                    Log.d(TAG, "makePostRequest: Costruita la richiesta: " + jsonBody.toString());
+                }
+
+                Log.d(TAG, "makeDeleteRequest: Tento di leggere il codice di risposta");
+                int responseCode = connection.getResponseCode();
+
+                Log.d(TAG, "makeDeleteRequest: Provo a leggere l'id sessione");
+                String cookie = connection.getHeaderField("Set-Cookie");
+                if (cookie != null) {
+                    sessionId = cookie.split(";")[0];
+                    SharedActivity.getInstance(ctx).setSessionId(sessionId);
+                    Log.d(TAG, "makeDeleteRequest, sessionId: " + sessionId);
+                }
+
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    String response = readStream(connection);
+                    ResponseContent content = parseResponse(response);
+
+                    if (content.code > 0) {
+                        mainThreadHandler.post(() -> callback.onSuccess(content.responseObject));
+                        Log.d(TAG, "onSuccess: stampo response del server " + content.responseObject.toString());
+                    } else {
+                        mainThreadHandler.post(() -> callback.onError((String) content.responseObject));
+                    }
+                } else {
+                    mainThreadHandler.post(() -> callback.onServerError(new IOException("Errore: " + responseCode)));
+                }
+            } catch (Exception ex ) {
+                Log.e(TAG, "Errore nella richiesta DELETE: ", ex);
+                mainThreadHandler.post(() -> callback.onServerError(ex));
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }
+        });
+    }
+
 
     /**
      * Metodo che si occupa di leggere il body della risposta
@@ -292,12 +354,6 @@ public class ServerConnector {
         makeGetRequest(ctx, "", callback);
     }
 
-    /**
-     * Reimposta Password
-     */
-    public void updatePasswordRequest(Context ctx, JSONObject jsonBody, CallbackInterface callback) {
-        makePostRequest(ctx, "", jsonBody, callback);
-    }
 
     /**
      * Funzione per ottenere il ruolo dal server (GET)
@@ -318,11 +374,6 @@ public class ServerConnector {
             callback.onServerError(e);
         }
     }
-
-    /**
-     * Funzione per il logout
-     */
-
 
     /**Callback generico per gestire i dati del server*/
     public interface CallbackInterface {
