@@ -24,7 +24,7 @@ import java.util.concurrent.Executors;
 public class ServerConnector {
 
     private static final String TAG = "ServerConnector";
-    private static final String SERVER_URL = "http://172.19.136.56:8080";
+    private static final String SERVER_URL = "http://172.19.152.74:8080";
     private static String sessionId = null;
 
     // Esegue operazioni di rete su un thread in background

@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -64,7 +65,7 @@
             android:screenOrientation="sensorLandscape"/>
 
         <!-- Attività di Gioco -->
-        <activity android:name=".Play.WordActivity"
+        <activity android:name=".Play.WorldActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape"/>
 
@@ -107,6 +108,20 @@
         <activity android:name=".Settings.SettingsActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape"/>
+
+        <receiver android:name=".PushReceiver" android:exported="false">
+            <intent-filter>
+                <!-- Do not modify this -->
+                <action android:name="pushy.me" />
+            </intent-filter>
+        </receiver>
+
+
+        <service
+            android:name="me.pushy.sdk.services.PushyJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="false" />
+
     </application>
 
 </manifest>

@@ -22,7 +22,6 @@ public class SharedActivity {
     private static final String SESSION_ID = "sessionId";
     private static final String PUSHY_TOKEN = "pushy_token";
     private static final String ID = "id";
-
     private static SharedActivity instance;
     private final SharedPreferences sharedPreferences;
     private final SharedPreferences.Editor editor;
@@ -32,15 +31,16 @@ public class SharedActivity {
     private List<Player> playerList = new ArrayList<>();
     private List<Game> gameList = new ArrayList<>();
 
+    private List<Player> friendList = new ArrayList<>();
 
     // Singleton thread-safe con lazy initialization
+
     public static synchronized SharedActivity getInstance(Context context) {
         if (instance == null) {
             instance = new SharedActivity(context);
         }
         return instance;
     }
-
     public List<Player> getPlayerRequestList() {
         return playerRequestList;
     }
@@ -55,6 +55,14 @@ public class SharedActivity {
 
     public void setPlayerList(List<Player> playerList) {
         this.playerList = playerList;
+    }
+
+    public List<Player> getFriendList() {
+        return friendList;
+    }
+
+    public void setFriendList(List<Player> friendList) {
+        this.friendList = friendList;
     }
 
     public List<Game> getGameList() {
