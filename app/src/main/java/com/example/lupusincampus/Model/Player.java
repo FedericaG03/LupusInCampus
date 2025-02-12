@@ -1,5 +1,7 @@
 package com.example.lupusincampus.Model;
 
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +53,12 @@ public class Player {
         return friendsList;
     }
 
+    public int friendIdList(String nickname){
+        Player p = new Player();
+        p.setNickname(nickname);
+        return friendsList.stream().filter(v -> { return v.equals(p);}).findFirst().get().getId();
+    }
+
     public void setFriendsList(List<Player> friendsList) {
         this.friendsList = friendsList;
     }
@@ -63,4 +71,9 @@ public class Player {
         this.role = role;
     }
 
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        Player p = (Player) obj;
+        return p.nickname.equals(this.nickname);
+    }
 }
