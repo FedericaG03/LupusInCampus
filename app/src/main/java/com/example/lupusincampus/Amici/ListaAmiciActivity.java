@@ -1,9 +1,10 @@
 package com.example.lupusincampus.Amici;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +26,7 @@ public class ListaAmiciActivity extends BaseActivity {
 
         View bckButton = findViewById(R.id.back_btn);
         RecyclerView recyclerView = findViewById(R.id.recycler_view_amici);
+        ConstraintLayout addFriendButton = findViewById(R.id.aggiungi_amico_btn);
 
 
         bckButton.setOnClickListener(v->{
@@ -32,6 +34,15 @@ public class ListaAmiciActivity extends BaseActivity {
         });
 
         ListaAmiciAdapter listaAmiciAdapter = new ListaAmiciAdapter(SharedActivity.getInstance(getApplicationContext()).getFriendList());
+        addFriendButton.setOnClickListener(v->{
+            Intent intent = new Intent(getApplicationContext(), AggiungiAmicoActivity.class);
+            startActivity(intent);
+        });
+
+
+
+        ListaAmiciAdapter listaAmiciAdapter = new ListaAmiciAdapter(SharedActivity.getInstance(getApplicationContext()).getPlayerList());
+        Log.d("ListaAmiciActivity", "firenlist: " + SharedActivity.getInstance(getApplicationContext()).getPlayerList());
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(listaAmiciAdapter);
 

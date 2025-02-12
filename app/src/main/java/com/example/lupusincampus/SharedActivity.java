@@ -10,8 +10,6 @@ import com.example.lupusincampus.Model.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-import kotlin.jvm.Synchronized;
-
 public class SharedActivity {
     private static final String TAG = "SharedActivity";
     private static final String USER_PREFS = "UserPrefs";
@@ -31,6 +29,7 @@ public class SharedActivity {
     private List<Game> gameList = new ArrayList<>();
 
     private List<Player> friendList = new ArrayList<>();
+    private List<Player> searchResult = new ArrayList<>();
 
     // Singleton thread-safe con lazy initialization
 
@@ -150,6 +149,14 @@ public class SharedActivity {
     public synchronized void clear() {
         Log.d(TAG, "clear: Resetting shared preferences");
         editor.clear().commit();
+    }
+
+    public List<Player> getSearchResult() {
+        return searchResult;
+    }
+
+    public void setSearchResult(List<Player> searchResult) {
+        this.searchResult = searchResult;
     }
 }
 

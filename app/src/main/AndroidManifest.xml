@@ -114,6 +114,10 @@
             android:exported="false"
             android:screenOrientation="sensorLandscape"/>
 
+        <activity android:name=".Amici.AggiungiAmicoActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"/>
+
         <receiver android:name=".PushyReceiver" android:exported="false">
             <intent-filter>
                 <!-- Do not modify this -->

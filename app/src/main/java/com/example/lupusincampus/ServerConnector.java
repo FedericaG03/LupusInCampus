@@ -139,7 +139,7 @@ public class ServerConnector {
                     ResponseContent content = parseResponse(response);
 
                     if (content.code > 0) {
-                        mainThreadHandler.post(() -> callback.onSuccess((JSONObject) content.responseObject));
+                        mainThreadHandler.post(() -> callback.onSuccess(content.responseObject));
                         Log.d(TAG, "onSuccess: stampo response del server " + content.responseObject.toString());
                     } else {
                         mainThreadHandler.post(() -> callback.onError((String) content.responseObject));
@@ -369,7 +369,7 @@ public class ServerConnector {
         try {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("nickname", nickname);
-            makePostRequest(ctx, "", jsonBody, callback);
+            makePostRequest(ctx, "/controller/friend", jsonBody, callback);
         } catch (JSONException e) {
             callback.onServerError(e);
         }
