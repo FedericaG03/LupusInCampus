@@ -110,11 +110,11 @@
             android:exported="false"
             android:screenOrientation="sensorLandscape"/>
 
-        <activity android:name=".Play.GestioneLogicaPartita.LobbyActivityWait"
+        <activity android:name=".Settings.SettingsActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape"/>
 
-        <activity android:name=".Settings.SettingsActivity"
+        <activity android:name=".Amici.AggiungiAmicoActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape"/>
 

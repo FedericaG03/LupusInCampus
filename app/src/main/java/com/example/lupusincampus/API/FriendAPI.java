@@ -1,6 +1,7 @@
 package com.example.lupusincampus.API;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -223,5 +224,51 @@ public class FriendAPI {
         serverConnector.makeGetRequest(ctx, "/controller/friend/get-pending-requests", callback);
     }
 
+    public void doSearchPlayer(Context ctx, String nickname){
+        requestGetSearchPlayer(ctx,nickname, new ServerConnector.CallbackInterface() {
+            @Override
+            public void onSuccess(Object response) {
+                try {
+                    JSONArray jsonResponse = (JSONArray) response;
+                    Log.d(TAG, "onSuccess: ricevuto dal server: " + jsonResponse.toString(4));
+
+                    List<Player> searchResult = SharedActivity.getInstance(ctx).getSearchResult();
+                    searchResult.clear();
+
+                    for(int i = 0; i < jsonResponse.length(); i++){
+                        JSONObject playerJson = ((JSONObject) jsonResponse.get(i)).getJSONObject("player");
+
+                        Player p = new Player();
+                        p.setId(playerJson.getInt("id"));
+                        p.setNickname(playerJson.getString("nickname"));
+                        p.setEmail(playerJson.getString("email"));
+
+                        searchResult.add(p);
+                    }
+                    Log.d(TAG, "onSuccess: Post friend parse: " + searchResult.toString());
+                    SharedActivity.getInstance(ctx).setSearchResult(searchResult);
+
+
+                }catch (Exception e){
+                    Log.d(TAG, "onSuccess", e);
+                }
+            }
+
+            @Override
+            public void onError(String jsonResponse) {
+                Log.e(TAG, "onError: Errore doSearchPlayer: " + jsonResponse);
+                Toast.makeText(ctx,jsonResponse,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onServerError(Exception e) {
+                Log.e(TAG, "onServerError: ", e);
+                Toast.makeText(ctx,"Errore nel server", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void requestGetSearchPlayer(Context ctx, String nickname, ServerConnector.CallbackInterface callback){
+        serverConnector.makeGetRequest(ctx, "/controller/friend/search?query=" + Uri.encode(nickname), callback);
+    }
 }
 

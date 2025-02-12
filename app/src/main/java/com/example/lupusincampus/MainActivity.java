@@ -1,5 +1,6 @@
 package com.example.lupusincampus;
 
+import com.example.lupusincampus.API.FriendAPI;
 import com.example.lupusincampus.Amici.ListaAmiciActivity;
 import com.example.lupusincampus.Amici.ListaRichiesteAmici;
 import com.example.lupusincampus.Login.LoginActivity;
@@ -106,6 +107,8 @@ public class MainActivity extends BaseActivity {
         });
 
         richiesteAmiciziaBtn.setOnClickListener(v->{
+            FriendAPI friendAPI = new FriendAPI();
+            friendAPI.doGetPendingRequests(getApplicationContext());
             Intent intent = new Intent(getApplicationContext(), ListaRichiesteAmici.class);
             startActivity(intent);
         });

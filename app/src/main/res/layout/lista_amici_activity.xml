@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sfondo"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@drawable/sfondo">
 
     <include
         android:id="@+id/profilo_btn_lista_amici"
-        layout="@layout/profile_icon_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"/>
+        layout="@layout/profile_icon_layout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/lista_amici"

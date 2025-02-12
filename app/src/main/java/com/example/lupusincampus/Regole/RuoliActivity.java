@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,7 +42,7 @@ public class RuoliActivity extends BaseActivity {
 
         initializeRuoli();
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         List<Ruolo> ruoli = initializeRuoli();
         RuoliAdapter adapter = new RuoliAdapter(ruoli);
         recyclerView.setAdapter(adapter);
@@ -63,13 +62,12 @@ public class RuoliActivity extends BaseActivity {
             }
         });
 
-        backButton.setOnClickListener(v -> {
-            getOnBackPressedDispatcher().onBackPressed();
-        });
+        backButton.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
 
         friensListButton.setOnClickListener(v->{
             sidebarGeneral.setVisibility(View.GONE);
             Intent intent = new Intent(this, ListaAmiciActivity.class);
+            startActivity(intent);
         });
 
         logoutButton.setOnClickListener(v->{
@@ -87,4 +85,5 @@ public class RuoliActivity extends BaseActivity {
         ruoli.add(new Ruolo("Studente in corso", "Lo Studente è il cuore pulsante dell’università: segue le lezioni, affronta gli esami e cerca di sopravvivere fino alla laurea. Non ha abilità speciali, ma con il suo intuito e le sue votazioni può influenzare le sorti del campus. Anche se può sembrare insignificante, ogni studente ha il potere di cambiare il destino dell’università!", R.drawable.logo_studente_in_corso));
         return ruoli;
     }
+
 }

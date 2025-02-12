@@ -55,5 +55,8 @@
     <string name="musica_setting_txt">Musica</string>
     <string name="lingua_setting_txt">Lingua</string>
     <string name="history_of_games">Storico partite</string>
+    <string name="hint_nickname_aggiungi_amico">Inserire nickname giocatore</string>
+    <string name="cerca_amico_icon_desc_txt">cerca_amico_icon</string>
+    <string name="aggiuni_giocatore_item_btn_txt">AGGIUNGI</string>
 
 </resources>

@@ -72,7 +72,6 @@ public class ListaAmiciAdapter extends RecyclerView.Adapter<ListaAmiciViewHolder
 
     private void addFriend(Context ctx, Player player) {
         friendAPI.doSendFriendRequest(ctx, player.getId());
-        //notifyItemInserted(listaAmici.size() - 1); // Notifica che è stato aggiunto un nuovo item
     }
 
     @Override
