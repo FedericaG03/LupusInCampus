@@ -2,6 +2,7 @@ package com.example.lupusincampus.Play.GestioneLogicaPartita;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.lupusincampus.R;
+import com.example.lupusincampus.API.LobbyAPI;
 
 public class LobbyAdapter extends BaseAdapter {
     private Context context;
@@ -58,9 +60,16 @@ public class LobbyAdapter extends BaseAdapter {
         statusText.setText(state);
         playersText.setText(players);
 
+        // Recupero l'ID della lobby (presupponendo che "code" sia il campo dell'ID univoco della lobby)
+        final int lobbyId = cursor.getInt(cursor.getColumnIndexOrThrow("code"));
+
         // Aggiungi listener per il pulsante "UNISCITI"
         joinBtn.setOnClickListener(v -> {
-            // Logica per unirsi alla lobby (da implementare)
+            Log.d("LobbyAdapter", "Bottone Unisciti premuto per lobby ID: " + lobbyId);
+
+            // Chiamata API per unirsi alla lobby
+            LobbyAPI lobbyAPI = new LobbyAPI();
+            lobbyAPI.doJoinLobby(context, lobbyId);
         });
 
         return convertView;

@@ -31,7 +31,7 @@ public class ListaAmiciActivity extends BaseActivity {
             getOnBackPressedDispatcher().onBackPressed();
         });
 
-        ListaAmiciAdapter listaAmiciAdapter = new ListaAmiciAdapter(SharedActivity.getInstance(getApplicationContext()).getPlayerList());
+        ListaAmiciAdapter listaAmiciAdapter = new ListaAmiciAdapter(SharedActivity.getInstance(getApplicationContext()).getFriendList());
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(listaAmiciAdapter);
 

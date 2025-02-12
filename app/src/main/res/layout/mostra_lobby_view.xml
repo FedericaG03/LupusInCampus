@@ -6,13 +6,12 @@
     android:background="@drawable/sfondo">
 
     <!-- Da mettere INTESTAZIONE-->
-    <androidx.recyclerview.widget.RecyclerView
+    <ListView
         android:id="@+id/my_list_view_lobby"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="600dp"
+        android:layout_height="200dp"
         android:layout_centerInParent="true"
         android:padding="10dp"
-        android:columnCount="4"
         android:background="@drawable/white_border_grey_bg" />
 
     <include android:id="@+id/back_btn_lobbby_view"

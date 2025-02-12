@@ -367,13 +367,12 @@ public class PlayerAPI {
                         JSONObject friendJson = pendingRequests.getJSONObject(i);
                         Player friend = objectMapper.readValue(friendJson.toString().substring(10), Player.class);
                         playerList.add(friend);
-
                     }
 
 
                     SharedActivity sharedActivity = SharedActivity.getInstance(context);
                     sharedActivity.setGameList(games);
-                    sharedActivity.setPlayerList(playerList);
+                    sharedActivity.setPlayerRequestList(playerList);
 
                     Log.d("PlayerAPI", "Salvati " + games.size() + " giochi e " + playerList.size() + " amici in SharedActivity");
 

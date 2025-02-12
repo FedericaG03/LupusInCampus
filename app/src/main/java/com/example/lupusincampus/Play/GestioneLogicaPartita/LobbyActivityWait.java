@@ -1,5 +1,8 @@
 package com.example.lupusincampus.Play.GestioneLogicaPartita;
 
+import com.example.lupusincampus.Amici.ListaAmiciAdapter;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -7,20 +10,20 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lupusincampus.API.LobbyAPI;
+import com.example.lupusincampus.BaseActivity;
 import com.example.lupusincampus.R;
+import com.example.lupusincampus.SharedActivity;
 
-public class LobbyActivityWait extends AppCompatActivity {
+public class LobbyActivityWait extends BaseActivity {
 
     private TextView numberPlayer;
     private RecyclerView recyclerFriends;
     private Button btnStartGame;
     private static final String TAG = "LobbyActivityWait";
-    private boolean isRunning = true;
 
     private LobbyAPI lobbyAPI = new LobbyAPI();; // Aggiungi un'istanza di LobbyAPI
     private LobbyDatabaseHelper dbHelper; // Istanza per il database delle lobby
@@ -40,6 +43,10 @@ public class LobbyActivityWait extends AppCompatActivity {
 
         // Imposta RecyclerView per la lista degli amici
         recyclerFriends.setLayoutManager(new LinearLayoutManager(this));
+
+        // Imposta l'adapter per la RecyclerView con la lista amici
+        ListaAmiciAdapter listaAmiciAdapter = new ListaAmiciAdapter(SharedActivity.getInstance(getApplicationContext()).getFriendList());
+        recyclerFriends.setAdapter(listaAmiciAdapter);
 
         // Recupera il tipo di lobby passato dall'Intent
         String lobbyType = getIntent().getStringExtra("lobbyType");
@@ -62,6 +69,15 @@ public class LobbyActivityWait extends AppCompatActivity {
 
         // Inizializza il processo di join nella lobby
         joinLobby(lastCode);
+
+        btnStartGame.setOnClickListener(view -> {
+            Toast.makeText(getApplicationContext(),"Iniziamo a giocare!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), PartitaActivity.class);
+            Log.d(TAG, "onClick: vado alla partita, iniziamo a giocare: " + intent.toString());
+            intent.putExtra("lobbyType", lobbyType);  // Passa il tipo di lobby
+            startActivity(intent);
+
+        });
     }
 
     /**
