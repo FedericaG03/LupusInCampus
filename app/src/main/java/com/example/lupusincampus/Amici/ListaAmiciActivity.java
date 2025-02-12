@@ -33,16 +33,13 @@ public class ListaAmiciActivity extends BaseActivity {
             getOnBackPressedDispatcher().onBackPressed();
         });
 
-        ListaAmiciAdapter listaAmiciAdapter = new ListaAmiciAdapter(SharedActivity.getInstance(getApplicationContext()).getFriendList());
         addFriendButton.setOnClickListener(v->{
             Intent intent = new Intent(getApplicationContext(), AggiungiAmicoActivity.class);
             startActivity(intent);
         });
 
-
-
-        ListaAmiciAdapter listaAmiciAdapter = new ListaAmiciAdapter(SharedActivity.getInstance(getApplicationContext()).getPlayerList());
-        Log.d("ListaAmiciActivity", "firenlist: " + SharedActivity.getInstance(getApplicationContext()).getPlayerList());
+        ListaAmiciAdapter listaAmiciAdapter = new ListaAmiciAdapter(SharedActivity.getInstance(getApplicationContext()).getFriendList());
+        Log.d("ListaAmiciActivity", "firenlist: " + SharedActivity.getInstance(getApplicationContext()).getFriendList());
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(listaAmiciAdapter);
 
