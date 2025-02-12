@@ -19,7 +19,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +45,7 @@ public class PartitaActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.partita_activity);
 
+
         sharedActivity = SharedActivity.getInstance(this);
         serverConnector = new ServerConnector();
         String nickname = sharedActivity.getNickname();
@@ -53,11 +58,10 @@ public class PartitaActivity extends BaseActivity {
         playerAvatar = findViewById(R.id.player_avatar);
         storyText = findViewById(R.id.story_text);
         playerName = findViewById(R.id.player_name);
-        storyText = findViewById(R.id.story_text);
 
 
-        // Carica una storia casuale all'inizio
-        loadRandomStory();
+        // Carica una storia  all'inizio
+        loadStory();
         //Mostra frasi
         showNextStoryLine();
 
@@ -81,24 +85,22 @@ public class PartitaActivity extends BaseActivity {
     /**
      *Gestione storia
      */
-    private void loadRandomStory() {
-        Random random = new Random();
-        int storyIndex = random.nextInt(4); // Indice casuale tra 0 e 3 (4 storie)
-
-        // Scegli il file della storia in base all'indice
-        String storyFileName = "story" + storyIndex + ".txt";
-
+    private void loadStory() {
+        File file = new File(getApplicationContext().getExternalFilesDir(null), "IlCampusMaledetto.txt");
         try {
-            InputStreamReader isr = new InputStreamReader(getAssets().open(storyFileName));
-            BufferedReader reader = new BufferedReader(isr);
+            InputStream inputStream = new FileInputStream(file);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
             while ((line = reader.readLine()) != null) {
-                storyLines.add(line);// Aggiungi ogni frase della storia alla lista
+                Log.i(TAG, line);
             }
             reader.close();
-        } catch (IOException e) {
-            Log.e(TAG, "Errore nel caricare la storia: " + e.getMessage(), e);
+            inputStream.close();
+        }catch (IOException e) {
+            throw new RuntimeException(e);
         }
+
+
     }
     private void showNextStoryLine() {
         if (currentLineIndex < storyLines.size()) {
@@ -113,6 +115,7 @@ public class PartitaActivity extends BaseActivity {
             // Se vuoi, puoi caricare una nuova storia o fare altre azioni
         }
     }
+
 
 
     // Metodo per ottenere il ruolo dal server

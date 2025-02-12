@@ -51,10 +51,6 @@
             android:screenOrientation="sensorLandscape"/>
 
 
-        <!-- Lobby -->
-        <activity android:name=".Play.GestioneLogicaPartita.LobbyListActivity"
-            android:exported="false"
-            android:screenOrientation="sensorLandscape"/>
 
         <!-- Login / Registrazione -->
         <activity android:name=".Login.ForgotPasswordActivity"
@@ -66,6 +62,19 @@
 
         <!-- Attività di Gioco -->
         <activity android:name=".Play.WorldActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"/>
+
+
+        <activity android:name=".Play.GestioneLogicaPartita.LobbyActivityWait"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"/>
+
+        <activity android:name=".Play.GestioneLogicaPartita.LobbyListActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"/>
+
+        <activity android:name=".Play.GestioneLogicaPartita.CreateLobbyActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape"/>
 
@@ -109,7 +118,7 @@
             android:exported="false"
             android:screenOrientation="sensorLandscape"/>
 
-        <receiver android:name=".PushReceiver" android:exported="false">
+        <receiver android:name=".PushyReceiver" android:exported="false">
             <intent-filter>
                 <!-- Do not modify this -->
                 <action android:name="pushy.me" />

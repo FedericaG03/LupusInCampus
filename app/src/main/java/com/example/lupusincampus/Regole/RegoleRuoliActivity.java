@@ -8,12 +8,10 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.lupusincampus.Amici.ListaAmiciActivity;
 import com.example.lupusincampus.BaseActivity;
-import com.example.lupusincampus.Play.LocalActivity;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.API.PlayerAPI;
 import com.example.lupusincampus.SharedActivity;

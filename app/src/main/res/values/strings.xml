@@ -54,5 +54,6 @@
     <string name="Effetti_setting_txt">Effetti</string>
     <string name="musica_setting_txt">Musica</string>
     <string name="lingua_setting_txt">Lingua</string>
+    <string name="history_of_games">Storico partite</string>
 
 </resources>

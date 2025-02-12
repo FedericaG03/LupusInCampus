@@ -22,7 +22,7 @@ public class LobbyActivityWait extends AppCompatActivity {
     private static final String TAG = "LobbyActivityWait";
     private boolean isRunning = true;
 
-    private LobbyAPI lobbyAPI; // Aggiungi un'istanza di LobbyAPI
+    private LobbyAPI lobbyAPI = new LobbyAPI();; // Aggiungi un'istanza di LobbyAPI
     private LobbyDatabaseHelper dbHelper; // Istanza per il database delle lobby
 
     @Override
@@ -41,8 +41,14 @@ public class LobbyActivityWait extends AppCompatActivity {
         // Imposta RecyclerView per la lista degli amici
         recyclerFriends.setLayoutManager(new LinearLayoutManager(this));
 
-        // Crea un'istanza di LobbyAPI
-        lobbyAPI = new LobbyAPI();
+        // Recupera il tipo di lobby passato dall'Intent
+        String lobbyType = getIntent().getStringExtra("lobbyType");
+        // Se la lobby è privata, mostra la lista amici, altrimenti nascondila
+        if ("Privata".equals(lobbyType)) {
+            recyclerFriends.setVisibility(View.VISIBLE);
+        } else {
+            recyclerFriends.setVisibility(View.GONE);
+        }
 
         // Imposta un listener per il bottone di uscita
         Button btnExit = findViewById(R.id.btn_exit);

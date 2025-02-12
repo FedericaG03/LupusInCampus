@@ -32,7 +32,6 @@
             android:id="@+id/number_player"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="da java"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:gravity="center"
@@ -69,17 +68,6 @@
         android:layout_alignParentBottom="true"
         />
 
-    <Button
-        android:id="@+id/btn_amici"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:background="@android:color/transparent"
-        android:padding="10dp"
-        android:text="@string/invita_amici"
-        android:textColor="#FFF" />
-
     <!-- Friend List (Initially Hidden) -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_friends"
@@ -87,7 +75,6 @@
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:visibility="gone"
-        android:layout_above="@id/btn_amici"
         android:background="@android:color/black"/>
 
 </RelativeLayout>

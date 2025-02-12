@@ -1,5 +1,6 @@
 package com.example.lupusincampus.PlayerArea;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class HistoryGamesAdapter extends RecyclerView.Adapter<HistoryGamesAdapter.ViewHolder> {
-    private List<Game> gameList;
+    private  List<Game> gameList;
 
     public HistoryGamesAdapter(List<Game> gameList) {
         this.gameList = gameList;
@@ -28,12 +29,13 @@ public class HistoryGamesAdapter extends RecyclerView.Adapter<HistoryGamesAdapte
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Game game = gameList.get(position);
         holder.gameIdTextView.setText("Game ID: " + game.getId());
         holder.gameDateTextView.setText("Date: " + game.getLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-        holder.winnerTextView.setText("Winner ID: " + game.getWinningPlayerId());
+        holder.winnerTextView.setText("Winner : " + game.getWinnerNickname());
     }
 
     @Override

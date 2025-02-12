@@ -20,8 +20,6 @@ public class HistoryGames extends BaseActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view_games);
 
-
-
         HistoryGamesAdapter historyGamesAdapter = new HistoryGamesAdapter(SharedActivity.getInstance(getApplicationContext()).getGameList());
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(historyGamesAdapter);

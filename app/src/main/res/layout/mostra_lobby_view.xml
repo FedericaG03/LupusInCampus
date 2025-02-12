@@ -2,16 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/sfondo">
 
     <!-- Da mettere INTESTAZIONE-->
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_list_view_lobby"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="8dp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="10dp"
+        android:columnCount="4"
+        android:background="@drawable/white_border_grey_bg" />
 
-    <include android:id="@+id/back_btn"
+    <include android:id="@+id/back_btn_lobbby_view"
         layout="@layout/back_btn_layout"/>
 </RelativeLayout>

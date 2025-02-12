@@ -7,32 +7,37 @@
     android:background="@drawable/sfondo">
 
     <!-- Title TextView -->
+
+    <!-- RecyclerView for the list of games -->
     <TextView
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="History of Games"
+        android:gravity="center"
+        android:text="@string/history_of_games"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:gravity="center" />
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="25dp"
+        tools:ignore="MissingConstraints" />
 
-    <!-- RecyclerView for the list of games -->
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_games"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/titleText"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="0.75"
+        app:layout_constraintHeight_percent="0.58"
+        android:layout_marginTop="80dp"
+        android:layout_marginHorizontal="40dp"
+        android:padding="10dp"
+        android:background="@drawable/white_border_grey_bg"
+        android:columnCount="3"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:padding="8dp" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

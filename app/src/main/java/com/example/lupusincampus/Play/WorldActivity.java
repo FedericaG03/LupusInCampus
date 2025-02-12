@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.lupusincampus.BaseActivity;
+import com.example.lupusincampus.Play.GestioneLogicaPartita.CreateLobbyActivity;
 import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyActivityWait;
 import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyListActivity;
 import com.example.lupusincampus.ServerConnector;
@@ -30,6 +31,9 @@ public class WorldActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mondo_activity);
+        SharedActivity sharedActivity = SharedActivity.getInstance(getApplicationContext());
+
+        Log.d(TAG, "onCreate: Posso iniziare a giocare ");
 
         String nickname = sharedActivity.getNickname();
         ConstraintLayout sidebar = findViewById(R.id.profile_sidebar);
@@ -51,8 +55,7 @@ public class WorldActivity extends BaseActivity {
 
 
         btnCreateGame.setOnClickListener(view -> {
-            //TODO: CREARE LA CLASSE CHE TI CREARE UNA LOBBY ( ANCHE L'XML)
-            Intent intent = new Intent(this, LobbyActivityWait.class);
+            Intent intent = new Intent(this, CreateLobbyActivity.class);
             startActivity(intent);
             Log.d(TAG, "onCreate: vado al lobbyActivity");
         });

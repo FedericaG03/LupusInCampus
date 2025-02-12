@@ -48,5 +48,6 @@
     <string name="Effetti_setting_txt">Effects</string>
     <string name="musica_setting_txt">Music</string>
     <string name="lingua_setting_txt">Tongue</string>
+    <string name="history_of_games">Storico partite</string>
 
 </resources>

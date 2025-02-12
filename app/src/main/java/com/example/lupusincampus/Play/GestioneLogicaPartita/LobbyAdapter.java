@@ -46,7 +46,7 @@ public class LobbyAdapter extends BaseAdapter {
         cursor.moveToPosition(position);
         String creatorID = "Creatore: " + cursor.getInt(cursor.getColumnIndexOrThrow("creatorID"));
         String state = cursor.getString(cursor.getColumnIndexOrThrow("state"));
-        String players = cursor.getInt(cursor.getColumnIndexOrThrow("numPlayer")) + "/" + cursor.getInt(cursor.getColumnIndexOrThrow("maxNumPlayer"));
+        String players = cursor.getInt(cursor.getColumnIndexOrThrow("numPlayer")) + "/" + "18";
 
         // Associazione ai TextView nel layout
         TextView creatorText = convertView.findViewById(R.id.creator);

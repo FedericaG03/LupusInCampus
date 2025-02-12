@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/sfondo">
+
+    <!-- Contenitore centrale -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <!-- Titolo -->
+        <TextView
+            android:id="@+id/tvCreateLobby"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crea Lobby"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/panna"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- Scelta tipo di Lobby -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scegli il tipo di lobby:"
+            android:textSize="25sp"
+            android:textColor="@color/panna"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            android:background="@color/panna"
+            android:padding="8dp">
+
+            <RadioGroup
+                android:id="@+id/radioGroupLobbyType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbPrivate"
+                    android:textColor="#000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Privata" />
+
+                <RadioButton
+                    android:id="@+id/rbPublic"
+                    android:textColor="#000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pubblica" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <!-- Pulsante per creare la lobby -->
+        <Button
+            android:id="@+id/btnCreateLobby"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:text="Crea Lobby"/>
+    </LinearLayout>
+
+    <!-- Pulsante per uscire in basso -->
+    <include
+        android:id="@+id/back_btn_create_lobby"
+        layout="@layout/back_btn_layout"/>
+</RelativeLayout>

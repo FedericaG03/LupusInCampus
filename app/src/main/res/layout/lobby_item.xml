@@ -10,9 +10,10 @@
             android:id="@+id/creator"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/panna"
             android:layout_weight="2"
             android:textStyle="bold"
-            android:textSize="16sp" />
+            android:textSize="25dp" />
 
         <!-- Testo Stato -->
         <TextView
@@ -21,20 +22,24 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center"
-            android:textSize="16sp" />
+            android:textColor="@color/panna"
+            android:textSize="25dp" />
 
         <!-- Testo Giocatori -->
         <TextView
             android:id="@+id/players"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/panna"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="16sp" />
+            android:textSize="25dp" />
 
         <!-- Pulsante Unisciti -->
         <TextView
             android:id="@+id/btnJoin"
+            android:textColor="#000"
+            android:textSize="25dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

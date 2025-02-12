@@ -73,4 +73,13 @@ public class Game {
         this.winningPlayerId = winningPlayerId;
     }
 
+    public String getWinnerNickname() {
+        return participants.stream()
+                .filter(player -> player.getId() == winningPlayerId)
+                .map(Player::getNickname)
+                .findFirst()
+                .orElse(null); // Restituisce null se non trova il vincitore
+    }
+
+
 }
