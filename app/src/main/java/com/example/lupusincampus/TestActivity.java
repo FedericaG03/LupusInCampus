@@ -12,15 +12,20 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.lupusincampus.API.FriendAPI;
 import com.example.lupusincampus.API.LobbyAPI;
+import com.example.lupusincampus.API.NotificationAPI;
 import com.example.lupusincampus.API.PlayerAPI;
 import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyListActivity;
 import com.example.lupusincampus.SharedActivity;
+
+import me.pushy.sdk.Pushy;
 
 public class TestActivity extends BaseActivity {
 
     private static final String TAG = "TestActivity";
     private PlayerAPI playerAPI;
+    private FriendAPI friendAPI;
     private SharedActivity sharedActivity;
 
     @Override
@@ -28,8 +33,12 @@ public class TestActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
+        Pushy.listen(this);
+
+
         // Inizializzazione PlayerAPI e SharedActivity
         playerAPI = new PlayerAPI();
+        friendAPI = new FriendAPI();
         sharedActivity = SharedActivity.getInstance(this);
 
         // Input campi
@@ -45,10 +54,15 @@ public class TestActivity extends BaseActivity {
         Button btnChangeName = findViewById(R.id.btnChangeName);
         Button btnDeleteUser = findViewById(R.id.btnDeleteUser);
         Button btnGetPlayerInfo = findViewById(R.id.btnGetPlayerInfo);
+        Button btnSaveTokenRequest = findViewById(R.id.btnSaveTokenRequest);
 
         // Views for Lobby Testing
         Button btnFetchLobbies = findViewById(R.id.btnFetchLobbies);
         Button lobbyData = findViewById(R.id.btnShowLobbies);
+        Button btnGetFriendsList = findViewById(R.id.btnGetFriendsList);
+        Button btnSendFriendRequest = findViewById(R.id.btnSendFriendRequest);
+
+        EditText friendIDet = findViewById(R.id.inputFriendId);
 
         LobbyAPI lobbyAPI = new LobbyAPI();
 
@@ -91,6 +105,20 @@ public class TestActivity extends BaseActivity {
         btnChangeName.setOnClickListener(v -> {
             String nickname = inputNickname.getText().toString();
             playerAPI.doChangeName(nickname, this);
+        });
+
+        btnGetFriendsList.setOnClickListener(v -> {
+                    Toast.makeText(this, "Fetching friends list...", Toast.LENGTH_SHORT).show();
+                    friendAPI.doGetFriendsList(this);
+        });
+
+        btnSendFriendRequest.setOnClickListener(v -> {
+            Toast.makeText(this, "Sending friend request...", Toast.LENGTH_SHORT).show();
+            friendAPI.doSendFriendRequest(this, Integer.parseInt(friendIDet.getText().toString()));
+        });
+
+        btnSaveTokenRequest.setOnClickListener(v -> {
+            new NotificationAPI().doSave(this);
         });
 
         // Cancella Utente

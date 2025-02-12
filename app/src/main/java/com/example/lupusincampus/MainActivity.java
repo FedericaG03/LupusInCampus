@@ -3,25 +3,20 @@ package com.example.lupusincampus;
 import com.example.lupusincampus.Amici.ListaAmiciActivity;
 import com.example.lupusincampus.Amici.ListaRichiesteAmici;
 import com.example.lupusincampus.Login.LoginActivity;
-import com.example.lupusincampus.Play.WordActivity;
+import com.example.lupusincampus.Play.WorldActivity;
 import com.example.lupusincampus.PlayerArea.PlayerAreaActivity;
 import com.example.lupusincampus.API.PlayerAPI;
 import com.example.lupusincampus.Regole.RegoleRuoliActivity;
 import com.example.lupusincampus.Settings.SettingsActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
-import java.util.Locale;
 
 
 public class MainActivity extends BaseActivity {
@@ -92,7 +87,7 @@ public class MainActivity extends BaseActivity {
 
         playButton.setOnClickListener(v -> {
             Log.d("MainActivity","Vado alla playactivity" );
-            Intent intent = new Intent(MainActivity.this, WordActivity.class);
+            Intent intent = new Intent(MainActivity.this, WorldActivity.class);
             startActivity(intent);
         });
 

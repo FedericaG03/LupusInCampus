@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.lupusincampus.BaseActivity;
@@ -16,9 +15,8 @@ import com.example.lupusincampus.ServerConnector;
 
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.SharedActivity;
-import com.example.lupusincampus.databinding.LobbyWaitingBinding;
 
-public class WordActivity extends BaseActivity {
+public class WorldActivity extends BaseActivity {
 
 
     private static final String TAG = "WordActivity";
@@ -46,7 +44,7 @@ public class WordActivity extends BaseActivity {
 
 
         btnShowLobby.setOnClickListener(view -> {
-            Intent intent = new Intent(WordActivity.this, LobbyListActivity.class);
+            Intent intent = new Intent(WorldActivity.this, LobbyListActivity.class);
             startActivity(intent);
             Log.d(TAG, "onCreate: vado al lobbyActivity");
         });

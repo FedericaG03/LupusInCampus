@@ -4,11 +4,15 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.lupusincampus.Model.Player;
 import com.example.lupusincampus.ServerConnector;
+import com.example.lupusincampus.SharedActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 public class FriendAPI {
 
@@ -24,6 +28,24 @@ public class FriendAPI {
                 try {
                     JSONArray jsonResponse = (JSONArray) response;
                     Log.d(TAG, "onSuccess: ricevuto dal server: " + jsonResponse.toString(4));
+
+                    List<Player> friendList = SharedActivity.getInstance(ctx).getFriendList();
+                    friendList.clear();
+
+                    for (int i = 0; i < jsonResponse.length(); i++){
+                        JSONObject playerJson = ((JSONObject) jsonResponse.get(i)).getJSONObject("player");
+
+                        Player p = new Player();
+                        p.setId(playerJson.getInt("id"));
+                        p.setNickname(playerJson.getString("nickname"));
+                        p.setEmail(playerJson.getString("email"));
+
+                        friendList.add(p);
+                    }
+
+                    Log.d(TAG, "onSuccess: Post friend parse: " + friendList.toString());
+                    SharedActivity.getInstance(ctx).setFriendList(friendList);
+
                 }catch (Exception e){
                     Log.e(TAG, "onSuccess: ", e);
                 }
@@ -79,7 +101,7 @@ public class FriendAPI {
     private void requestSendFriendRequest(Context ctx, int id, ServerConnector.CallbackInterface callback) {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("id", id);
+            jsonObject.put("friendId", id);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -117,10 +139,11 @@ public class FriendAPI {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("id", id);
+            //TODO aggiustare
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        serverConnector.makePostRequest(ctx, "/controller/friend/accept-friend-request", jsonObject, callback);
+        serverConnector.makePostRequest(ctx, "/controller/friend/friend-request-result", jsonObject, callback);
     }
 
 

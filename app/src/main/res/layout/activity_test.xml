@@ -109,7 +109,6 @@
             android:text="Fetch Active Lobbies"
             android:layout_marginBottom="8dp" />
 
-        <!-- TextView to display lobby data -->
         <!-- Button to Fetch Lobbies -->
         <Button
             android:id="@+id/btnShowLobbies"
@@ -117,6 +116,73 @@
             android:layout_height="wrap_content"
             android:text="Show Active Lobbies"
             android:layout_marginBottom="8dp" />
+
+        <!-- Input for Friend ID -->
+        <EditText
+            android:id="@+id/inputFriendId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Friend ID"
+            android:layout_marginBottom="8dp"
+            android:inputType="number" />
+
+        <!-- Fetch Friends List -->
+        <Button
+            android:id="@+id/btnGetFriendsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get Friends List"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Send Friend Request -->
+        <Button
+            android:id="@+id/btnSendFriendRequest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Send Friend Request"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Accept Friend Request -->
+        <Button
+            android:id="@+id/btnAcceptFriendRequest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Accept Friend Request"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Remove Friend -->
+        <Button
+            android:id="@+id/btnRemoveFriend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Remove Friend"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Get Pending Requests -->
+        <Button
+            android:id="@+id/btnGetPendingRequests"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get Pending Requests"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Save token Requests -->
+        <Button
+            android:id="@+id/btnSaveTokenRequest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save token"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Response TextView -->
+        <TextView
+            android:id="@+id/friendApiResponse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="@android:color/darker_gray"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="16dp" />
 
     </LinearLayout>
 </ScrollView>
