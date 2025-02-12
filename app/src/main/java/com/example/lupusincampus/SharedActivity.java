@@ -28,7 +28,6 @@ public class SharedActivity {
 
     //Liste per amici e partite
     private List<Player> playerRequestList = new ArrayList<>();
-    private List<Player> playerList = new ArrayList<>();
     private List<Game> gameList = new ArrayList<>();
 
     private List<Player> friendList = new ArrayList<>();
@@ -49,13 +48,6 @@ public class SharedActivity {
         this.playerRequestList = playerRequestList;
     }
 
-    public List<Player> getPlayerList() {
-        return playerList;
-    }
-
-    public void setPlayerList(List<Player> playerList) {
-        this.playerList = playerList;
-    }
 
     public List<Player> getFriendList() {
         return friendList;
