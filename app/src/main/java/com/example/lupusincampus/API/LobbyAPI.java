@@ -139,6 +139,8 @@ public class LobbyAPI {
 
                     // Aggiorna il numero di giocatori nel database
 
+                    // TODO: - sottoscrivere al websocket della lobby e della chat
+
                     int numPlayer = jsonResponse.getJSONArray("players").length();  // Prendi il numero di giocatori dalla risposta
 
                     // Aggiorna il database locale con il nuovo numero di giocatori
@@ -243,6 +245,9 @@ public class LobbyAPI {
                     int numPlayer = lobby.getInt("numPlayer");
                     String type = lobby.getString("type");
                     String state = lobby.getString("state");
+
+
+                    // TODO: - sottoscrivere al websocket della lobby e della chat
 
                     // Salva la lobby nel database locale
                     LobbyDatabaseHelper dbHelper = new LobbyDatabaseHelper(ctx);
