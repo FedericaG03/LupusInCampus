@@ -48,9 +48,9 @@ public class LoginActivity extends BaseActivity  {
 
 
         btnLogin.setOnClickListener(v -> {
-            Log.d(TAG, "onCreate: la fessa tasto cliccato");
-            String email = etEmail.getText().toString();
-            String password = etPassword.getText().toString();
+            Log.d(TAG, "onCreate: tasto cliccato");
+            String email = etEmail.getText().toString().trim();
+            String password = etPassword.getText().toString().trim();
 
             String hashPass = hashSHA256(password);
             Log.d(TAG, "onCreate: hasspass " + hashPass);

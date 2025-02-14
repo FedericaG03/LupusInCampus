@@ -29,7 +29,7 @@ public class ForgotPasswordActivity extends BaseActivity {
         bckButton.setOnClickListener(view -> getOnBackPressedDispatcher().onBackPressed());
 
         btnSubmit.setOnClickListener(v -> {
-            String email = etEmail.getText().toString();
+            String email = etEmail.getText().toString().trim();
 
             if (email.isEmpty()) {
                 Toast.makeText(ForgotPasswordActivity.this, "Inserisci una email valida!", Toast.LENGTH_SHORT).show();

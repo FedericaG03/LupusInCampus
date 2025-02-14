@@ -16,6 +16,8 @@ public class LobbyAPI {
     private static ServerConnector serverConnector = new ServerConnector();
     private static final String TAG = "LobbyAPI";
 
+
+    //Testesta , funziona
     /**
      * Effettua una richiesta GET al server per ottenere la lista delle lobby pubbliche attive.
      *
@@ -89,6 +91,58 @@ public class LobbyAPI {
         }
         serverConnector.makePutRequest(ctx, "/controller/lobby/create-lobby", jsonObject, callback);
     }
+    /**
+     * Effettua una richiesta al server per creare una nuova lobby e aggiorna il database locale.
+     *
+     * @param ctx  Contesto dell'applicazione.
+     * @param tipo Tipo di lobby da creare.
+     */
+    public void doCreateLobby(Context ctx, String tipo) {
+        Log.d(TAG, "doCreateLobby: Richiesta al server per creare una nuova lobby");
+
+        createLobby(ctx, tipo, new ServerConnector.CallbackInterface() {
+            @Override
+            public void onSuccess(Object response) {
+                try {
+                    JSONObject jsonResponse = (JSONObject) response;
+
+                    // Estrai i dettagli della lobby creata
+                    JSONObject lobby = jsonResponse.getJSONObject("lobby");
+                    int code = lobby.getInt("code");
+                    int creatorID = lobby.getInt("creatorID");
+                    String creationDate = lobby.getString("creationDate");
+                    //inizialmente settato ad uno
+                    int numPlayer = lobby.getInt("numPlayer");
+                    String type = lobby.getString("type");
+                    String state = lobby.getString("state");
+
+
+                    // TODO: - sottoscrivere al websocket della lobby e della chat
+
+                    // Salva la lobby nel database locale
+                    LobbyDatabaseHelper dbHelper = new LobbyDatabaseHelper(ctx);
+                    dbHelper.insertLobby(code, creatorID, creationDate, numPlayer, type, state);
+
+                    Log.d(TAG, "doCreateLobby: Lobby creata e salvata nel database");
+
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            @Override
+            public void onError(String jsonResponse) {
+                Toast.makeText(ctx, jsonResponse, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onServerError(Exception e) {
+                Toast.makeText(ctx, "Errore nella creazione della lobby, il server non risponde!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
 
     /**
      * Effettua una richiesta al server per eliminare una lobby esistente.
@@ -124,8 +178,11 @@ public class LobbyAPI {
 
         serverConnector.makePostRequest(ctx, "/controller/lobby/join-lobby", jsonObject, callback);
     }
-
-
+    /**
+     * Effettua una richiesta al server per entrare in una lobby esistente.
+     * @param ctx
+     * @param code
+     */
     public void doJoinLobby(Context ctx, int code) {
         Log.d(TAG, "doJoinLobby: Richiesta al server per le JOIN LOBBY");
 
@@ -182,6 +239,30 @@ public class LobbyAPI {
         serverConnector.makePostRequest(ctx, "/controller/lobby/leave-lobby", jsonObject, callback);
     }
 
+    public void doLeaveLobby(Context context, int codeLobby){
+        Log.d(TAG, "doLeaveLobby: sto per inviare la richiesta");
+
+        leaveLobby(context, codeLobby, new ServerConnector.CallbackInterface() {
+            @Override
+            public void onSuccess(Object jsonResponse) {
+
+            }
+
+            @Override
+            public void onError(String jsonResponse) {
+                Toast.makeText(context, jsonResponse, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onError: " + jsonResponse);
+            }
+
+            @Override
+            public void onServerError(Exception e) {
+                Toast.makeText(context, "Errore nella rispota del server", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onError: " + e.toString());
+            }
+        });
+    }
+
+
     /**
      * Effettua una richiesta al server per modificare una lobby esistente.
      *
@@ -221,56 +302,6 @@ public class LobbyAPI {
         serverConnector.makePostRequest(ctx, "/controller/lobby/invite-friend-lobby", jsonObject, callback);
     }
 
-    /**
-     * Effettua una richiesta al server per creare una nuova lobby e aggiorna il database locale.
-     *
-     * @param ctx  Contesto dell'applicazione.
-     * @param tipo Tipo di lobby da creare.
-     */
-    public void doCreateLobby(Context ctx, String tipo) {
-        Log.d(TAG, "doCreateLobby: Richiesta al server per creare una nuova lobby");
-
-        createLobby(ctx, tipo, new ServerConnector.CallbackInterface() {
-            @Override
-            public void onSuccess(Object response) {
-                try {
-                    JSONObject jsonResponse = (JSONObject) response;
-
-                    // Estrai i dettagli della lobby creata
-                    JSONObject lobby = jsonResponse.getJSONObject("lobby");
-                    int code = lobby.getInt("code");
-                    int creatorID = lobby.getInt("creatorID");
-                    String creationDate = lobby.getString("creationDate");
-                    //inizialmente settato ad uno
-                    int numPlayer = lobby.getInt("numPlayer");
-                    String type = lobby.getString("type");
-                    String state = lobby.getString("state");
-
-
-                    // TODO: - sottoscrivere al websocket della lobby e della chat
-
-                    // Salva la lobby nel database locale
-                    LobbyDatabaseHelper dbHelper = new LobbyDatabaseHelper(ctx);
-                    dbHelper.insertLobby(code, creatorID, creationDate, numPlayer, type, state);
-
-                    Log.d(TAG, "doCreateLobby: Lobby creata e salvata nel database");
-
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            @Override
-            public void onError(String jsonResponse) {
-                Toast.makeText(ctx, jsonResponse, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onServerError(Exception e) {
-                Toast.makeText(ctx, "Errore nella creazione della lobby, il server non risponde!", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
 }
 

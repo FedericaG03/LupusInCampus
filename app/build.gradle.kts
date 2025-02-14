@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("jacoco") // Abilita il plugin JaCoCo per la copertura del codice
 }
 
 android {
@@ -48,5 +49,23 @@ dependencies {
     implementation(libs.jbcrypt)
     implementation("me.pushy:sdk:1.0.109")
     implementation(libs.jackson.databind)
+    // Test unitari con JUnit 4
+    testImplementation(libs.junit)
+    // Mockito per creare mock e stub
+    testImplementation("org.mockito:mockito-core:4.0.0")
+}
 
+// Configurazione di JaCoCo per la copertura del codice
+// ✅ Corretta configurazione di JaCoCo
+tasks.withType<Test>().configureEach {
+    finalizedBy("jacocoTestReport") // Assicura che il report venga generato dopo i test
+}
+
+tasks.register<JacocoReport>("jacocoTestReport") {
+    dependsOn("testDebugUnitTest") // Esegue prima i test unitari
+
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
 }

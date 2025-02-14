@@ -158,6 +158,23 @@ public class SharedActivity {
     public void setSearchResult(List<Player> searchResult) {
         this.searchResult = searchResult;
     }
+
+    public synchronized void saveData() {
+        Log.d(TAG, "Salvataggio dati in SharedPreferences...");
+
+        editor.putBoolean(IS_LOGGED_IN, isLoggedIn());
+        editor.putString(NICKNAME, getNickname());
+        editor.putString(EMAIL, getEmail());
+        editor.putString(TOKEN, getToken());
+        editor.putString(SESSION_ID, getSessionId());
+        editor.putString(PUSHY_TOKEN, getPushyToken());
+        editor.putInt(ID, getId());
+
+        editor.apply(); // Salva in modo asincrono per non bloccare il thread principale
+
+        Log.d(TAG, "Dati salvati con successo.");
+    }
+
 }
 
 

@@ -40,23 +40,21 @@ public class RegisterActivity extends BaseActivity {
         bckButton = findViewById(R.id.back_btn);
 
 
-//        bckButton.setOnClickListener(v->{
-  //          getOnBackPressedDispatcher().onBackPressed();
-
-    //    });
+        bckButton.setOnClickListener(v->{
+            getOnBackPressedDispatcher().onBackPressed();
+            finish();
+        });
 
         Pushy.listen(getApplicationContext());
 
         btnRegister.setOnClickListener(v -> {
-            String nickname = etNickname.getText().toString();
-            String email = etEmail.getText().toString();
-            String password = etPassword.getText().toString();
+            String nickname = etNickname.getText().toString().trim();
+            String email = etEmail.getText().toString().trim();
+            String password = etPassword.getText().toString().trim();
             String hashPass = hashSHA256(password);
 
             if (nickname.isEmpty() || email.isEmpty() || hashPass.isEmpty()) {
                 Toast.makeText(RegisterActivity.this, "Per favore, compila tutti i campi.", Toast.LENGTH_SHORT).show();
-            //} //else if (!email.contains("@")) {
-              //  Toast.makeText(RegisterActivity.this, "Inserisci un'email valida.", Toast.LENGTH_SHORT).show();
             } else {
                 PlayerAPI playerAPI = new PlayerAPI();
                 playerAPI.doRegister(email, hashPass,nickname, getApplicationContext(), sharedActivity);

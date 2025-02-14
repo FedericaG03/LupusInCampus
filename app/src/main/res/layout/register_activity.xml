@@ -92,7 +92,7 @@
 
 
     <include
-        android:id="@+id/back_btn"
+        android:id="@+id/back_btn_register"
         layout="@layout/back_btn_layout_light"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
