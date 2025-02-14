@@ -19,6 +19,7 @@ public class PlayerAreaActivity extends BaseActivity implements ChangeNicknameDi
 
     private TextView tvPlayerName;
     private Button btnDeleteAccount, btnChangeNickname, btnGameHistory, btnChangePassword;
+    private TextView backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class PlayerAreaActivity extends BaseActivity implements ChangeNicknameDi
         btnChangeNickname = findViewById(R.id.btnChangeNickname);
         btnGameHistory = findViewById(R.id.btnGameHistory);
         btnChangePassword = findViewById(R.id.btnChangePassword);
+        backBtn = findViewById(R.id.back_btn);
 
         // Recupero del nome giocatore dalle SharedPreferences
         tvPlayerName.setText(sharedActivity.getNickname());
@@ -70,6 +72,10 @@ public class PlayerAreaActivity extends BaseActivity implements ChangeNicknameDi
         btnChangePassword.setOnClickListener(v -> {
             PlayerAPI playerAPI = new PlayerAPI();
             playerAPI.doForgotPassword(sharedActivity.getEmail(), this); // Usa 'this' come contesto
+        });
+
+        backBtn.setOnClickListener(v->{
+            getOnBackPressedDispatcher().onBackPressed();
         });
     }
 

@@ -2,37 +2,53 @@ package com.example.lupusincampus.Settings;
 
 import android.content.Intent;
 import android.content.SharedPreferences;;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.example.lupusincampus.API.PlayerAPI;
+import com.example.lupusincampus.Amici.ListaAmiciActivity;
+import com.example.lupusincampus.Amici.ListaRichiesteAmiciActivity;
 import com.example.lupusincampus.BaseActivity;
 import com.example.lupusincampus.MainActivity;
+import com.example.lupusincampus.PlayerArea.PlayerAreaActivity;
 import com.example.lupusincampus.R;
+import com.example.lupusincampus.SharedActivity;
 import com.google.android.material.slider.Slider;
 
-import java.util.Locale;
-
 public class SettingsActivity extends BaseActivity {
+    private SharedPreferences sharedPreferences;
+
+    private ConstraintLayout mainLayout;
+    private View sidebar;
+    private TextView profileButton;
+    private TextView usernameSidebar;
+    private TextView areaUtenteBtn;
+    private TextView listaAmiciBtn;
+    private TextView richiesteAmiciBtn;
+    private TextView listaInvitiBtn;
+    private TextView logoutBtn;
+
     private Spinner languageSpinner;
     private Slider musicSlider;
     private Slider effectsSlider;
     private TextView backButton;
-    private TextView profileButton;
-    private View sidebar;
-    private SharedPreferences sharedPreferences;
+
+    private SharedActivity sharedActivity = SharedActivity.getInstance(getApplicationContext());
+    private PlayerAPI playerAPI = new PlayerAPI();
+
     private static final String PREFS_NAME = "GameSettings";
     private static final String PREF_LANGUAGE = "language";
     private static final String PREF_MUSIC_VOLUME = "musicVolume";
     private static final String PREF_EFFECTS_VOLUME = "effectsVolume";
     private final String[] languageCodes = {"it", "en", "fr", "es", "de"};
     private boolean languageChanged = false;
-    private View mainLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +69,25 @@ public class SettingsActivity extends BaseActivity {
     }
 
     private void initializeViews() {
+        mainLayout = findViewById(R.id.setting_layout);
+        sidebar = findViewById(R.id.profile_sidebar_settings);
+        profileButton = findViewById(R.id.profile_btn);
+        usernameSidebar = findViewById(R.id.username_sdb);
+        areaUtenteBtn = findViewById(R.id.area_utente_btn);
+        listaAmiciBtn = findViewById(R.id.lista_amici_btn);
+        richiesteAmiciBtn = findViewById(R.id.richiesta_amicizia_btn);
+        listaInvitiBtn = findViewById(R.id.lista_inviti_btn);
+        logoutBtn = findViewById(R.id.logout_btn);
+
+
         languageSpinner = findViewById(R.id.spinner_lingua);
         musicSlider = findViewById(R.id.slider_musica);
         effectsSlider = findViewById(R.id.slider_effetti);
         backButton = findViewById(R.id.back_btn);
-        sidebar = findViewById(R.id.profile_sidebar_settings);
-        profileButton = findViewById(R.id.profile_btn);
-        mainLayout = findViewById(R.id.setting_layout);
+
+        String nickname = sharedActivity.getNickname();
+        profileButton.setText(nickname);
+        usernameSidebar.setText(nickname);
 
         // Set up language spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.languages_array, R.layout.spinner_lingua_item);
@@ -82,6 +110,45 @@ public class SettingsActivity extends BaseActivity {
     }
 
     private void setupListeners() {
+
+        profileButton.setOnClickListener(v->{
+            if(profileButton.getVisibility() == View.VISIBLE){
+                profileButton.setVisibility(View.INVISIBLE);
+                sidebar.setVisibility(View.VISIBLE);
+            }
+        });
+
+        mainLayout.setOnClickListener(v->{
+            if(sidebar.getVisibility() == View.VISIBLE){
+                profileButton.setVisibility(View.VISIBLE);
+                sidebar.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        areaUtenteBtn.setOnClickListener(v->{
+            playerAPI.doGetPlayerAreaInfo(getApplicationContext());
+            Intent intent = new Intent(getApplicationContext(), PlayerAreaActivity.class);
+            startActivity(intent);
+        });
+
+        listaAmiciBtn.setOnClickListener(v->{
+            Intent intent = new Intent(getApplicationContext(), ListaAmiciActivity.class);
+            startActivity(intent);
+        });
+
+        richiesteAmiciBtn.setOnClickListener(v->{
+            Intent intent = new Intent(getApplicationContext(), ListaRichiesteAmiciActivity.class);
+            startActivity(intent);
+        });
+
+        listaInvitiBtn.setOnClickListener(v->{
+            /*TODO*/
+        });
+
+        logoutBtn.setOnClickListener(v->
+                playerAPI.doLogout(getApplicationContext(), sharedActivity));
+
+
         // Language spinner listener
         languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -105,7 +172,6 @@ public class SettingsActivity extends BaseActivity {
             }
         });
 
-
         // Music volume slider listener
         musicSlider.addOnChangeListener((slider, value, fromUser) -> {
             if (fromUser) {
@@ -127,19 +193,7 @@ public class SettingsActivity extends BaseActivity {
             startActivity(intent);
         });
 
-        profileButton.setOnClickListener(v->{
-            if(profileButton.getVisibility() == View.VISIBLE){
-                profileButton.setVisibility(View.GONE);
-                sidebar.setVisibility(View.VISIBLE);
-            }
-        });
 
-        mainLayout.setOnClickListener(v->{
-        if(sidebar.getVisibility() == View.VISIBLE){
-            profileButton.setVisibility(View.VISIBLE);
-            sidebar.setVisibility(View.GONE);
-        }
-    });
     }
 
     private void saveLanguageSetting(String languageCode) {

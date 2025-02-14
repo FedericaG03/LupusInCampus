@@ -34,31 +34,28 @@ public class CreateLobbyActivity extends BaseActivity {
         rbPrivate = findViewById(R.id.rbPrivate);
         rbPublic = findViewById(R.id.rbPublic);
         btnCreateLobby = findViewById(R.id.btnCreateLobby);
-        backBtn = findViewById(R.id.back_btn_create_lobby);
+        backBtn = findViewById(R.id.back_btn);
 
-        btnCreateLobby.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Ottieni il tipo di lobby selezionato
-                int selectedRadioButtonId = radioGroupLobbyType.getCheckedRadioButtonId();
-                String lobbyType = "";
+        btnCreateLobby.setOnClickListener(v -> {
+            // Ottieni il tipo di lobby selezionato
+            int selectedRadioButtonId = radioGroupLobbyType.getCheckedRadioButtonId();
+            String lobbyType = "";
 
-                if (selectedRadioButtonId == rbPrivate.getId()) {
-                    // Tipo di lobby: Privata
-                    lobbyType = "Privata";
-                } else if (selectedRadioButtonId == rbPublic.getId()) {
-                    // Tipo di lobby: Pubblica
-                    lobbyType = "Pubblica";
-                }
-                lobbyAPI.doCreateLobby(getApplicationContext(),lobbyType);
-                Log.d(TAG, "onClick: invio richiesta creazione lobby tipo: " + lobbyType);
-
-                // Crea l'Intent per aprire LobbyActivityWait e passa il tipo di lobby
-                Intent intent = new Intent(getApplicationContext(), LobbyActivityWait.class);
-                Log.d(TAG, "onClick: passo alla prossima pagina e passo il tipo di lobby: " + intent.toString());
-                intent.putExtra("lobbyType", lobbyType);  // Passa il tipo di lobby
-                startActivity(intent);
+            if (selectedRadioButtonId == rbPrivate.getId()) {
+                // Tipo di lobby: Privata
+                lobbyType = "Privata";
+            } else if (selectedRadioButtonId == rbPublic.getId()) {
+                // Tipo di lobby: Pubblica
+                lobbyType = "Pubblica";
             }
+            lobbyAPI.doCreateLobby(getApplicationContext(),lobbyType);
+            Log.d(TAG, "onClick: invio richiesta creazione lobby tipo: " + lobbyType);
+
+            // Crea l'Intent per aprire LobbyActivityWait e passa il tipo di lobby
+            Intent intent = new Intent(getApplicationContext(), LobbyActivityWait.class);
+            Log.d(TAG, "onClick: passo alla prossima pagina e passo il tipo di lobby: " + intent.toString());
+            intent.putExtra("lobbyType", lobbyType);  // Passa il tipo di lobby
+            startActivity(intent);
         });
 
         // Imposta un listener per il pulsante "Indietro" (o esci)

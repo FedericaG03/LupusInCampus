@@ -12,7 +12,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.lupusincampus.API.FriendAPI;
 import com.example.lupusincampus.API.PlayerAPI;
 import com.example.lupusincampus.BaseActivity;
 import com.example.lupusincampus.Model.Player;
@@ -24,7 +23,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ListaAmiciActivity extends BaseActivity {
+public class ListaRichiesteAmiciActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     private ExecutorService executorService;
@@ -103,7 +102,6 @@ public class ListaAmiciActivity extends BaseActivity {
         logoutButton.setOnClickListener(v->
                 playerAPI.doLogout(getApplicationContext(), sharedActivity));
 
-
         backButton.setOnClickListener(v ->
                 getOnBackPressedDispatcher().onBackPressed());
 
@@ -113,20 +111,18 @@ public class ListaAmiciActivity extends BaseActivity {
         });
 
         // Carica la lista amici
-        loadFriendList();
+        loadRequestList();
     }
 
-    private void loadFriendList() {
+    private void loadRequestList() {
         progressBar.setVisibility(View.VISIBLE);
         progressBar.setProgress(0);
-        recyclerView.setVisibility(View.INVISIBLE);
+        recyclerView.setVisibility(View.GONE);
         recyclerView.invalidate();
         progressBar.invalidate();
 
         executorService.execute(() -> {
-            FriendAPI friendAPI = new FriendAPI();
-            friendAPI.doGetFriendsList(getApplicationContext());
-            List<Player> friendList = SharedActivity.getInstance(getApplicationContext()).getFriendList();
+            List<Player> requestList = SharedActivity.getInstance(getApplicationContext()).getPlayerRequestList();
 
             for (int i = 0; i <= 100; i += 20) {  // Simulazione di avanzamento progressivo
                 int progress = i;
@@ -140,15 +136,15 @@ public class ListaAmiciActivity extends BaseActivity {
 
             // Aggiorna la UI nel thread principale
             mainHandler.post(() -> {
-                progressBar.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
                 progressBar.invalidate();
                 recyclerView.invalidate();
 
                 // Configura il RecyclerView
-                ListaAmiciAdapter listaAmiciAdapter = new ListaAmiciAdapter(friendList);
+                ListaRichiesteAdapter listaRichiesteAdapter = new ListaRichiesteAdapter(requestList);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                recyclerView.setAdapter(listaAmiciAdapter);
+                recyclerView.setAdapter(listaRichiesteAdapter);
             });
         });
     }

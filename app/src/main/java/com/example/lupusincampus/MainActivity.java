@@ -2,9 +2,9 @@ package com.example.lupusincampus;
 
 import com.example.lupusincampus.API.FriendAPI;
 import com.example.lupusincampus.Amici.ListaAmiciActivity;
-import com.example.lupusincampus.Amici.ListaRichiesteAmici;
+import com.example.lupusincampus.Amici.ListaRichiesteAmiciActivity;
 import com.example.lupusincampus.Login.LoginActivity;
-import com.example.lupusincampus.Play.WorldActivity;
+import com.example.lupusincampus.Play.GiocaActivity;
 import com.example.lupusincampus.PlayerArea.PlayerAreaActivity;
 import com.example.lupusincampus.API.PlayerAPI;
 import com.example.lupusincampus.Regole.RegoleRuoliActivity;
@@ -46,7 +46,8 @@ public class MainActivity extends BaseActivity {
                 return;
             }
 
-            PlayerAPI playerAPI = new PlayerAPI();
+        PlayerAPI playerAPI = new PlayerAPI();
+        FriendAPI friendAPI = new FriendAPI();
 
             // Recupere nickname e password salvata
             String nickname = sharedActivity.getNickname();
@@ -90,11 +91,11 @@ public class MainActivity extends BaseActivity {
                 }
             });
 
-            playButton.setOnClickListener(v -> {
-                Log.d("MainActivity","Vado alla playactivity" );
-                Intent intent = new Intent(MainActivity.this, WorldActivity.class);
-                startActivity(intent);
-            });
+        playButton.setOnClickListener(v -> {
+            Log.d("MainActivity","Vado alla playactivity" );
+            Intent intent = new Intent(MainActivity.this, GiocaActivity.class);
+            startActivity(intent);
+        });
 
             exitButton.setOnClickListener(v->{
                 new AlertDialog.Builder(this)
@@ -110,12 +111,10 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent);
             });
 
-            richiesteAmiciziaBtn.setOnClickListener(v->{
-                FriendAPI friendAPI = new FriendAPI();
-                friendAPI.doGetPendingRequests(getApplicationContext());
-                Intent intent = new Intent(getApplicationContext(), ListaRichiesteAmici.class);
-                startActivity(intent);
-            });
+        richiesteAmiciziaBtn.setOnClickListener(v->{
+            Intent intent = new Intent(getApplicationContext(), ListaRichiesteAmiciActivity.class);
+            startActivity(intent);
+        });
 
             rulesButton.setOnClickListener(v->{
                 Intent intent = new Intent(getApplicationContext(), RegoleRuoliActivity.class);

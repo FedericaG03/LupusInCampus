@@ -24,7 +24,7 @@ public class LobbyAPI {
      * @param ctx      Contesto dell'applicazione.
      * @param callback Interfaccia di callback per gestire la risposta del server.
      */
-    public void showLobbyRequest(Context ctx, ServerConnector.CallbackInterface callback){
+    private void showLobbyRequest(Context ctx, ServerConnector.CallbackInterface callback){
         serverConnector.makeGetRequest(ctx,"/controller/lobby/active-public-lobbies", callback);
     }
     /**
@@ -82,7 +82,7 @@ public class LobbyAPI {
      * @param tipo     Tipo di lobby da creare.
      * @param callback Interfaccia di callback per gestire la risposta del server.
      */
-    public void createLobby(Context ctx, String tipo, ServerConnector.CallbackInterface callback) {
+    private void createLobby(Context ctx, String tipo, ServerConnector.CallbackInterface callback) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("tipo", tipo);
@@ -301,6 +301,28 @@ public class LobbyAPI {
         }
         serverConnector.makePostRequest(ctx, "/controller/lobby/invite-friend-lobby", jsonObject, callback);
     }
+
+    public void doInviteFriendToLobby(Context ctx, int friendId){
+
+        inviteFriendToLobby(ctx, friendId, new ServerConnector.CallbackInterface() {
+            @Override
+            public void onSuccess(Object jsonResponse) {
+                Log.d("LobbyAPI", "onSuccess: invitato alla lobby");
+            }
+
+            @Override
+            public void onError(String jsonResponse) {
+                Log.d("LobbyAPI", "onError: non invitato alla lobby");
+            }
+
+            @Override
+            public void onServerError(Exception e) {
+                Log.d("LobbyAPI", "onServerErroe: errore nel server");
+            }
+        });
+    }
+
+
 
 
 }

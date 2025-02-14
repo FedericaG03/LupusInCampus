@@ -10,7 +10,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         // Ottieni la lingua salvata nelle preferenze
         String savedLanguage = newBase.getSharedPreferences("GameSettings", MODE_PRIVATE)
-                .getString("language", "en");
+                .getString("language", "it");
 
         // Applica la lingua
         Locale locale = new Locale(savedLanguage);

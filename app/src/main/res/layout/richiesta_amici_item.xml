@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="10dp"
+    android:layout_marginHorizontal="20dp"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
+
+    <TextView
+        android:id="@+id/username_richiesta_amici"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/username_lista_amici"
+        android:textSize="23sp"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
+        android:id="@+id/accetta_richiesta_btn"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        app:layout_constraintWidth_percent="0.145"
+        android:src="@drawable/accetta_richiesta_icon"
+        android:layout_marginHorizontal="5dp"
+        app:layout_constraintEnd_toStartOf="@id/rimuovi_amico_btn"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/rimuovi_amico_btn"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        app:layout_constraintWidth_percent="0.145"
+        android:src="@drawable/rimuovi_amico_icon"
+        android:layout_marginHorizontal="5dp"
+        app:layout_constraintEnd_toStartOf="@id/blocca_amico_btn"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/blocca_amico_btn"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        app:layout_constraintWidth_percent="0.145"
+        android:src="@drawable/blocca_amico_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
