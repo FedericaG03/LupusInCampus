@@ -4,20 +4,24 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lupusincampus.API.FriendAPI;
+import com.example.lupusincampus.API.LobbyAPI;
 import com.example.lupusincampus.Model.Player;
 import com.example.lupusincampus.R;
 
 import java.util.List;
 
-public class ListaAmiciAdapter extends RecyclerView.Adapter<ListaAmiciViewHolder> {
+public class ListaAmiciAdapter extends RecyclerView.Adapter<ListaAmiciAdapter.ListaAmiciViewHolder> {
     private List<Player> listaAmici;
     private FriendAPI friendAPI = new FriendAPI();
+    private LobbyAPI lobbyAPI = new LobbyAPI();
 
     public ListaAmiciAdapter(List<Player> listaAmici){
         this.listaAmici = listaAmici;
@@ -30,7 +34,6 @@ public class ListaAmiciAdapter extends RecyclerView.Adapter<ListaAmiciViewHolder
         return new ListaAmiciViewHolder(view);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull ListaAmiciViewHolder holder, int position) {
         Player player = listaAmici.get(position);
@@ -39,10 +42,7 @@ public class ListaAmiciAdapter extends RecyclerView.Adapter<ListaAmiciViewHolder
         holder.invitaAmicoBtn.setOnClickListener(v->{
             new AlertDialog.Builder(v.getContext())
                     .setMessage("Sei sicuro di voler aggiungere questo amico?")
-                    .setPositiveButton("Sì", (dialog, which) -> {
-                        // Aggiungi amico dalla lista
-                        addFriend(ctx, player);
-                    })
+                    .setPositiveButton("Sì", (dialog, which) -> inviteToLobby(ctx, player))
                     .setNegativeButton("No", null)
                     .show();
         });
@@ -50,10 +50,7 @@ public class ListaAmiciAdapter extends RecyclerView.Adapter<ListaAmiciViewHolder
         holder.rimuoviAmicoBtn.setOnClickListener(v->{
             new AlertDialog.Builder(v.getContext())
                     .setMessage("Sei sicuro di voler rimuovere questo amico?")
-                    .setPositiveButton("Sì", (dialog, which) -> {
-                        // Rimuove l'amico dalla lista
-                        removeFriend(ctx, position, player);
-                    })
+                    .setPositiveButton("Sì", (dialog, which) -> removeFriend(ctx, position, player))
                     .setNegativeButton("No", null)
                     .show();
         });
@@ -61,17 +58,14 @@ public class ListaAmiciAdapter extends RecyclerView.Adapter<ListaAmiciViewHolder
         holder.bloccaAmicoBtn.setOnClickListener(v->{
             new AlertDialog.Builder(v.getContext())
                     .setMessage("Sei sicuro di voler bloccare questo giocatore?")
-                    .setPositiveButton("Sì", (dialog, which) -> {
-                        // Rimuove l'amico dalla lista
-                        removeFriend(ctx, position, player);
-                    })
+                    .setPositiveButton("Sì", (dialog, which) -> removeFriend(ctx, position, player))
                     .setNegativeButton("No", null)
                     .show();
         });
     }
 
-    private void addFriend(Context ctx, Player player) {
-        friendAPI.doSendFriendRequest(ctx, player.getId());
+    private void inviteToLobby(Context ctx, Player player) {
+        lobbyAPI.doInviteFriendToLobby(ctx, player.getId());
     }
 
     @Override
@@ -79,12 +73,24 @@ public class ListaAmiciAdapter extends RecyclerView.Adapter<ListaAmiciViewHolder
         return listaAmici.size();
     }
 
-
-    public void removeFriend(Context ctx,int position, Player player) {
+    public void removeFriend(Context ctx, int position, Player player) {
         if (position >= 0 && position < listaAmici.size()) {
-            listaAmici.remove(position); // Rimuove l'elemento dalla lista
-            notifyItemRemoved(position); // Notifica che l'elemento è stato rimosso
-            notifyItemRangeChanged(position, listaAmici.size()); // Rende fluido lo spostamento degli altri elementi
+            friendAPI.doRemoveFriend(ctx, player.getId());
+        }
+    }
+
+    public static class ListaAmiciViewHolder extends RecyclerView.ViewHolder {
+        TextView usernameTextView;
+        ImageView invitaAmicoBtn;
+        ImageView rimuoviAmicoBtn;
+        ImageView bloccaAmicoBtn;
+
+        public ListaAmiciViewHolder(@NonNull View itemView) {
+            super(itemView);
+            usernameTextView = itemView.findViewById(R.id.username_lista_amici);
+            invitaAmicoBtn = itemView.findViewById(R.id.invita_amico_btn);
+            rimuoviAmicoBtn = itemView.findViewById(R.id.rimuovi_amico_btn);
+            bloccaAmicoBtn = itemView.findViewById(R.id.blocca_amico_btn);
         }
     }
 }

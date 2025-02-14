@@ -4,51 +4,100 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.lupusincampus.API.PlayerAPI;
+import com.example.lupusincampus.Amici.ListaAmiciActivity;
+import com.example.lupusincampus.Amici.ListaRichiesteAmiciActivity;
 import com.example.lupusincampus.BaseActivity;
 import com.example.lupusincampus.Play.GestioneLogicaPartita.CreateLobbyActivity;
-import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyActivityWait;
 import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyListActivity;
+import com.example.lupusincampus.PlayerArea.PlayerAreaActivity;
 import com.example.lupusincampus.ServerConnector;
 
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.SharedActivity;
 
-public class WorldActivity extends BaseActivity {
+public class GiocaActivity extends BaseActivity {
 
 
     private static final String TAG = "WordActivity";
     private TextView inviteNotification;
-    private View bckButton;
-    private SharedActivity sharedActivity;
-    private TextView btnShowLobby;
-    private TextView btnCreateGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mondo_activity);
+        setContentView(R.layout.gioca_activity);
         SharedActivity sharedActivity = SharedActivity.getInstance(getApplicationContext());
-
+        PlayerAPI playerAPI = new PlayerAPI();
         Log.d(TAG, "onCreate: Posso iniziare a giocare ");
 
         String nickname = sharedActivity.getNickname();
+        RelativeLayout mainLayout = findViewById(R.id.main_layout_gioca);
         ConstraintLayout sidebar = findViewById(R.id.profile_sidebar);
         TextView profileButton = findViewById(R.id.profile_btn);
         TextView bckButton = findViewById(R.id.back_btn);
-        profileButton.setText(nickname);
-        //Bottoni gioco mostra lobby
-        btnShowLobby = findViewById(R.id.btnShowLobby);
-        btnCreateGame = findViewById(R.id.btnCreateGame);
+        TextView usernameSidebar = findViewById(R.id.username_sdb);
+        TextView areaUtenteBtn = findViewById(R.id.area_utente_btn);
+        TextView listaAmiciBtn = findViewById(R.id.lista_amici_btn);
+        TextView richiesteAmiciBtn = findViewById(R.id.richiesta_amicizia_btn);
+        TextView listaInvitiButton = findViewById(R.id.lista_inviti_btn);
+        TextView logoutBtn = findViewById(R.id.logout_btn);
+        TextView btnShowLobby = findViewById(R.id.btnShowLobby);
+        TextView btnCreateGame = findViewById(R.id.btnCreateGame);
 
+        profileButton.setText(nickname);
+        usernameSidebar.setText(nickname);
         inviteNotification = findViewById(R.id.inviteNotification);
+
+        profileButton.setOnClickListener(v->{
+            if(profileButton.getVisibility() == View.VISIBLE) {
+                playerAPI.doGetPlayerAreaInfo(getApplicationContext());
+                profileButton.setVisibility(View.INVISIBLE);
+                profileButton.invalidate();
+                sidebar.setVisibility(View.VISIBLE);
+                sidebar.invalidate();
+            }
+        });
+
+        mainLayout.setOnClickListener(v->{
+            if (sidebar.getVisibility() == View.VISIBLE) {
+                sidebar.setVisibility(View.INVISIBLE);
+                sidebar.invalidate();
+                profileButton.setVisibility(View.VISIBLE);
+                profileButton.invalidate();
+            }
+        });
+
+        areaUtenteBtn.setOnClickListener(v->{
+            Intent intent = new Intent(getApplicationContext(), PlayerAreaActivity.class);
+            startActivity(intent);
+        });
+
+        listaAmiciBtn.setOnClickListener(v->{
+            Intent intent = new Intent(getApplicationContext(), ListaAmiciActivity.class);
+            startActivity(intent);
+        });
+
+        richiesteAmiciBtn.setOnClickListener(v->{
+            Intent intent = new Intent(getApplicationContext(), ListaRichiesteAmiciActivity.class);
+            startActivity(intent);
+        });
+
+        listaInvitiButton.setOnClickListener(v->{
+            /*TODO*/
+        });
+
+        logoutBtn.setOnClickListener(v->{
+            playerAPI.doLogout(getApplicationContext(), sharedActivity);
+        });
 
 
         btnShowLobby.setOnClickListener(view -> {
-            Intent intent = new Intent(WorldActivity.this, LobbyListActivity.class);
+            Intent intent = new Intent(GiocaActivity.this, LobbyListActivity.class);
             startActivity(intent);
             Log.d(TAG, "onCreate: vado al lobbyActivity");
         });

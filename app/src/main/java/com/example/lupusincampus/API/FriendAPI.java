@@ -20,9 +20,7 @@ public class FriendAPI {
     private static ServerConnector serverConnector = new ServerConnector();
     private static final String TAG = "FriendAPI";
 
-    //TODO: TESTARE QUESTA CLASSE
     public void doGetFriendsList(Context ctx) {
-
         requestGetFriendsList(ctx, new ServerConnector.CallbackInterface() {
             @Override
             public void onSuccess(Object response) {
@@ -64,7 +62,6 @@ public class FriendAPI {
                 Toast.makeText(ctx,"Errore nel server", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     public void requestGetFriendsList(Context ctx, ServerConnector.CallbackInterface callback){
@@ -188,40 +185,6 @@ public class FriendAPI {
             throw new RuntimeException(e);
         }
         serverConnector.makePostRequest(ctx, "/controller/friend/remove-friend", jsonObject, callback);
-    }
-
-    /**
-     *Funzione che server per prendere la
-     *@param ctx
-     */
-    public void doGetPendingRequests(Context ctx) {
-        requestGetPendingRequests(ctx, new ServerConnector.CallbackInterface() {
-            @Override
-            public void onSuccess(Object response) {
-                try {
-                    JSONArray jsonResponse = (JSONArray) response;
-                    Log.d(TAG, "onSuccess: ricevuto dal server: " + jsonResponse.toString(4));
-                } catch (Exception e) {
-                    Log.e(TAG, "onSuccess: errore nel parsing della risposta", e);
-                }
-            }
-
-            @Override
-            public void onError(String jsonResponse) {
-                Log.e(TAG, "onError: Errore doGetPendingRequests: " + jsonResponse);
-                Toast.makeText(ctx, jsonResponse, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onServerError(Exception e) {
-                Log.e(TAG, "onServerError: ", e);
-                Toast.makeText(ctx, "Errore nel server", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void requestGetPendingRequests(Context ctx, ServerConnector.CallbackInterface callback) {
-        serverConnector.makeGetRequest(ctx, "/controller/friend/get-pending-requests", callback);
     }
 
     public void doSearchPlayer(Context ctx, String nickname){

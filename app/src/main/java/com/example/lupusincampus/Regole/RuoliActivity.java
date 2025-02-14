@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lupusincampus.Amici.ListaAmiciActivity;
+import com.example.lupusincampus.Amici.ListaRichiesteAmiciActivity;
 import com.example.lupusincampus.BaseActivity;
+import com.example.lupusincampus.PlayerArea.PlayerAreaActivity;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.API.PlayerAPI;
 import com.example.lupusincampus.SharedActivity;
@@ -27,19 +29,26 @@ public class RuoliActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ruoli_activity);
-
         SharedActivity sharedActivity = SharedActivity.getInstance(this);
+        PlayerAPI playerAPI = new PlayerAPI();
 
-        RecyclerView recyclerView = findViewById(R.id.lista_ruoli);
-        View backButton = findViewById(R.id.back_btn);
-        TextView profileButton = findViewById(R.id.profile_btn);
-        TextView friensListButton = findViewById(R.id.lista_amici_btn);
-        TextView logoutButton = findViewById(R.id.logout_btn);
-        ConstraintLayout sidebarGeneral = findViewById(R.id.profile_sidebar);
+        String nickname = sharedActivity.getNickname();
+
         ConstraintLayout mainLayout = findViewById(R.id.ruoli_layout);
+        ConstraintLayout sidebarGeneral = findViewById(R.id.profile_sidebar);
         View sidebarRuolo = findViewById(R.id.profile_sidebar_roles);
+        TextView profileButton = findViewById(R.id.profile_btn);
+        TextView usernameSidebar = findViewById(R.id.username_sdb);
+        TextView areaUtenteBtn = findViewById(R.id.area_utente_btn);
+        TextView listaAmiciBtn = findViewById(R.id.lista_amici_btn);
+        TextView richiesteAmiciBtn = findViewById(R.id.richiesta_amicizia_btn);
+        TextView listaInvitiBtn = findViewById(R.id.lista_inviti_btn);
+        TextView logoutButton = findViewById(R.id.logout_btn);
+        RecyclerView recyclerView = findViewById(R.id.lista_ruoli);
+        TextView backButton = findViewById(R.id.back_btn);
 
-
+        profileButton.setText(nickname);
+        usernameSidebar.setText(nickname);
         initializeRuoli();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -49,31 +58,49 @@ public class RuoliActivity extends BaseActivity {
 
         profileButton.setOnClickListener( v->{
             if(profileButton.getVisibility() == View.VISIBLE){
-                profileButton.setVisibility(View.GONE);
+                profileButton.setVisibility(View.INVISIBLE);
+                profileButton.invalidate();
                 sidebarRuolo.bringToFront();
                 sidebarGeneral.setVisibility(View.VISIBLE);
+                sidebarGeneral.invalidate();
             }
         });
 
         mainLayout.setOnClickListener(v->{
             if(sidebarGeneral.getVisibility() == View.VISIBLE){
                 profileButton.setVisibility(View.VISIBLE);
-                sidebarGeneral.setVisibility(View.GONE);
+                profileButton.invalidate();
+                sidebarGeneral.setVisibility(View.INVISIBLE);
+                sidebarGeneral.invalidate();
             }
         });
 
-        backButton.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
-
-        friensListButton.setOnClickListener(v->{
-            sidebarGeneral.setVisibility(View.GONE);
-            Intent intent = new Intent(this, ListaAmiciActivity.class);
+        areaUtenteBtn.setOnClickListener(v->{
+            playerAPI.doGetPlayerAreaInfo(getApplicationContext());
+            Intent intent = new Intent(getApplicationContext(), PlayerAreaActivity.class);
             startActivity(intent);
         });
 
-        logoutButton.setOnClickListener(v->{
-            PlayerAPI playerAPI = new PlayerAPI();
-            playerAPI.doLogout(getApplicationContext(), sharedActivity);
+        listaAmiciBtn.setOnClickListener(v->{
+            Intent intent = new Intent(getApplicationContext(), ListaAmiciActivity.class);
+            startActivity(intent);
         });
+
+        richiesteAmiciBtn.setOnClickListener(v->{
+            Intent intent = new Intent(getApplicationContext(), ListaRichiesteAmiciActivity.class);
+            startActivity(intent);
+        });
+
+        listaInvitiBtn.setOnClickListener(v->{
+            /*TODO*/
+        });
+
+        logoutButton.setOnClickListener(v->
+                playerAPI.doLogout(getApplicationContext(), sharedActivity));
+
+        backButton.setOnClickListener(v ->
+                getOnBackPressedDispatcher().onBackPressed());
+
     }
 
     private List<Ruolo> initializeRuoli(){
