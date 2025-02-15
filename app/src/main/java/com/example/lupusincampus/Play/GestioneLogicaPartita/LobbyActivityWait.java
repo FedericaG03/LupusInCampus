@@ -1,5 +1,6 @@
 package com.example.lupusincampus.Play.GestioneLogicaPartita;
 
+import com.example.lupusincampus.API.FriendAPI;
 import com.example.lupusincampus.Amici.ListaAmiciAdapter;
 
 import android.content.Intent;
@@ -15,8 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lupusincampus.API.LobbyAPI;
 import com.example.lupusincampus.BaseActivity;
+import com.example.lupusincampus.Model.Player;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.SharedActivity;
+
+import java.util.List;
 
 public class LobbyActivityWait extends BaseActivity {
 
@@ -51,10 +55,17 @@ public class LobbyActivityWait extends BaseActivity {
 
 
         // Imposta l'adapter per la RecyclerView con la lista amici
-        ListaAmiciAdapter listaAmiciAdapter = new ListaAmiciAdapter(SharedActivity.getInstance(getApplicationContext()).getFriendList());
+        FriendAPI friendAPI = new FriendAPI();
+        friendAPI.doGetFriendsList(getApplicationContext());
+        List<Player> friendList = SharedActivity.getInstance(getApplicationContext()).getFriendList();
+
+        // Configura il RecyclerView
+        ListaAmiciAdapter listaAmiciAdapter = new ListaAmiciAdapter(friendList);
+        recyclerFriends.setLayoutManager(new LinearLayoutManager(this));
         recyclerFriends.setAdapter(listaAmiciAdapter);
 
         // Recupera il tipo di lobby passato dall'Intent
+        String lobbyType = getIntent().getStringExtra("type");
         String lobbyType = dbHelper.getLobbyType(lastCode);
 
         // Imposta un listener per il bottone di uscita
@@ -64,6 +75,9 @@ public class LobbyActivityWait extends BaseActivity {
             finish();
         });
 
+
+        // Inizializza il processo di join nella lobby
+        joinLobby(lastCode);
 
         btnStartGame.setOnClickListener(view -> {
             Toast.makeText(getApplicationContext(),"Iniziamo a giocare!", Toast.LENGTH_SHORT).show();
