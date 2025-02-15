@@ -26,7 +26,7 @@ public class StompClientManager {
     private StompClient stompClient;
     private Disposable connectionDisposable;
     private List<Disposable> topicSubscriptions = new ArrayList<>();
-    private MessageObserver messageObserver;
+    private WebSocketObserver webSocketObserver = WebSocketObserver.getInstance();
 
     private String lobbyCode;
     private static StompClientManager instance;
@@ -98,9 +98,16 @@ public class StompClientManager {
     private void handleTopicLobby(StompMessage topicMessage) throws JSONException {
 
         JSONObject jsonObject = new JSONObject(topicMessage.getPayload());
+        String joined_player = jsonObject.getString("player");
 
-        if (jsonObject.getString("type").equals("JOIN")){
-            Log.d(TAG, "handleTopicLobby: Giocatore joinato: " + jsonObject.getString("player"));
+        switch (jsonObject.getString("type")){
+            case "JOIN": {
+
+
+
+            }
+
+
         } else if (topicMessage.getPayload().equals("GAME")) {
             Log.d(TAG, "handleTopicLobby: gioco");
         }
@@ -113,12 +120,8 @@ public class StompClientManager {
     private void handleTopicMessage(StompMessage topicMessage) throws JSONException {
         JSONObject jsonObject = new JSONObject(topicMessage.getPayload());
 
-        //creo json
-        String sender = jsonObject.getString("sender");
-        String message = jsonObject.getString("message");
-
-        if (messageObserver != null) {
-            messageObserver.onNewMessage(sender, message);
+        if (webSocketObserver != null) {
+            webSocketObserver.notify(WebSocketObserver.EventType.CHAT_MESSAGE, jsonObject);
         }
         Log.d(TAG, "handleTopicMessage: " + jsonObject.getString("sender") + " ha detto: " + jsonObject.getString("message"));
     }
@@ -163,7 +166,4 @@ public class StompClientManager {
         }
     }
 
-    public void setMessageObserver(MessageObserver observer) {
-        this.messageObserver = observer;
-    }
 }
