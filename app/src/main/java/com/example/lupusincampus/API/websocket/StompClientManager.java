@@ -98,13 +98,13 @@ public class StompClientManager {
     private void handleTopicLobby(StompMessage topicMessage) throws JSONException {
 
         JSONObject jsonObject = new JSONObject(topicMessage.getPayload());
-        String joined_player = jsonObject.getString("player");
+        String player = jsonObject.getString("player");
 
         switch (jsonObject.getString("type")){
             case "JOIN": {
 
-                Log.d(TAG, "handleTopicLobby: player joined");
 
+                Log.d(TAG, "handleTopicLobby: player joined");
             }
         }
     }

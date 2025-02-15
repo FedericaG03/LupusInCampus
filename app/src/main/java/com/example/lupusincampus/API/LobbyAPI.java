@@ -199,23 +199,18 @@ public class LobbyAPI {
 
             @Override
             public void onSuccess(Object response) {
-
                 JSONArray jsonResponse = (JSONArray) response;
-                for (int i = 0; i < jsonResponse.length(); i++){
-                    //observer.notify.player has joined
-                }
-
-                // Aggiorna il numero di giocatori nel database
-
-                // TODO: - sottoscrivere al websocket della lobby e della chat
-
                 int numPlayer = jsonResponse.length();  // Prendi il numero di giocatori dalla risposta
-
                 // Aggiorna il database locale con il nuovo numero di giocatori
                 LobbyDatabaseHelper dbHelper = new LobbyDatabaseHelper(ctx);
                 dbHelper.updateNumPlayer(code, numPlayer);
+                StompClientManager stompClient = StompClientManager.getInstance(ctx);
+                stompClient.connect(String.valueOf(code));
+                stompClient.notifyLobbyJoin(SharedActivity.getInstance(ctx).getNickname());
 
-
+                Intent intent = new Intent(ctx, LobbyActivityWait.class);
+                intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                ctx.startActivity(intent);
             }
 
             @Override
