@@ -18,57 +18,60 @@
             android:id="@+id/tvCreateLobby"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Crea Lobby"
+            android:text="@string/crea_lobby"
             android:textSize="28sp"
             android:textStyle="bold"
-            android:textColor="@color/panna"
+            android:textColor="#fff"
             android:layout_marginBottom="20dp"/>
-
-        <!-- Scelta tipo di Lobby -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Scegli il tipo di lobby:"
-            android:textSize="25sp"
-            android:textColor="@color/panna"
-            android:layout_marginBottom="10dp"/>
 
         <!-- Contenitore per i RadioButton personalizzati -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="432dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/white_border_grey_bg"
+            android:elevation="8dp"
             android:orientation="vertical"
-            android:padding="8dp"
-            android:elevation="8dp">
+            android:padding="8dp">
+
+            <!-- Scelta tipo di Lobby -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:text="@string/scegli_il_tipo_di_lobby"
+                android:textColor="@color/panna"
+                android:textSize="25sp" />
 
             <!-- Opzione Privata -->
             <LinearLayout
                 android:id="@+id/optionPrivate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:clickable="true"
                 android:gravity="center_vertical"
-                android:padding="10dp"
-                android:clickable="true">
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginEnd="10dp"
-                    android:src="@drawable/lupo_ospita"/>
+                    android:src="@drawable/lupo_ospita" />
 
-                <RadioButton
+                <TextView
                     android:id="@+id/rbPrivate"
                     style="@style/ButtonStyle"
-                    android:background="@drawable/back_btn_border"
-                    android:layout_width="wrap_content"
+                    android:layout_width="180dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/back_btn_border"
+                    android:button="@null"
+                    android:padding="10dp"
                     android:text="Privata"
                     android:textColor="@color/panna"
                     android:textSize="23sp"
-                    android:button="@null"
-                    android:padding="10dp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <!-- Opzione Pubblica -->
@@ -76,30 +79,32 @@
                 android:id="@+id/optionPublic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:clickable="true"
                 android:gravity="center_vertical"
-                android:padding="10dp"
-                android:clickable="true">
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginEnd="10dp"
-                    android:src="@drawable/lupo_cerca"/>
-                <RadioButton
+                    android:src="@drawable/lupo_cerca" />
+
+                <TextView
                     android:id="@+id/rbPublic"
                     style="@style/ButtonStyle"
-                    android:background="@drawable/back_btn_border"
-                    android:layout_width="wrap_content"
+                    android:layout_width="180dp"
                     android:layout_height="wrap_content"
-                    android:text="Pubblica"
+                    android:background="@drawable/back_btn_border"
+                    android:button="@null"
                     android:padding="10dp"
+                    android:text="Pubblica"
                     android:textColor="@color/panna"
                     android:textSize="23sp"
-                    android:button="@null"
-                    android:textStyle="bold"/>
-
+                    android:textStyle="bold" />
             </LinearLayout>
+
         </LinearLayout>
 
         <!-- Pulsante per creare la lobby -->

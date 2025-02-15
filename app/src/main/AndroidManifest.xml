@@ -65,6 +65,10 @@
             android:exported="false"
             android:screenOrientation="sensorLandscape"/>
 
+        <activity android:name=".Play.GestioneLogicaPartita.ChatActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"/>
+
 
         <activity android:name=".Play.GestioneLogicaPartita.LobbyActivityWait"
             android:exported="false"
@@ -86,15 +90,6 @@
         <activity android:name=".Regole.RuoliActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape"/>
-
-        <activity android:name=".TestActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <activity android:name=".Regole.RegoleActivity"
             android:exported="false"

@@ -60,5 +60,7 @@
     <string name="aggiuni_giocatore_item_btn_txt">AGGIUNGI</string>
     <string name="scrivi_un_messaggio">Scrivi un messaggio...</string>
     <string name="invia">Invia</string>
+    <string name="crea_lobby">CREA LOBBY</string>
+    <string name="scegli_il_tipo_di_lobby">Scegli il tipo di lobby</string>
 
 </resources>

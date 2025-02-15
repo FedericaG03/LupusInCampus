@@ -31,8 +31,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:textColor="#000"
                     android:text="@string/registrati"
-                    android:textColor="@color/dark_text"
                     android:textSize="28sp"
                     android:textStyle="bold" />
 
@@ -41,6 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/nickname"
+                    android:textColor="#000"
                     android:inputType="textPersonName"
                     android:minHeight="48dp" />
 
@@ -48,6 +49,7 @@
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="#000"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:minHeight="48dp" />
@@ -58,6 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/password"
+                    android:textColor="#000"
                     android:inputType="textPassword"
                     android:minHeight="48dp" />
 

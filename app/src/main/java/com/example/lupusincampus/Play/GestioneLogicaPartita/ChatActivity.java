@@ -19,7 +19,7 @@ public class ChatActivity extends BaseActivity {
     private Button sendMessageButton;
     private LinearLayout messageContainer;
     private StompClientManager stompClientManager;
-    private String lobbyCode;
+    private String lobbyCode ="155968";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class ChatActivity extends BaseActivity {
 
         // Inizializza StompClientManager
         stompClientManager = StompClientManager.getInstance(this);
+
 
         // Sottoscrizione ai messaggi quando il WebSocket è connesso
         stompClientManager.connect("lobbyCode");  // Usa il codice della lobby come parametro

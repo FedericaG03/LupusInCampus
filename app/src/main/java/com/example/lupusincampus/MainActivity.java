@@ -4,6 +4,7 @@ import com.example.lupusincampus.API.FriendAPI;
 import com.example.lupusincampus.Amici.ListaAmiciActivity;
 import com.example.lupusincampus.Amici.ListaRichiesteAmiciActivity;
 import com.example.lupusincampus.Login.LoginActivity;
+import com.example.lupusincampus.Play.GestioneLogicaPartita.ChatActivity;
 import com.example.lupusincampus.Play.GiocaActivity;
 import com.example.lupusincampus.PlayerArea.PlayerAreaActivity;
 import com.example.lupusincampus.API.PlayerAPI;
@@ -11,7 +12,6 @@ import com.example.lupusincampus.Regole.RegoleRuoliActivity;
 import com.example.lupusincampus.Settings.SettingsActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -132,16 +132,11 @@ public class MainActivity extends BaseActivity {
             });
 
             settingsButton.setOnClickListener(v->{
-                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
                 startActivity(intent);
             });
-
         }
-
-
-
-
-    }
+}
 
     @Override
     protected void onResume() {

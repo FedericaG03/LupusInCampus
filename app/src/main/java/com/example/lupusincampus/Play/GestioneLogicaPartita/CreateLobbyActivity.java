@@ -5,23 +5,23 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.lupusincampus.API.LobbyAPI;
 import com.example.lupusincampus.BaseActivity;
 import com.example.lupusincampus.R;
+
 
 public class CreateLobbyActivity extends BaseActivity {
 
     private static final String TAG = "CreateLobbyActivity";
     private TextView tvCreateLobby;
-    private TextView tvLobbyType;
-    private RadioGroup radioGroupLobbyType;
-    private RadioButton rbPrivate;
-    private RadioButton rbPublic;
+    private TextView rbPrivate;
+    private TextView rbPublic;
     private Button btnCreateLobby;
     private View backBtn;
+    private String lobbyType = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,32 +30,33 @@ public class CreateLobbyActivity extends BaseActivity {
         LobbyAPI lobbyAPI = new LobbyAPI();
 
         tvCreateLobby = findViewById(R.id.tvCreateLobby);
-        radioGroupLobbyType = findViewById(R.id.radioGroupLobbyType);
         rbPrivate = findViewById(R.id.rbPrivate);
         rbPublic = findViewById(R.id.rbPublic);
         btnCreateLobby = findViewById(R.id.btnCreateLobby);
         backBtn = findViewById(R.id.back_btn);
 
+        rbPublic.setOnClickListener(view -> {
+            lobbyType = "Pubblica";
+        });
+
+        rbPrivate.setOnClickListener(view -> {
+            lobbyType = "Privata" ;
+        });
+
+
         btnCreateLobby.setOnClickListener(v -> {
-            // Ottieni il tipo di lobby selezionato
-            int selectedRadioButtonId = radioGroupLobbyType.getCheckedRadioButtonId();
-            String lobbyType = "";
+            if(lobbyType.isEmpty()){
+                Toast.makeText(this,"Scegli la modalità!", Toast.LENGTH_SHORT).show();
+            }else{
+                lobbyAPI.doCreateLobby(getApplicationContext(), lobbyType);
+                Log.d(TAG, "onClick: invio richiesta creazione lobby tipo: " + lobbyType);
 
-            if (selectedRadioButtonId == rbPrivate.getId()) {
-                // Tipo di lobby: Privata
-                lobbyType = "Privata";
-            } else if (selectedRadioButtonId == rbPublic.getId()) {
-                // Tipo di lobby: Pubblica
-                lobbyType = "Pubblica";
+                // Crea l'Intent per aprire LobbyActivityWait e passa il tipo di lobby
+                Intent intent = new Intent(getApplicationContext(), LobbyActivityWait.class);
+                Log.d(TAG, "onClick: passo alla prossima pagina e passo il tipo di lobby: " + intent.toString());
+                intent.putExtra("lobbyType", lobbyType);  // Passa il tipo di lobby
+                startActivity(intent);
             }
-            lobbyAPI.doCreateLobby(getApplicationContext(),lobbyType);
-            Log.d(TAG, "onClick: invio richiesta creazione lobby tipo: " + lobbyType);
-
-            // Crea l'Intent per aprire LobbyActivityWait e passa il tipo di lobby
-            Intent intent = new Intent(getApplicationContext(), LobbyActivityWait.class);
-            Log.d(TAG, "onClick: passo alla prossima pagina e passo il tipo di lobby: " + intent.toString());
-            intent.putExtra("lobbyType", lobbyType);  // Passa il tipo di lobby
-            startActivity(intent);
         });
 
         // Imposta un listener per il pulsante "Indietro" (o esci)
