@@ -1,5 +1,6 @@
 package com.example.lupusincampus.Play.GestioneLogicaPartita;
 
+import com.example.lupusincampus.API.FriendAPI;
 import com.example.lupusincampus.Amici.ListaAmiciAdapter;
 
 import android.content.Intent;
@@ -15,8 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lupusincampus.API.LobbyAPI;
 import com.example.lupusincampus.BaseActivity;
+import com.example.lupusincampus.Model.Player;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.SharedActivity;
+
+import java.util.List;
 
 public class LobbyActivityWait extends BaseActivity {
 
@@ -43,24 +47,24 @@ public class LobbyActivityWait extends BaseActivity {
         int lastCode = dbHelper.getLastRow();
         Log.d(TAG, "onCreate: code lobby" + lastCode);
         // Imposta RecyclerView per la lista degli amici
-        recyclerFriends.setLayoutManager(new LinearLayoutManager(this));
 
         // Funzione per aggiornare la UI con il numero di giocatori
         updateNumberPlayerInUI(dbHelper.getNumPlayer(lastCode));
 
 
         // Imposta l'adapter per la RecyclerView con la lista amici
-        ListaAmiciAdapter listaAmiciAdapter = new ListaAmiciAdapter(SharedActivity.getInstance(getApplicationContext()).getFriendList());
+        FriendAPI friendAPI = new FriendAPI();
+        friendAPI.doGetFriendsList(getApplicationContext());
+        List<Player> friendList = SharedActivity.getInstance(getApplicationContext()).getFriendList();
+
+        // Configura il RecyclerView
+        ListaAmiciAdapter listaAmiciAdapter = new ListaAmiciAdapter(friendList);
+        recyclerFriends.setLayoutManager(new LinearLayoutManager(this));
         recyclerFriends.setAdapter(listaAmiciAdapter);
 
         // Recupera il tipo di lobby passato dall'Intent
         String lobbyType = getIntent().getStringExtra("lobbyType");
-        // Se la lobby è privata, mostra la lista amici, altrimenti nascondila
-        if ("Privata".equals(lobbyType)) {
-            recyclerFriends.setVisibility(View.VISIBLE);
-        } else {
-            recyclerFriends.setVisibility(View.GONE);
-        }
+
 
         // Imposta un listener per il bottone di uscita
         Button btnExit = findViewById(R.id.btn_exit);
