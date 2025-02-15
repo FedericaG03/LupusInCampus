@@ -65,7 +65,6 @@ public class LobbyActivityWait extends BaseActivity {
         recyclerFriends.setAdapter(listaAmiciAdapter);
 
         // Recupera il tipo di lobby passato dall'Intent
-        String lobbyType = getIntent().getStringExtra("type");
         String lobbyType = dbHelper.getLobbyType(lastCode);
 
         // Imposta un listener per il bottone di uscita
@@ -75,9 +74,6 @@ public class LobbyActivityWait extends BaseActivity {
             finish();
         });
 
-
-        // Inizializza il processo di join nella lobby
-        joinLobby(lastCode);
 
         btnStartGame.setOnClickListener(view -> {
             Toast.makeText(getApplicationContext(),"Iniziamo a giocare!", Toast.LENGTH_SHORT).show();
