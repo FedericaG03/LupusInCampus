@@ -132,7 +132,7 @@ public class MainActivity extends BaseActivity {
             });
 
             settingsButton.setOnClickListener(v->{
-                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
                 startActivity(intent);
             });
         }

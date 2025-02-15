@@ -94,7 +94,8 @@ public class LobbyDatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor != null) {
             cursor.moveToFirst();  // Sposta il cursore alla prima riga
-            @SuppressLint("Range") int numPlayer = cursor.getInt(cursor.getColumnIndex(COLUMN_NUM_PLAYER));  // Ottiene il numero di giocatori
+            int numPlayer = 0;
+            numPlayer = cursor.getInt(cursor.getColumnIndex(COLUMN_NUM_PLAYER));  // Ottiene il numero di giocatori
             cursor.close();
             return numPlayer;
         } else {

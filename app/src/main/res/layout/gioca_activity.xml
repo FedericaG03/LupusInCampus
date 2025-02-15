@@ -15,76 +15,86 @@
         android:id="@+id/profile_sidebar_mondo"
         layout="@layout/profile_sidebar" />
 
-    <!-- Sezione Ospita (Crea Partita) -->
     <LinearLayout
-        android:id="@+id/hostSection"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="125dp">
+        android:layout_centerInParent="true"
+        android:background="@drawable/white_border_grey_bg"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-        <ImageView
-            android:id="@+id/hostIcon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/lupo_ospita"/>
-        <!--android:src="@drawable/wolf_host_icon"-->
-        <TextView
-            android:id="@+id/btnCreateGame"
-            style="@style/ButtonStyle"
-            android:layout_width="200dp"
+        <!-- Sezione Ospita (Crea Partita) -->
+
+        <!-- Sezione Cerca (Mostra Lobby) -->
+        <LinearLayout
+            android:id="@+id/hostSection"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/back_btn_border"
-            android:padding="5dp"
-            android:text="@string/crea_partita"
-            android:textColor="@color/panna"
-            android:textSize="23sp" />
+            android:gravity="center"
+            android:orientation="horizontal">
 
-    </LinearLayout>
-
-    <!-- Sezione Cerca (Mostra Lobby) -->
-    <LinearLayout
-        android:id="@+id/searchSection"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_below="@id/hostSection"
-        android:layout_marginTop="40dp">
-
-        <ImageView
-            android:id="@+id/searchIcon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/lupo_cerca"/>
-
-        <TextView
-            android:id="@+id/btnShowLobby"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            style="@style/ButtonStyle"
-            android:background="@drawable/back_btn_border"
-            android:textColor="@color/panna"
-            android:text="@string/Mostralobby"
-            android:textSize="23sp"
-            android:padding="5dp" />
+            <ImageView
+                android:id="@+id/hostIcon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/lupo_ospita" />
+            <!--android:src="@drawable/wolf_host_icon"-->
+            <TextView
+                android:id="@+id/btnCreateGame"
+                style="@style/ButtonStyle"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_btn_border"
+                android:padding="5dp"
+                android:text="@string/crea_partita"
+                android:textColor="@color/panna"
+                android:textSize="23sp" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/searchSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hostSection"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/searchIcon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/lupo_cerca" />
+
+            <TextView
+                android:id="@+id/btnShowLobby"
+                style="@style/ButtonStyle"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:background="@drawable/back_btn_border"
+                android:padding="5dp"
+                android:text="@string/Mostralobby"
+                android:textColor="@color/panna"
+                android:textSize="23sp" />
+
+        </LinearLayout>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/inviteNotification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/searchSection"
-        android:layout_marginTop="30dp"
-        android:textSize="16sp"
-        android:textColor="#FFFFFF"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_marginTop="10dp"
+        android:layout_centerInParent="true"
         android:background="#80000000"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
 
     <include
         android:id="@+id/back_btn_world"

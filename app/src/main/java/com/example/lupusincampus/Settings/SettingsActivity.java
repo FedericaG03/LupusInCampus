@@ -39,7 +39,7 @@ public class SettingsActivity extends BaseActivity {
     private Slider effectsSlider;
     private TextView backButton;
 
-    private SharedActivity sharedActivity = SharedActivity.getInstance(getApplicationContext());
+    private SharedActivity sharedActivity = SharedActivity.getInstance(this);
     private PlayerAPI playerAPI = new PlayerAPI();
 
     private static final String PREFS_NAME = "GameSettings";

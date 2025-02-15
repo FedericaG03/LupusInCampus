@@ -2,6 +2,7 @@ package com.example.lupusincampus.Play.GestioneLogicaPartita;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -55,11 +56,6 @@ public class ChatActivity extends BaseActivity implements Subscriber {
         sendMessageButton.setOnClickListener(v -> {
             String message = messageInput.getText().toString();
             if (!message.isEmpty()) {
-                //devo creare una
-                TextView messageTextView = new TextView(this);
-                messageTextView.setText(nickname + ": " + message);
-                messageContainer.addView(messageTextView);
-
 
                 stompClientManager.sendChatMessage(nickname, message);  // Passa il nome del giocatore e il messaggio
                 messageInput.setText("");  // Svuota il campo di input
@@ -71,10 +67,9 @@ public class ChatActivity extends BaseActivity implements Subscriber {
     private void addMessageToChat(String sender, String message) {
         TextView messageTextView = new TextView(this);
         messageTextView.setText(sender + ": " + message);
-        messageContainer.addView(messageTextView);
+        messageTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
 
-        // Scorrimento automatico
-       // messageContainer.post(() -> messageContainer.scrollTo(0, messageContainer.getHeight()));
+        messageContainer.addView(messageTextView);
     }
 
     @Override

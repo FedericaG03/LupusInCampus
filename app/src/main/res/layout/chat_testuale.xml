@@ -1,35 +1,62 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent"
     android:background="@drawable/sfondo"
     android:orientation="vertical">
 
-    <!-- ScrollView per scorrere la lista dei messaggi -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
+    <!-- Contenitore dei messaggi -->
+
+    <LinearLayout
+        android:id="@+id/messageContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearLayout"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="18dp"
+        android:isScrollContainer="false"
+        android:background="@drawable/white_border_grey_bg"
+        android:orientation="vertical"
+        android:padding="50dp"
+        android:scrollbars="vertical"
+        tools:ignore="Suspicious0dp">
+        <!-- I messaggi saranno aggiunti qui dinamicamente -->
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+        <!-- Campo di testo per il messaggio -->
+        <EditText
+            android:id="@+id/messageInput"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/messageContainer">
-            <!-- I messaggi saranno aggiunti qui dinamicamente -->
-        </LinearLayout>
-    </ScrollView>
+            android:layout_weight="1"
+            android:width="1dp"
+            android:minHeight="48dp"
+            android:background="@drawable/white_border_grey_bg"
+            android:hint="Scrivi un messaggio..."
+            android:inputType="text"
+            android:padding="8dp"
+            android:textColor="#fff"
+            android:textSize="26sp" />
 
-    <!-- Campo per inserire il messaggio -->
-    <EditText
-        android:id="@+id/messageInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Scrivi un messaggio..." />
-
-    <!-- Pulsante per inviare il messaggio -->
-    <Button
-        android:id="@+id/sendMessageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Invia" />
-</LinearLayout>
+        <!-- Pulsante di invio -->
+        <Button
+            android:id="@+id/sendMessageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Invia"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+</RelativeLayout>

@@ -2,6 +2,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="#C5474747" /> <!-- Grigio opaco -->
     <stroke
-        android:width="5dp"
+        android:width="2dp"
         android:color="@color/panna" />
 </shape>

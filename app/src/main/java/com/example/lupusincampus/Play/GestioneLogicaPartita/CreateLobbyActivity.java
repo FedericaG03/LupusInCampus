@@ -32,32 +32,32 @@ public class CreateLobbyActivity extends BaseActivity {
         tvCreateLobby = findViewById(R.id.tvCreateLobby);
         rbPrivate = findViewById(R.id.rbPrivate);
         rbPublic = findViewById(R.id.rbPublic);
-        btnCreateLobby = findViewById(R.id.btnCreateLobby);
         backBtn = findViewById(R.id.back_btn);
 
         rbPublic.setOnClickListener(view -> {
             lobbyType = "Pubblica";
+            lobbyAPI.doCreateLobby(getApplicationContext(), lobbyType);
+            Log.d(TAG, "onClick: invio richiesta creazione lobby tipo: " + lobbyType);
+
+            // Crea l'Intent per aprire LobbyActivityWait e passa il tipo di lobby
+            Intent intent = new Intent(getApplicationContext(), LobbyActivityWait.class);
+            Log.d(TAG, "onClick: passo alla prossima pagina e passo il tipo di lobby: " + intent.toString());
+            intent.putExtra("lobbyType", lobbyType);  // Passa il tipo di lobby
+            startActivity(intent);
         });
 
         rbPrivate.setOnClickListener(view -> {
             lobbyType = "Privata" ;
+            lobbyAPI.doCreateLobby(getApplicationContext(), lobbyType);
+            Log.d(TAG, "onClick: invio richiesta creazione lobby tipo: " + lobbyType);
+
+            // Crea l'Intent per aprire LobbyActivityWait e passa il tipo di lobby
+            Intent intent = new Intent(getApplicationContext(), LobbyActivityWait.class);
+            Log.d(TAG, "onClick: passo alla prossima pagina e passo il tipo di lobby: " + intent.toString());
+            intent.putExtra("lobbyType", lobbyType);  // Passa il tipo di lobby
+            startActivity(intent);
         });
 
-
-        btnCreateLobby.setOnClickListener(v -> {
-            if(lobbyType.isEmpty()){
-                Toast.makeText(this,"Scegli la modalità!", Toast.LENGTH_SHORT).show();
-            }else{
-                lobbyAPI.doCreateLobby(getApplicationContext(), lobbyType);
-                Log.d(TAG, "onClick: invio richiesta creazione lobby tipo: " + lobbyType);
-
-                // Crea l'Intent per aprire LobbyActivityWait e passa il tipo di lobby
-                Intent intent = new Intent(getApplicationContext(), LobbyActivityWait.class);
-                Log.d(TAG, "onClick: passo alla prossima pagina e passo il tipo di lobby: " + intent.toString());
-                intent.putExtra("lobbyType", lobbyType);  // Passa il tipo di lobby
-                startActivity(intent);
-            }
-        });
 
         // Imposta un listener per il pulsante "Indietro" (o esci)
         backBtn.setOnClickListener(view -> {
