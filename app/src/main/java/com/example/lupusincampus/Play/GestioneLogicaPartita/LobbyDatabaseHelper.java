@@ -109,10 +109,10 @@ public class LobbyDatabaseHelper extends SQLiteOpenHelper {
     public int getLastRow() {
         int lastId = -1;  // Valore predefinito se non vengono trovati risultati
         SQLiteDatabase db = this.getReadableDatabase();
-        try (Cursor cursor = db.rawQuery("SELECT " + COLUMN_ID + " FROM " + TABLE_NAME + " ORDER BY " + COLUMN_ID + " DESC LIMIT 1", null)) {
+        try (Cursor cursor = db.rawQuery("SELECT " + COLUMN_CODE + " FROM " + TABLE_NAME + " ORDER BY " + COLUMN_ID + " DESC LIMIT 1", null)) {
             if (cursor != null && cursor.moveToFirst()) {
                 // Estrai l'ID dell'ultima riga
-                lastId = cursor.getInt(cursor.getColumnIndex(COLUMN_CODE));
+                lastId = cursor.getInt(0);
             }
         } catch (Exception e) {
             e.printStackTrace();
