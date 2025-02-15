@@ -6,13 +6,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lupusincampus.API.LobbyAPI;
 import com.example.lupusincampus.BaseActivity;
+import com.example.lupusincampus.Model.Player;
 import com.example.lupusincampus.R;
+import com.example.lupusincampus.SharedActivity;
+
+import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 public class LobbyListActivity extends BaseActivity {
 

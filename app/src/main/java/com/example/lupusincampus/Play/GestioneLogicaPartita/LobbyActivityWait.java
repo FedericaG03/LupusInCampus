@@ -47,12 +47,16 @@ public class LobbyActivityWait extends BaseActivity {
         int lastCode = dbHelper.getLastRow();
         Log.d(TAG, "onCreate: code lobby" + lastCode);
         // Imposta RecyclerView per la lista degli amici
+        Log.d(TAG, "onCreate: code lobby"+lastCode);
+        recyclerFriends.setLayoutManager(new LinearLayoutManager(this));
 
         // Funzione per aggiornare la UI con il numero di giocatori
         updateNumberPlayerInUI(dbHelper.getNumPlayer(lastCode));
 
 
         // Imposta l'adapter per la RecyclerView con la lista amici
+        FriendAPI friendAPI = new FriendAPI();
+        friendAPI.doGetFriendsList(getApplicationContext());
         List<Player> friendList = SharedActivity.getInstance(getApplicationContext()).getFriendList();
 
         // Configura il RecyclerView
@@ -61,7 +65,8 @@ public class LobbyActivityWait extends BaseActivity {
         recyclerFriends.setAdapter(listaAmiciAdapter);
 
         // Recupera il tipo di lobby passato dall'Intent
-        String lobbyType ;
+        String lobbyType = dbHelper.getLobbyType(lastCode);
+
         // Imposta un listener per il bottone di uscita
         Button btnExit = findViewById(R.id.btn_exit);
         btnExit.setOnClickListener(v -> {
@@ -69,9 +74,6 @@ public class LobbyActivityWait extends BaseActivity {
             finish();
         });
 
-
-        // Inizializza il processo di join nella lobby
-        joinLobby(lastCode);
 
         btnStartGame.setOnClickListener(view -> {
             Toast.makeText(getApplicationContext(),"Iniziamo a giocare!", Toast.LENGTH_SHORT).show();
