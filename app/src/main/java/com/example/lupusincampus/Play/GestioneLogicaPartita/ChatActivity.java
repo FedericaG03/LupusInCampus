@@ -2,6 +2,8 @@ package com.example.lupusincampus.Play.GestioneLogicaPartita;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,7 +55,13 @@ public class ChatActivity extends BaseActivity implements Subscriber {
         sendMessageButton.setOnClickListener(v -> {
             String message = messageInput.getText().toString();
             if (!message.isEmpty()) {
-                stompClientManager.sendChatMessage("PlayerName", message);  // Passa il nome del giocatore e il messaggio
+                //devo creare una
+                TextView messageTextView = new TextView(this);
+                messageTextView.setText(nickname + ": " + message);
+                messageContainer.addView(messageTextView);
+
+
+                stompClientManager.sendChatMessage(nickname, message);  // Passa il nome del giocatore e il messaggio
                 messageInput.setText("");  // Svuota il campo di input
             }
         });
@@ -66,7 +74,7 @@ public class ChatActivity extends BaseActivity implements Subscriber {
         messageContainer.addView(messageTextView);
 
         // Scorrimento automatico
-        messageContainer.post(() -> messageContainer.scrollTo(0, messageContainer.getHeight()));
+       // messageContainer.post(() -> messageContainer.scrollTo(0, messageContainer.getHeight()));
     }
 
     @Override
