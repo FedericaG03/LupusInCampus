@@ -47,8 +47,11 @@ public class MainActivity extends BaseActivity {
                 return;
             }
 
-        PlayerAPI playerAPI = new PlayerAPI();
-        FriendAPI friendAPI = new FriendAPI();
+            PlayerAPI playerAPI = new PlayerAPI();
+            FriendAPI friendAPI = new FriendAPI();
+            //request friends
+            friendAPI.doGetFriendsList(getApplicationContext());
+
 
             // Recupere nickname e password salvata
             String nickname = sharedActivity.getNickname();

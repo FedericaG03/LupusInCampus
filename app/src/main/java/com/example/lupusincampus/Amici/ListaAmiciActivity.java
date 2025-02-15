@@ -124,8 +124,6 @@ public class ListaAmiciActivity extends BaseActivity {
         progressBar.invalidate();
 
         executorService.execute(() -> {
-            FriendAPI friendAPI = new FriendAPI();
-            friendAPI.doGetFriendsList(getApplicationContext());
             List<Player> friendList = SharedActivity.getInstance(getApplicationContext()).getFriendList();
 
             for (int i = 0; i <= 100; i += 20) {  // Simulazione di avanzamento progressivo

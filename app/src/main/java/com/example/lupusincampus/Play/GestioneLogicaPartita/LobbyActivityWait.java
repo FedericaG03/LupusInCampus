@@ -53,8 +53,6 @@ public class LobbyActivityWait extends BaseActivity {
 
 
         // Imposta l'adapter per la RecyclerView con la lista amici
-        FriendAPI friendAPI = new FriendAPI();
-        friendAPI.doGetFriendsList(getApplicationContext());
         List<Player> friendList = SharedActivity.getInstance(getApplicationContext()).getFriendList();
 
         // Configura il RecyclerView
@@ -63,8 +61,7 @@ public class LobbyActivityWait extends BaseActivity {
         recyclerFriends.setAdapter(listaAmiciAdapter);
 
         // Recupera il tipo di lobby passato dall'Intent
-        String lobbyType = getIntent().getStringExtra("type");
-
+        String lobbyType ;
         // Imposta un listener per il bottone di uscita
         Button btnExit = findViewById(R.id.btn_exit);
         btnExit.setOnClickListener(v -> {
