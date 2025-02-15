@@ -107,7 +107,7 @@ public class LobbyDatabaseHelper extends SQLiteOpenHelper {
     //ultima lobby creata
     @SuppressLint("Range")
     public int getLastRow() {
-        int lastId = -1;  // Valore predefinito se non vengono trovati risultati
+        int lastId = 0;  // Valore predefinito se non vengono trovati risultati
         SQLiteDatabase db = this.getReadableDatabase();
         try (Cursor cursor = db.rawQuery("SELECT " + COLUMN_ID + " FROM " + TABLE_NAME + " ORDER BY " + COLUMN_ID + " DESC LIMIT 1", null)) {
             if (cursor != null && cursor.moveToFirst()) {
