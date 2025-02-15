@@ -55,8 +55,6 @@ public class LobbyActivityWait extends BaseActivity {
 
 
         // Imposta l'adapter per la RecyclerView con la lista amici
-        FriendAPI friendAPI = new FriendAPI();
-        friendAPI.doGetFriendsList(getApplicationContext());
         List<Player> friendList = SharedActivity.getInstance(getApplicationContext()).getFriendList();
 
         // Configura il RecyclerView
