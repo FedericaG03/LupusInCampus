@@ -39,10 +39,15 @@ public class LobbyActivityWait extends BaseActivity {
 
         // Crea un'istanza di LobbyDatabaseHelper
         dbHelper = new LobbyDatabaseHelper(this);
-        int lastCode = dbHelper.getLastRow();
 
+        int lastCode = dbHelper.getLastRow();
+        Log.d(TAG, "onCreate: code lobby" + lastCode);
         // Imposta RecyclerView per la lista degli amici
         recyclerFriends.setLayoutManager(new LinearLayoutManager(this));
+
+        // Funzione per aggiornare la UI con il numero di giocatori
+        updateNumberPlayerInUI(dbHelper.getNumPlayer(lastCode));
+
 
         // Imposta l'adapter per la RecyclerView con la lista amici
         ListaAmiciAdapter listaAmiciAdapter = new ListaAmiciAdapter(SharedActivity.getInstance(getApplicationContext()).getFriendList());
@@ -64,8 +69,6 @@ public class LobbyActivityWait extends BaseActivity {
             finish();
         });
 
-        // Funzione per aggiornare la UI con il numero di giocatori
-        updateNumberPlayerInUI(dbHelper.getNumPlayer(lastCode));
 
         // Inizializza il processo di join nella lobby
         joinLobby(lastCode);

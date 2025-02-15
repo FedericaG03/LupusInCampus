@@ -53,8 +53,6 @@ public class LobbyListActivity extends BaseActivity {
         View headerView = inflater.inflate(R.layout.lobby_list_header, listView, false);
         listView.addHeaderView(headerView);
 
-
-
         bckButton.setOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed();
             finish();

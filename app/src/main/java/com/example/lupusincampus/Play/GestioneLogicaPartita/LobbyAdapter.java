@@ -15,6 +15,7 @@ import com.example.lupusincampus.API.LobbyAPI;
 public class LobbyAdapter extends BaseAdapter {
     private Context context;
     private Cursor cursor;
+    private static final String TAG = "LobbyAdapter";
 
     public LobbyAdapter(Context context, Cursor cursor) {
         this.context = context;
@@ -46,11 +47,11 @@ public class LobbyAdapter extends BaseAdapter {
 
         // Recupero delle informazioni dal database
         cursor.moveToPosition(position);
+        Log.d(TAG, "getView: position " + position);
         String creatorID = "Creatore: " + cursor.getInt(cursor.getColumnIndexOrThrow("creatorID"));
         String state = cursor.getString(cursor.getColumnIndexOrThrow("state"));
         String players = cursor.getInt(cursor.getColumnIndexOrThrow("numPlayer")) + "/" + "18";
 
-        // Associazione ai TextView nel layout
         TextView creatorText = convertView.findViewById(R.id.creator);
         TextView statusText = convertView.findViewById(R.id.status);
         TextView playersText = convertView.findViewById(R.id.players);
@@ -65,13 +66,15 @@ public class LobbyAdapter extends BaseAdapter {
 
         // Aggiungi listener per il pulsante "UNISCITI"
         joinBtn.setOnClickListener(v -> {
-            Log.d("LobbyAdapter", "Bottone Unisciti premuto per lobby ID: " + lobbyId);
+            Log.d(TAG, "Bottone Unisciti premuto per lobby ID: " + lobbyId);
 
             // Chiamata API per unirsi alla lobby
             LobbyAPI lobbyAPI = new LobbyAPI();
+            Log.d(TAG, "getView: lobbyId is: " + lobbyId);
             lobbyAPI.doJoinLobby(context, lobbyId);
         });
 
+        Log.d(TAG, "getView: NON SO COSA SIA QUESTA convertView:" + convertView);
         return convertView;
     }
 }
