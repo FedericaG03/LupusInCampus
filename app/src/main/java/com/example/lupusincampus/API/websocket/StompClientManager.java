@@ -102,7 +102,9 @@ public class StompClientManager {
 
         switch (jsonObject.getString("type")){
             case "JOIN": {
+
                 Log.d(TAG, "handleTopicLobby: player joined");
+
             }
         }
     }

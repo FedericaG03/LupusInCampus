@@ -122,4 +122,20 @@ public class LobbyDatabaseHelper extends SQLiteOpenHelper {
         return lastId;
     }
 
+    public String getLobbyType(int code) {
+        // Valore predefinito se non vengono trovati risultati
+        SQLiteDatabase db = this.getReadableDatabase();
+        String type = "";
+        try (Cursor cursor = db.rawQuery("SELECT " + COLUMN_TYPE + " FROM " + TABLE_NAME + " WHERE " + COLUMN_CODE + " = " + code, null)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                // Estrai l'ID dell'ultima riga
+                type = cursor.getString(0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.close();
+        }
+        return type;
+    }
 }

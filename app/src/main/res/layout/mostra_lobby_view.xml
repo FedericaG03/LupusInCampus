@@ -14,6 +14,7 @@
         android:padding="10dp"
         android:background="@drawable/white_border_grey_bg" />
 
+
     <include android:id="@+id/back_btn_lobbby_view"
         layout="@layout/back_btn_layout"/>
 </RelativeLayout>

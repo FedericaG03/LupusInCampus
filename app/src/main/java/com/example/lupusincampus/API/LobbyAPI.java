@@ -199,23 +199,23 @@ public class LobbyAPI {
 
             @Override
             public void onSuccess(Object response) {
-                try {
-                    JSONObject jsonResponse = (JSONObject) response;
-                    String status = jsonResponse.getString("status");
 
-                    // Aggiorna il numero di giocatori nel database
-
-                    // TODO: - sottoscrivere al websocket della lobby e della chat
-
-                    int numPlayer = jsonResponse.getJSONArray("players").length();  // Prendi il numero di giocatori dalla risposta
-
-                    // Aggiorna il database locale con il nuovo numero di giocatori
-                    LobbyDatabaseHelper dbHelper = new LobbyDatabaseHelper(ctx);
-                    dbHelper.updateNumPlayer(code, numPlayer);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                JSONArray jsonResponse = (JSONArray) response;
+                for (int i = 0; i < jsonResponse.length(); i++){
+                    //observer.notify.player has joined
                 }
+
+                // Aggiorna il numero di giocatori nel database
+
+                // TODO: - sottoscrivere al websocket della lobby e della chat
+
+                int numPlayer = jsonResponse.length();  // Prendi il numero di giocatori dalla risposta
+
+                // Aggiorna il database locale con il nuovo numero di giocatori
+                LobbyDatabaseHelper dbHelper = new LobbyDatabaseHelper(ctx);
+                dbHelper.updateNumPlayer(code, numPlayer);
+
+
             }
 
             @Override
