@@ -86,22 +86,22 @@ public class LobbyDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    @SuppressLint("Range")
     public int getNumPlayer(int code) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, new String[]{COLUMN_NUM_PLAYER},
                 COLUMN_CODE + " = ?", new String[]{String.valueOf(code)},
                 null, null, null);
+        int numPlayer = 0;
 
         if (cursor != null) {
-            cursor.moveToFirst();  // Sposta il cursore alla prima riga
-            int numPlayer = 0;
-            numPlayer = cursor.getInt(cursor.getColumnIndex(COLUMN_NUM_PLAYER));  // Ottiene il numero di giocatori
+            if(cursor.moveToFirst()){
+                numPlayer = cursor.getInt(cursor.getColumnIndex(COLUMN_NUM_PLAYER));  // Ottiene il numero di giocatori
+            }
             cursor.close();
             return numPlayer;
-        } else {
-            cursor.close();
-            return -1;  // Restituisce -1 se la lobby non è trovata
-        }
+        }  // Restituisce -1 se la lobby non è trovata
+        return numPlayer;
     }
 
     //ultima lobby creata
