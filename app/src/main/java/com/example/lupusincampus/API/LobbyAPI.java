@@ -1,11 +1,17 @@
 package com.example.lupusincampus.API;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.lupusincampus.API.websocket.StompClientManager;
+import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyActivityWait;
 import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyDatabaseHelper;
 import com.example.lupusincampus.ServerConnector;
+import com.example.lupusincampus.SharedActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -116,14 +122,17 @@ public class LobbyAPI {
                     String type = lobby.getString("type");
                     String state = lobby.getString("state");
 
-
-                    // TODO: - sottoscrivere al websocket della lobby e della chat
+                    StompClientManager stompClient = StompClientManager.getInstance(ctx);
+                    stompClient.connect(String.valueOf(code));
 
                     // Salva la lobby nel database locale
                     LobbyDatabaseHelper dbHelper = new LobbyDatabaseHelper(ctx);
                     dbHelper.insertLobby(code, creatorID, creationDate, numPlayer, type, state);
 
                     Log.d(TAG, "doCreateLobby: Lobby creata e salvata nel database");
+                    Intent intent = new Intent(ctx, LobbyActivityWait.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    ctx.startActivity(intent);
 
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
