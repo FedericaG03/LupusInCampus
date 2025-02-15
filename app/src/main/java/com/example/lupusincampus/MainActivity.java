@@ -11,6 +11,7 @@ import com.example.lupusincampus.Regole.RegoleRuoliActivity;
 import com.example.lupusincampus.Settings.SettingsActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;

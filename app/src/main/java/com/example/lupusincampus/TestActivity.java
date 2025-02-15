@@ -16,6 +16,7 @@ import com.example.lupusincampus.API.FriendAPI;
 import com.example.lupusincampus.API.LobbyAPI;
 import com.example.lupusincampus.API.NotificationAPI;
 import com.example.lupusincampus.API.PlayerAPI;
+import com.example.lupusincampus.API.websocket.StompClientManager;
 import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyListActivity;
 import com.example.lupusincampus.SharedActivity;
 
@@ -35,11 +36,11 @@ public class TestActivity extends BaseActivity {
 
         Pushy.listen(this);
 
-
         // Inizializzazione PlayerAPI e SharedActivity
         playerAPI = new PlayerAPI();
         friendAPI = new FriendAPI();
         sharedActivity = SharedActivity.getInstance(this);
+        StompClientManager stompClient = StompClientManager.getInstance(this);
 
         // Input campi
         EditText inputEmail = findViewById(R.id.inputEmail);
@@ -61,6 +62,7 @@ public class TestActivity extends BaseActivity {
         Button lobbyData = findViewById(R.id.btnShowLobbies);
         Button btnGetFriendsList = findViewById(R.id.btnGetFriendsList);
         Button btnSendFriendRequest = findViewById(R.id.btnSendFriendRequest);
+        Button btnJoinLobby = findViewById(R.id.btnJoinLobby);
 
         EditText friendIDet = findViewById(R.id.inputFriendId);
 
@@ -79,9 +81,12 @@ public class TestActivity extends BaseActivity {
 
             // Login
         btnLogin.setOnClickListener(v -> {
+            stompClient.disconnect();
+            /*
             String email = inputEmail.getText().toString();
             String password = inputPassword.getText().toString();
             playerAPI.doLogin(email, "ypeBEsobvcr6wjGzmiPcTaeG7/gUfE5yuYB3ha/uSLs=", this, sharedActivity);
+        */
         });
 
         // Registrazione
@@ -125,6 +130,17 @@ public class TestActivity extends BaseActivity {
         btnDeleteUser.setOnClickListener(v -> {
             int id = sharedActivity.getId(); // Ottieni l'ID dal contesto condiviso
             playerAPI.doDelete(id, this);
+        });
+
+        btnJoinLobby.setOnClickListener(v -> {
+            stompClient.connect("3456");
+            stompClient.notifyLobbyJoin("EMU");
+        });
+
+
+        findViewById(R.id.sendButton).setOnClickListener(v -> {
+            String text =  ((EditText)findViewById(R.id.messageInput)).getText().toString();
+            stompClient.sendChatMessage("EMU", text);
         });
 
         // Ottieni Info Giocatore
