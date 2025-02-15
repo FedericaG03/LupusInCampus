@@ -68,6 +68,19 @@
         android:layout_alignParentBottom="true"
         />
 
+    <!-- Start Button -->
+    <Button
+        android:id="@+id/btn_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/inizia_partita"
+        android:textColor="#FFF"
+        android:background="@android:color/transparent"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        />
+
+
     <!-- Friend List (Initially Hidden) -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_friends"

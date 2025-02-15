@@ -36,7 +36,7 @@
     <string name="logout_btn_text">LOGOUT</string>
     <string name="regole_label_txt">REGOLE</string>
     <string name="ruoli_label_txt">RUOLI</string>
-    <string name="inizia_partita">inizia partita</string>
+    <string name="inizia_partita">INIZIA PARTITA</string>
     <string name="esci_dalla_lobby">ESCI DALLA LOBBY</string>
     <string name="invita_amici">invita amici</string>
     <string name="in_attesa_che_entrino_tutti_i_giocatori">In attesa che entrino tutti i giocatori…</string>
@@ -60,5 +60,6 @@
     <string name="aggiuni_giocatore_item_btn_txt">AGGIUNGI</string>
     <string name="scrivi_un_messaggio">Scrivi un messaggio...</string>
     <string name="invia">Invia</string>
+    <string name="entra_in_lobby">Entra in lobby</string>
 
 </resources>
