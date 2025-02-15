@@ -68,6 +68,7 @@ public class LobbyActivityWait extends BaseActivity {
         // Imposta un listener per il bottone di uscita
         Button btnExit = findViewById(R.id.btn_exit);
         btnExit.setOnClickListener(v -> {
+            lobbyAPI.doLeaveLobby(this, lastCode);
             getOnBackPressedDispatcher().onBackPressed();
             finish();
         });

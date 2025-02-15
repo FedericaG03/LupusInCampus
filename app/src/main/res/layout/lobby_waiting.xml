@@ -18,15 +18,13 @@
         android:alpha="0.7"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/static_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/in_attesa_che_entrino_tutti_i_giocatori"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:gravity="center"
-            android:padding="8dp" />
+        <ListView
+            android:id="@+id/friends_waiting"
+            android:layout_width="600dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            android:background="@drawable/white_border_grey_bg" />
 
         <TextView
             android:id="@+id/number_player"
