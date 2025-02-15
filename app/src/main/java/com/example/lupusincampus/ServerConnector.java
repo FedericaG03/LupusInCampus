@@ -24,13 +24,13 @@ import java.util.concurrent.Executors;
 public class ServerConnector {
 
     private static final String TAG = "ServerConnector";
-    private static final String SERVER_URL = "http://172.19.151.218:8080";
+    private static final String BASE_IP = "172.19.168.54";
+    private static final String SERVER_URL = "http://"+BASE_IP+":8080";
     private static String sessionId = null;
 
     // Esegue operazioni di rete su un thread in background
     private final ExecutorService executor = Executors.newFixedThreadPool(4); //(4 thread per richieste contemporanee)
     private final Handler mainThreadHandler = new Handler(Looper.getMainLooper());
-
 
     private class ResponseContent {
         protected int code;
@@ -41,6 +41,11 @@ public class ServerConnector {
             this.responseObject = responseObject;
         }
 
+    }
+
+
+    public String getBaseIp () {
+        return BASE_IP;
     }
 
     /**
