@@ -63,8 +63,7 @@ public class LobbyActivityWait extends BaseActivity {
         recyclerFriends.setAdapter(listaAmiciAdapter);
 
         // Recupera il tipo di lobby passato dall'Intent
-        String lobbyType = getIntent().getStringExtra("lobbyType");
-
+        String lobbyType = getIntent().getStringExtra("type");
 
         // Imposta un listener per il bottone di uscita
         Button btnExit = findViewById(R.id.btn_exit);
