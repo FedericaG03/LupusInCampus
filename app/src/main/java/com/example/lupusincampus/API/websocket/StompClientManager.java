@@ -26,6 +26,7 @@ public class StompClientManager {
     private StompClient stompClient;
     private Disposable connectionDisposable;
     private List<Disposable> topicSubscriptions = new ArrayList<>();
+    private MessageObserver messageObserver;
 
     private String lobbyCode;
     private static StompClientManager instance;
@@ -111,6 +112,14 @@ public class StompClientManager {
      */
     private void handleTopicMessage(StompMessage topicMessage) throws JSONException {
         JSONObject jsonObject = new JSONObject(topicMessage.getPayload());
+
+        //creo json
+        String sender = jsonObject.getString("sender");
+        String message = jsonObject.getString("message");
+
+        if (messageObserver != null) {
+            messageObserver.onNewMessage(sender, message);
+        }
         Log.d(TAG, "handleTopicMessage: " + jsonObject.getString("sender") + " ha detto: " + jsonObject.getString("message"));
     }
 
@@ -142,7 +151,6 @@ public class StompClientManager {
                         throwable -> Log.e(TAG, "Error sending join notification", throwable));
     }
 
-
     public void disconnect() {
         if (connectionDisposable != null) {
             connectionDisposable.dispose();
@@ -153,5 +161,9 @@ public class StompClientManager {
         if (stompClient != null) {
             stompClient.disconnect();
         }
+    }
+
+    public void setMessageObserver(MessageObserver observer) {
+        this.messageObserver = observer;
     }
 }

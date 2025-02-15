@@ -54,7 +54,7 @@ public class PartitaActivity extends BaseActivity {
 
         btnExit = findViewById(R.id.btn_exit);
         btnPlayers = findViewById(R.id.btn_players);
-        micButton = findViewById(R.id.mic_button);
+
         playerAvatar = findViewById(R.id.player_avatar);
         storyText = findViewById(R.id.story_text);
         playerName = findViewById(R.id.player_name);
