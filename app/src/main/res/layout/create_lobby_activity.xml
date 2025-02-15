@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="16dp"
     android:background="@drawable/sfondo">
 
@@ -34,33 +33,73 @@
             android:textColor="@color/panna"
             android:layout_marginBottom="10dp"/>
 
+        <!-- Contenitore per i RadioButton personalizzati -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="8dp"
-            android:background="@color/panna"
-            android:padding="8dp">
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:elevation="8dp">
 
-            <RadioGroup
-                android:id="@+id/radioGroupLobbyType"
+            <!-- Opzione Privata -->
+            <LinearLayout
+                android:id="@+id/optionPrivate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:clickable="true">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/lupo_ospita"/>
 
                 <RadioButton
                     android:id="@+id/rbPrivate"
-                    android:textColor="#000"
+                    style="@style/ButtonStyle"
+                    android:background="@drawable/back_btn_border"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Privata" />
+                    android:text="Privata"
+                    android:textColor="@color/panna"
+                    android:textSize="23sp"
+                    android:button="@null"
+                    android:padding="10dp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
 
+            <!-- Opzione Pubblica -->
+            <LinearLayout
+                android:id="@+id/optionPublic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:clickable="true">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/lupo_cerca"/>
                 <RadioButton
                     android:id="@+id/rbPublic"
-                    android:textColor="#000"
+                    style="@style/ButtonStyle"
+                    android:background="@drawable/back_btn_border"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pubblica" />
-            </RadioGroup>
+                    android:text="Pubblica"
+                    android:padding="10dp"
+                    android:textColor="@color/panna"
+                    android:textSize="23sp"
+                    android:button="@null"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
         </LinearLayout>
 
         <!-- Pulsante per creare la lobby -->
@@ -68,8 +107,6 @@
             android:id="@+id/btnCreateLobby"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="2dp"
             android:layout_marginTop="10dp"
             android:text="Crea Lobby"/>
     </LinearLayout>
