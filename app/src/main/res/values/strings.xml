@@ -58,5 +58,7 @@
     <string name="hint_nickname_aggiungi_amico">Inserire nickname giocatore</string>
     <string name="cerca_amico_icon_desc_txt">cerca_amico_icon</string>
     <string name="aggiuni_giocatore_item_btn_txt">AGGIUNGI</string>
+    <string name="scrivi_un_messaggio">Scrivi un messaggio...</string>
+    <string name="invia">Invia</string>
 
 </resources>

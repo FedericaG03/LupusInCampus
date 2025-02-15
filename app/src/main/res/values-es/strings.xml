@@ -48,5 +48,6 @@
     <string name="Effetti_setting_txt">Efectos</string>
     <string name="musica_setting_txt">Música</string>
     <string name="lingua_setting_txt">Idioma</string>
+    <string name="invia">Invia</string>
 
 </resources>

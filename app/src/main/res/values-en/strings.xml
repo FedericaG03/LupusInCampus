@@ -49,5 +49,6 @@
     <string name="musica_setting_txt">Music</string>
     <string name="lingua_setting_txt">Tongue</string>
     <string name="history_of_games">Storico partite</string>
+    <string name="invia">Invia</string>
 
 </resources>

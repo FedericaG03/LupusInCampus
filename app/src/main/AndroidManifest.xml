@@ -96,7 +96,6 @@
             </intent-filter>
         </activity>
 
-
         <activity android:name=".Regole.RegoleActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape"/>

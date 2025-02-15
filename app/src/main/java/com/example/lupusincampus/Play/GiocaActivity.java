@@ -24,7 +24,7 @@ import com.example.lupusincampus.SharedActivity;
 public class GiocaActivity extends BaseActivity {
 
 
-    private static final String TAG = "WordActivity";
+    private static final String TAG = "GiocaActivity";
     private TextView inviteNotification;
 
     @Override

@@ -48,5 +48,6 @@
     <string name="Effetti_setting_txt">Auswirkungen</string>
     <string name="musica_setting_txt">Musik</string>
     <string name="lingua_setting_txt">Idiom</string>
+    <string name="invia">Invia</string>
 
 </resources>
