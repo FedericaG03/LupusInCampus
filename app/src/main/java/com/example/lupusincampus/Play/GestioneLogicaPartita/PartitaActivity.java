@@ -43,7 +43,7 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
         sharedActivity = SharedActivity.getInstance(this);
 
         Intent intent = getIntent();
-        int lobbyCode = intent.getIntExtra("lobbyCode",0);
+        String lobbyCode = intent.getStringExtra("lobbyCode");
         String role = intent.getStringExtra("role");
 
 
@@ -82,7 +82,7 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
         // Dopo 3 minuti, passa automaticamente a ChatActivity
         new Handler().postDelayed(() ->{
             Intent intent_chat = new Intent(this, ChatActivity.class);
-            intent_chat.getIntExtra("lobbyCode", lobbyCode);
+            intent_chat.putExtra("lobbyCode", lobbyCode);
             startActivity(intent_chat);
         },DELAY_TIME);
 
