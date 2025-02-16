@@ -1,6 +1,8 @@
 package com.example.lupusincampus.Play.GestioneLogicaPartita;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.TypedValue;
 import android.widget.TextView;
@@ -26,7 +28,7 @@ public class ChatActivity extends BaseActivity implements Subscriber {
     private Button sendMessageButton;
     private LinearLayout messageContainer;
     private StompClientManager stompClientManager;
-    private String lobbyCode ="155968";
+     private static final int RETURN_DELAY = 180000; // 3 minuti in millisecondi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,9 @@ public class ChatActivity extends BaseActivity implements Subscriber {
         setContentView(R.layout.chat_testuale);
 
         WebSocketObserver.getInstance().subscribe(WebSocketObserver.EventType.CHAT_MESSAGE, this);
+
+        Intent intent = getIntent();
+        int lobbyCode = intent.getIntExtra("lobbyCode",0);
 
         SharedActivity sharedActivity = SharedActivity.getInstance(getApplicationContext());
         String nickname = sharedActivity.getNickname();
@@ -46,7 +51,7 @@ public class ChatActivity extends BaseActivity implements Subscriber {
 
 
         // Sottoscrizione ai messaggi quando il WebSocket è connesso
-        stompClientManager.connect(lobbyCode, SharedActivity.getInstance(this).getNickname());  // Usa il codice della lobby come parametro
+        stompClientManager.connect(String.valueOf(lobbyCode), SharedActivity.getInstance(this).getNickname());  // Usa il codice della lobby come parametro
 
         // Gestire l'invio del messaggio
         sendMessageButton.setOnClickListener(v -> {
@@ -57,6 +62,13 @@ public class ChatActivity extends BaseActivity implements Subscriber {
                 messageInput.setText("");  // Svuota il campo di input
             }
         });
+
+        // Dopo 3 minuti, torna automaticamente a StoryActivity
+        new Handler().postDelayed(() -> {
+            Intent intent_game = new Intent(this, PartitaActivity.class);
+            startActivity(intent);
+            finish(); // Chiude l'activity dopo il tempo
+        }, RETURN_DELAY);
     }
 
     // Aggiungere un messaggio alla UI

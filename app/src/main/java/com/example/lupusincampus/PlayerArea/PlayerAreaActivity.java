@@ -1,5 +1,6 @@
 package com.example.lupusincampus.PlayerArea;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,8 +42,19 @@ public class PlayerAreaActivity extends BaseActivity implements ChangeNicknameDi
 
         // Listener per il pulsante "Elimina Account"
         btnDeleteAccount.setOnClickListener(v -> {
-            PlayerAPI playerAPI = new PlayerAPI();
-            playerAPI.doDelete(sharedActivity.getId(), this); // Usa 'this' come contesto
+            // Crea il dialog di conferma
+            new AlertDialog.Builder(this)
+                    .setTitle("Conferma Eliminazione")
+                    .setMessage("Sei sicuro di voler eliminare il tuo account? Questa operazione non può essere annullata.")
+                    .setPositiveButton("Elimina", (dialog, which) -> {
+                        PlayerAPI playerAPI = new PlayerAPI();
+                        playerAPI.doDelete(sharedActivity.getId(), this); // Usa 'this' come contesto
+                    })
+                    .setNegativeButton("Annulla", (dialog, which) -> {
+                        dialog.dismiss();
+                    })
+                    .create()
+                    .show();
         });
 
         // Listener per il pulsante "Modifica Nickname"

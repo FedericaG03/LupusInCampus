@@ -1,5 +1,6 @@
 package com.example.lupusincampus.Play.GestioneLogicaPartita;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -12,35 +13,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.lupusincampus.API.websocket.Subscriber;
 import com.example.lupusincampus.API.websocket.WebSocketObserver;
 import com.example.lupusincampus.BaseActivity;
-import com.example.lupusincampus.Model.Ruolo;
+import com.example.lupusincampus.FileUtils;
 import com.example.lupusincampus.R;
-import com.example.lupusincampus.ServerConnector;
 import com.example.lupusincampus.SharedActivity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class PartitaActivity extends BaseActivity implements Subscriber {
     private static final String TAG = "PartitaActivity";
+    private static final String FILE_NAME = "Il Campus Maledetto.txt";
     private Button btnExit, btnPlayers;
-    private ImageView micButton, playerAvatar;
     private TextView storyText, playerName, roleDescription;
+    private ImageView playerAvatar;
     private SharedActivity sharedActivity;
-    private ServerConnector serverConnector;
-    private List<String> storyLines = new ArrayList<>();
-    private int currentLineIndex = 0;
-    private Handler handler = new Handler();
+
+    //Gestione lettura file
+    private static final int DELAY_TIME = 180000; // 3 minuti in millisecondi
+    private FileUtils fileUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +40,11 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
         WebSocketObserver.getInstance().subscribe(WebSocketObserver.EventType.ROLE, this);
 
         sharedActivity = SharedActivity.getInstance(this);
-        serverConnector = new ServerConnector();
+
+        Intent intent = getIntent();
+        int lobbyCode = intent.getIntExtra("lobbyCode",0);
+
+
         String nickname = sharedActivity.getNickname();
         TextView profileButton = findViewById(R.id.profile_btn);
         profileButton.setText(nickname);
@@ -63,10 +57,18 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
         playerName = findViewById(R.id.player_name);
 
 
-        // Carica una storia  all'inizio
-        loadStory();
-        //Mostra frasi
-        showNextStoryLine();
+        // Leggi la prima riga e mostra nella TextView
+        fileUtils = new FileUtils(this, FILE_NAME);
+
+        // Mostra la prossima riga del file
+        storyText.setText(fileUtils.getNextLine());
+
+        // Dopo 3 minuti, passa automaticamente a ChatActivity
+        new Handler().postDelayed(() ->{
+            Intent intent_chat = new Intent(this, ChatActivity.class);
+            intent_chat.getIntExtra("lobbyCode", lobbyCode);
+            startActivity(intent_chat);
+        },DELAY_TIME);
 
         // Richiesta del ruolo dal server
        // fetchRoleFromServer();
@@ -76,50 +78,9 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
             getOnBackPressedDispatcher().onBackPressed();
             finish();
         });
-
-
-        // Listener per il microfono
-        micButton.setOnClickListener(v -> Log.d(TAG, "Microfono premuto"));
-
         // Listener per mostrare i giocatori
         btnPlayers.setOnClickListener(v -> Log.d(TAG, "Mostra lista giocatori"));
     }
-
-    /**
-     *Gestione storia
-     */
-    private void loadStory() {
-        File file = new File(getApplicationContext().getExternalFilesDir(null), "IlCampusMaledetto.txt");
-        try {
-            InputStream inputStream = new FileInputStream(file);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Log.i(TAG, line);
-            }
-            reader.close();
-            inputStream.close();
-        }catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
-    }
-    private void showNextStoryLine() {
-        if (currentLineIndex < storyLines.size()) {
-            storyText.setText(storyLines.get(currentLineIndex)); // Mostra la frase corrente
-            currentLineIndex++;  // Incrementa l'indice per la frase successiva
-
-            // Mostra la prossima frase dopo 60 secondi (60000 millisecondi)
-            handler.postDelayed(this::showNextStoryLine, 60000);
-        } else {
-            // Quando la storia è finita, puoi decidere cosa fare
-            Log.d(TAG, "Storia finita.");
-            // Se vuoi, puoi caricare una nuova storia o fare altre azioni
-        }
-    }
-
-
 
     // Metodo per ottenere il ruolo dal server
  /*   private void fetchRoleFromServer() {

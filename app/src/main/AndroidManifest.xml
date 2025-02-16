@@ -68,6 +68,11 @@
             android:exported="false"
             android:screenOrientation="sensorLandscape"/>
 
+        <activity android:name=".Play.GestioneLogicaPartita.PartitaActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"/>
+
+
         <activity android:name=".Play.GestioneLogicaPartita.ChatActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape"/>
