@@ -37,8 +37,6 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.partita_activity);
 
-        WebSocketObserver.getInstance().subscribe(WebSocketObserver.EventType.ROLE, this);
-
         sharedActivity = SharedActivity.getInstance(this);
 
         Intent intent = getIntent();

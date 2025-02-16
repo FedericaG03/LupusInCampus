@@ -55,7 +55,7 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
 
         WebSocketObserver.getInstance().subscribe(WebSocketObserver.EventType.PLAYER_JOINED, this);
         WebSocketObserver.getInstance().subscribe(WebSocketObserver.EventType.PLAYER_LEFT, this);
-        WebSocketObserver.getInstance().subscribe(WebSocketObserver.EventType.GAME_STARTED, this);
+        WebSocketObserver.getInstance().subscribe(WebSocketObserver.EventType.ROLE, this);
 
 
         numberPlayer = findViewById(R.id.number_player);
@@ -89,8 +89,6 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
 
         recyclerFriends.setLayoutManager(new LinearLayoutManager(this));
         recyclerFriends.setAdapter(nickFriendsAdapter);
-
-
 
 
         // Recupera i giocatori attuali dalla lobby
@@ -172,14 +170,16 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
                     refreshPlayerList(Integer.parseInt(lobbyCode));
                     break;
                 }
-                case GAME_STARTED:{
+                case ROLE:{
 
                     String lobbyCode = data.getString("lobbyCode");
+                    String role = data.getString("data");
 
                     Toast.makeText(getApplicationContext(),"Iniziamo a giocare!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), PartitaActivity.class);
                     Log.d(TAG, "onClick: vado alla partita, iniziamo a giocare: " + intent.toString());
-                    intent.putExtra("lobbyType", Integer.parseInt(lobbyCode));  // Passa il tipo di lobby
+                    intent.putExtra("lobbyType", Integer.parseInt(lobbyCode));
+                    intent.putExtra("role", role);// Passa il tipo di lobby
                     startActivity(intent);
                 }
             }
