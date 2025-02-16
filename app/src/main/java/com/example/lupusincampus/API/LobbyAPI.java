@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.lupusincampus.API.websocket.StompClientManager;
+import com.example.lupusincampus.Model.Player;
 import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyActivityWait;
 import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyDatabaseHelper;
 import com.example.lupusincampus.ServerConnector;
@@ -16,6 +17,10 @@ import com.example.lupusincampus.SharedActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class LobbyAPI {
@@ -201,9 +206,27 @@ public class LobbyAPI {
             public void onSuccess(Object response) {
                 JSONArray jsonResponse = (JSONArray) response;
                 int numPlayer = jsonResponse.length();  // Prendi il numero di giocatori dalla risposta
-                // Aggiorna il database locale con il nuovo numero di giocatori
+                List<Player> players = new ArrayList<>();
+                try {
+                    // Aggiorna il database locale con il nuovo numero di giocatori
+                    for (int i = 0; i < numPlayer; i++) {
+
+                        Player tmp = new Player();
+                        JSONObject player_json = jsonResponse.getJSONObject(i);
+
+                        tmp.setEmail(player_json.getString("email"));
+                        tmp.setNickname(player_json.getString("nickname"));
+                        tmp.setId(player_json.getInt("id"));
+
+                        players.add(tmp);
+                    }
+                } catch (JSONException ex){
+                    Log.e(TAG, "onSuccess: ", ex);
+                }
+
                 LobbyDatabaseHelper dbHelper = new LobbyDatabaseHelper(ctx);
                 dbHelper.updateNumPlayer(code, numPlayer);
+                dbHelper.insertPlayersIntoLobby(code, players.stream().map(Player::getNickname).collect(Collectors.toList()));
                 StompClientManager stompClient = StompClientManager.getInstance(ctx);
                 stompClient.connect(String.valueOf(code));
                 stompClient.notifyLobbyJoin(SharedActivity.getInstance(ctx).getNickname());
