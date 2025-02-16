@@ -1,5 +1,6 @@
 package com.example.lupusincampus.Play.GestioneLogicaPartita;
 
+import com.example.lupusincampus.API.websocket.StompClientManager;
 import com.example.lupusincampus.API.websocket.Subscriber;
 import com.example.lupusincampus.API.websocket.WebSocketObserver;
 import com.example.lupusincampus.Amici.ListaAmiciAdapter;
@@ -47,6 +48,8 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
         setContentView(R.layout.lobby_waiting);
 
         WebSocketObserver.getInstance().subscribe(WebSocketObserver.EventType.PLAYER_JOINED, this);
+        WebSocketObserver.getInstance().subscribe(WebSocketObserver.EventType.PLAYER_LEFT, this);
+
 
         numberPlayer = findViewById(R.id.number_player);
         recyclerFriends = findViewById(R.id.recycler_friends);
@@ -127,7 +130,7 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        WebSocketObserver.getInstance().unsubscribe(WebSocketObserver.EventType.PLAYER_JOINED, this);
+        StompClientManager.getInstance(this).disconnect();
     }
 
     @Override
@@ -137,12 +140,16 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
             String player = data.getString("player");
             String lobbyCode = data.getString("lobbyCode");
 
+            if (player.equals(SharedActivity.getInstance(this).getNickname())){
+                return;
+            }
+
             switch (eventType){
                 case PLAYER_JOINED: {
                     player_in_waiting.add(player);
                     nicknameAdapter.notifyDataSetChanged();
 
-                    dbHelper.insertPlayersIntoLobby(Integer.parseInt(lobbyCode), List.of(player));
+                    dbHelper. insertPlayersIntoLobby(Integer.parseInt(lobbyCode), List.of(player));
                     break;
                 }
                 case PLAYER_LEFT: {

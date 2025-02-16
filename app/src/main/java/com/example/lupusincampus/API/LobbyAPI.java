@@ -285,9 +285,9 @@ public class LobbyAPI {
             @Override
             public void onSuccess(Object jsonResponse) {
 
-                JSONObject removed_player = (JSONObject) jsonResponse;
                 String player_name = "";
                 try {
+                    JSONObject removed_player = ((JSONObject) jsonResponse).getJSONObject("player");
                     player_name = removed_player.getString("nickname");
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
