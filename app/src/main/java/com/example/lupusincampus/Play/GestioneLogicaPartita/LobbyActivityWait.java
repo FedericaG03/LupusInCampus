@@ -103,7 +103,7 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
             startActivity(intent);
         });
 
-        //nicknameAdapter.notifyDataSetChanged();
+        nicknameAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -145,9 +145,9 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
             switch (eventType){
                 case PLAYER_JOINED: {
                     player_in_waiting.add(player);
-                    nicknameAdapter.notifyDataSetChanged();
 
                     dbHelper. insertPlayersIntoLobby(Integer.parseInt(lobbyCode), List.of(player));
+                    refreshPlayerList(Integer.parseInt(lobbyCode));
                     break;
                 }
                 case PLAYER_LEFT: {

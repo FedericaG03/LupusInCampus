@@ -107,11 +107,13 @@ public class StompClientManager {
                 WebSocketObserver.getInstance().notify(WebSocketObserver.EventType.PLAYER_JOINED, jsonObject);
 
                 Log.d(TAG, "handleTopicLobby: player joined");
+                break;
             }
             case "LEFT": {
                 jsonObject.put("lobbyCode", lobbyCode);
                 WebSocketObserver.getInstance().notify(WebSocketObserver.EventType.PLAYER_LEFT, jsonObject);
                 Log.d(TAG, "handleTopicLobby: player left");
+                break;
             }
         }
     }
