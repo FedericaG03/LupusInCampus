@@ -1,5 +1,6 @@
 package com.example.lupusincampus.Play.GestioneLogicaPartita;
 
+import com.example.lupusincampus.API.FriendAPI;
 import com.example.lupusincampus.API.websocket.StompClientManager;
 import com.example.lupusincampus.API.websocket.Subscriber;
 import com.example.lupusincampus.API.websocket.WebSocketObserver;
@@ -8,6 +9,7 @@ import com.example.lupusincampus.Amici.ListaAmiciAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -39,8 +41,8 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
     List<String> player_in_waiting = new ArrayList<>();
     ArrayAdapter<String> nicknameAdapter;
 
-    private LobbyAPI lobbyAPI = new LobbyAPI();; // Aggiungi un'istanza di LobbyAPI
-    private LobbyDatabaseHelper dbHelper; // Istanza per il database delle lobby
+    private LobbyAPI lobbyAPI = new LobbyAPI();
+    private LobbyDatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,17 +58,14 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
         btnStartGame = findViewById(R.id.btn_start_game);
         friends_waiting = findViewById(R.id.friends_waiting);
 
-        // Crea un'istanza di LobbyDatabaseHelper
         dbHelper = new LobbyDatabaseHelper(this);
 
         int lastCode = dbHelper.getLastRow();
         Log.d(TAG, "onCreate: code lobby" + lastCode);
-        // Imposta RecyclerView per la lista degli amici
-        Log.d(TAG, "onCreate: code lobby"+lastCode);
-        
+
+
         // Funzione per aggiornare la UI con il numero di giocatori
         updateNumberPlayerInUI(dbHelper.getNumPlayer(lastCode));
-
 
         // Imposta l'adapter per la RecyclerView con la lista amici
         List<Player> friendList = SharedActivity.getInstance(getApplicationContext()).getFriendList();
@@ -84,7 +83,7 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
         nicknameAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, player_in_waiting);
         friends_waiting.setAdapter(nicknameAdapter);
 
-        //
+
         String lobbyType = dbHelper.getLobbyType(lastCode);
 
         // Imposta un listener per il bottone di uscita
@@ -102,10 +101,9 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
             Log.d(TAG, "onClick: vado alla partita, iniziamo a giocare: " + intent.toString());
             intent.putExtra("lobbyType", lobbyType);  // Passa il tipo di lobby
             startActivity(intent);
-
         });
 
-        nicknameAdapter.notifyDataSetChanged();
+        //nicknameAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -154,9 +152,11 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
                 }
                 case PLAYER_LEFT: {
                     player_in_waiting.remove(player);
-                    nicknameAdapter.notifyDataSetChanged();
-
+                    //nicknameAdapter.notifyDataSetChanged();
                     dbHelper.removePlayersFromLobby(Integer.parseInt(lobbyCode), List.of(player));
+
+                    refreshPlayerList(Integer.parseInt(lobbyCode));
+
                     break;
                 }
             }
@@ -165,5 +165,23 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
         }catch (JSONException ex){
             Log.e(TAG, "update: ", ex);
         }
+    }
+
+
+    /**
+     * Metodo per aggiornare la lista dei giocatori dalla base di dati e aggiornare la UI.
+     */
+    private void refreshPlayerList(int lobbyCode) {
+        runOnUiThread(() -> {
+            // Recupera i giocatori aggiornati dal database
+            player_in_waiting.clear();
+            player_in_waiting.addAll(dbHelper.getPlayesByLobbyID(lobbyCode));
+
+            // Notifica l'adapter dell'aggiornamento
+            nicknameAdapter.notifyDataSetChanged();
+
+            // Aggiorna il numero di giocatori nella UI
+            updateNumberPlayerInUI(player_in_waiting.size());
+        });
     }
 }
