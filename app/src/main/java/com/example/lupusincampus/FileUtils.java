@@ -30,6 +30,9 @@ public class FileUtils {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
             while ((line = reader.readLine()) != null) {
+                if (line.equals("-")) {
+                    break;
+                }
                 lines.add(line);
             }
             reader.close();
