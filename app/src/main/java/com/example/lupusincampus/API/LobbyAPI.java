@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.lupusincampus.API.websocket.StompClientManager;
+import com.example.lupusincampus.Model.Player;
 import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyActivityWait;
 import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyDatabaseHelper;
 import com.example.lupusincampus.ServerConnector;
@@ -16,6 +17,8 @@ import com.example.lupusincampus.SharedActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 
 public class LobbyAPI {
@@ -200,7 +203,8 @@ public class LobbyAPI {
             @Override
             public void onSuccess(Object response) {
                 JSONArray jsonResponse = (JSONArray) response;
-                int numPlayer = jsonResponse.length();  // Prendi il numero di giocatori dalla risposta
+                int numPlayer = jsonResponse.length();
+                // Prendi il numero di giocatori dalla risposta
                 // Aggiorna il database locale con il nuovo numero di giocatori
                 LobbyDatabaseHelper dbHelper = new LobbyDatabaseHelper(ctx);
                 dbHelper.updateNumPlayer(code, numPlayer);
