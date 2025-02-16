@@ -77,11 +77,13 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
         recyclerFriends.setAdapter(listaAmiciAdapter);
 
 
+        player_in_waiting = dbHelper.getPlayesByLobbyID(lastCode);
          // Prendi i dati dal DB
         // Creazione dell'ArrayAdapter
         nicknameAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, player_in_waiting);
         friends_waiting.setAdapter(nicknameAdapter);
 
+        //
         String lobbyType = dbHelper.getLobbyType(lastCode);
 
         // Imposta un listener per il bottone di uscita
