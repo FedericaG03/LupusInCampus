@@ -114,10 +114,6 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
             Log.d(TAG, "onClick: vado alla partita, iniziamo a giocare: ");
             Toast.makeText(getApplicationContext(),"Iniziamo a giocare!", Toast.LENGTH_SHORT).show();
             gameAPI.doStartGame(this, String.valueOf(lastCode));
-            Intent intent = new Intent(getApplicationContext(), PartitaActivity.class);
-            Log.d(TAG, "onClick: vado alla partita, iniziamo a giocare: " + intent.toString());
-            intent.putExtra("lobbyCode", lastCode);
-            startActivity(intent);
         });
 
         nicknameAdapter.notifyDataSetChanged();
