@@ -239,6 +239,12 @@ public class LobbyAPI {
 
             @Override
             public void onError(String jsonResponse) {
+                if(jsonResponse.equals("Giocatore già presente nella lobby")){
+                    Toast.makeText(ctx, jsonResponse, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ctx, LobbyActivityWait.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    ctx.startActivity(intent);
+                }
                 Toast.makeText(ctx, "Errore nell'unirsi alla lobby: " + jsonResponse, Toast.LENGTH_SHORT).show();
             }
 

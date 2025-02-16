@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class LobbyDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_NUM_PLAYER = "numPlayer";
     private static final String COLUMN_TYPE = "type";
     private static final String COLUMN_STATE = "state";
-
+    private static final String TAG = "LobbyDBHelper";
     // Tabella player_lobbies
     private static final String TABLE_PLAYER_LOBBIES = "partecipants";
     private static final String COLUMN_LOBBY_ID = "lobbyID";
@@ -200,6 +201,7 @@ public class LobbyDatabaseHelper extends SQLiteOpenHelper {
 
                 long result = db.insert(TABLE_PLAYER_LOBBIES, null, values);
                 if (result == -1) {
+                    Log.d(TAG,  "Errore nell'inserimento in lobby" + playerName);
                     throw new SQLException("Errore nell'inserimento del player: " + playerName);
                 }
             }
