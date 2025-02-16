@@ -1,9 +1,12 @@
 package com.example.lupusincampus.API;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.lupusincampus.Model.Player;
+import com.example.lupusincampus.Play.GestioneLogicaPartita.PartitaActivity;
 import com.example.lupusincampus.ServerConnector;
 
 import org.json.JSONException;
@@ -16,21 +19,23 @@ public class GameAPI {
     private static final String TAG = "GameAPI";
 
 
-    public void saveGameFinished(Context ctx,String codeLobby, ServerConnector.CallbackInterface callback){
+    public void startGame(Context ctx,String codeLobby, ServerConnector.CallbackInterface callback){
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("codeLobby", codeLobby);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        serverConnector.makePostRequest(ctx, "/controller/game/save-lobby-game-state", jsonObject, callback);
+        serverConnector.makePostRequest(ctx, "/controller/game/start_game", jsonObject, callback);
     }
 
-    public void doSaveGameFinished(Context context, String codeLobby){
-        saveGameFinished(context, codeLobby, new ServerConnector.CallbackInterface() {
+    public void doStartGame(Context context, String codeLobby){
+        startGame(context, codeLobby, new ServerConnector.CallbackInterface() {
             @Override
             public void onSuccess(Object jsonResponse) {
-
+                Intent intent = new Intent(context, PartitaActivity.class);
+                Log.d(TAG, "onClick: vado alla partita, iniziamo a giocare: " + intent.toString());
+                context.startActivity(intent);
             }
 
             @Override

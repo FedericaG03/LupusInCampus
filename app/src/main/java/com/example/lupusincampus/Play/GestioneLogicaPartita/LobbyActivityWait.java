@@ -1,6 +1,7 @@
 package com.example.lupusincampus.Play.GestioneLogicaPartita;
 
 import com.example.lupusincampus.API.FriendAPI;
+import com.example.lupusincampus.API.GameAPI;
 import com.example.lupusincampus.API.websocket.StompClientManager;
 import com.example.lupusincampus.API.websocket.Subscriber;
 import com.example.lupusincampus.API.websocket.WebSocketObserver;
@@ -40,6 +41,8 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
     private static final String TAG = "LobbyActivityWait";
     List<String> player_in_waiting = new ArrayList<>();
     ArrayAdapter<String> nicknameAdapter;
+    GameAPI gameAPI = new GameAPI();
+
 
     private LobbyAPI lobbyAPI = new LobbyAPI();
     private LobbyDatabaseHelper dbHelper;
@@ -94,6 +97,7 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
         btnStartGame.setOnClickListener(view -> {
             Log.d(TAG, "onClick: vado alla partita, iniziamo a giocare: ");
             Toast.makeText(getApplicationContext(),"Iniziamo a giocare!", Toast.LENGTH_SHORT).show();
+            gameAPI.doStartGame(this, String.valueOf(lastCode));
             Intent intent = new Intent(getApplicationContext(), PartitaActivity.class);
             Log.d(TAG, "onClick: vado alla partita, iniziamo a giocare: " + intent.toString());
             intent.putExtra("lobbyCode", lastCode);
