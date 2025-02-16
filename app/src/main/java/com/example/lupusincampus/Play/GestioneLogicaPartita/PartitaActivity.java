@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lupusincampus.API.websocket.Subscriber;
 import com.example.lupusincampus.API.websocket.WebSocketObserver;
@@ -17,8 +16,9 @@ import com.example.lupusincampus.FileUtils;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.SharedActivity;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class PartitaActivity extends BaseActivity implements Subscriber {
     private static final String TAG = "PartitaActivity";
