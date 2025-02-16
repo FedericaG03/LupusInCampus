@@ -7,6 +7,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class LobbyDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "lobby_database.db";
     private static final int DATABASE_VERSION = 1;
@@ -22,6 +26,12 @@ public class LobbyDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_NUM_PLAYER = "numPlayer";
     private static final String COLUMN_TYPE = "type";
     private static final String COLUMN_STATE = "state";
+
+    // Tabella player_lobbies
+    private static final String TABLE_PLAYER_LOBBIES = "partecipants";
+    private static final String COLUMN_LOBBY_ID = "lobbyID";
+    private static final String COLUMN_PLAYER_ID = "playerID";
+
 
     public LobbyDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -39,7 +49,17 @@ public class LobbyDatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_TYPE + " TEXT, "
                 + COLUMN_STATE + " TEXT)";
         sqLiteDatabase.execSQL(CREATE_TABLE);
+
+        String CREATE_PARTECUPANTS = "CREATE TABLE partecipants ( " +
+                "lobbyID INTEGER NOT NULL," +
+                "playerName TEXT NOT NULL," +
+                "PRIMARY KEY (lobbyID, playerID)," +
+                "FOREIGN KEY (lobbyID) REFERENCES lobbies(id) ON DELETE CASCADE" +
+                ");";
+
+        sqLiteDatabase.execSQL(CREATE_PARTECUPANTS);
     }
+
 
 
     @Override
@@ -138,4 +158,60 @@ public class LobbyDatabaseHelper extends SQLiteOpenHelper {
         }
         return type;
     }
+
+
+    /**
+     * Ottiene tutti i playerID di una determinata lobby.
+     */
+    public List<String> getPlayesByLobbyID(int lobbyID) {
+        List<String> playerNames = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT " + COLUMN_PLAYER_ID + " FROM " + TABLE_PLAYER_LOBBIES + " WHERE " + COLUMN_LOBBY_ID + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(lobbyID)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                String playerName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PLAYER_ID));
+                playerNames.add(playerName);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return playerNames;
+    }
+
+    /**
+     * Inserisce una lista di playerID in una specifica lobby.
+     * @param lobbyID L'ID della lobby in cui inserire i giocatori.
+     * @param playerNames Lista dei nomi dei giocatori da aggiungere.
+     * @return true se tutti gli inserimenti hanno successo, false in caso di errore.
+     */
+    public boolean insertPlayersIntoLobby(int lobbyID, List<String> playerNames) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+
+        try {
+            for (String playerName : playerNames) {
+                ContentValues values = new ContentValues();
+                values.put("lobbyID", lobbyID);
+                values.put("playerName", playerName);
+
+                long result = db.insert(TABLE_PLAYER_LOBBIES, null, values);
+                if (result == -1) {
+                    throw new SQLException("Errore nell'inserimento del player: " + playerName);
+                }
+            }
+            db.setTransactionSuccessful();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            db.endTransaction();
+            db.close();
+        }
+    }
+
 }
