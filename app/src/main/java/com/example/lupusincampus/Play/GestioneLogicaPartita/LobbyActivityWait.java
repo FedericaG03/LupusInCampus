@@ -78,6 +78,7 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
 
 
         player_in_waiting = dbHelper.getPlayesByLobbyID(lastCode);
+        Log.d(TAG, "onCreate: giocatori nella lobby " + player_in_waiting.size());
          // Prendi i dati dal DB
         // Creazione dell'ArrayAdapter
         nicknameAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, player_in_waiting);
@@ -103,6 +104,8 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
             startActivity(intent);
 
         });
+
+        nicknameAdapter.notifyDataSetChanged();
     }
 
     /**

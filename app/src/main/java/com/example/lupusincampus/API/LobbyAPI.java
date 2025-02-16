@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.lupusincampus.API.websocket.StompClientManager;
+import com.example.lupusincampus.API.websocket.WebSocketObserver;
 import com.example.lupusincampus.Model.Player;
 import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyActivityWait;
 import com.example.lupusincampus.Play.GestioneLogicaPartita.LobbyDatabaseHelper;
@@ -122,7 +123,7 @@ public class LobbyAPI {
                     int code = lobby.getInt("code");
                     int creatorID = lobby.getInt("creatorID");
                     String creationDate = lobby.getString("creationDate");
-                    //inizialmente settato ad uno
+                    //inizialmente sxettato ad uno
                     int numPlayer = lobby.getInt("numPlayer");
                     String type = lobby.getString("type");
                     String state = lobby.getString("state");
@@ -133,6 +134,7 @@ public class LobbyAPI {
                     // Salva la lobby nel database locale
                     LobbyDatabaseHelper dbHelper = new LobbyDatabaseHelper(ctx);
                     dbHelper.insertLobby(code, creatorID, creationDate, numPlayer, type, state);
+                    dbHelper.insertPlayersIntoLobby(code, List.of(SharedActivity.getInstance(ctx).getNickname()));
 
                     Log.d(TAG, "doCreateLobby: Lobby creata e salvata nel database");
                     Intent intent = new Intent(ctx, LobbyActivityWait.class);
