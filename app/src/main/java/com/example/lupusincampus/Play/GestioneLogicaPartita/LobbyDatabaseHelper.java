@@ -216,4 +216,30 @@ public class LobbyDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean removePlayersFromLobby(int lobbyID, List<String> players) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+
+        try {
+            for (String playerName : players) {
+                ContentValues values = new ContentValues();
+                values.put("lobbyID", lobbyID);
+                values.put("playerName", playerName);
+
+                long result = db.delete(TABLE_PLAYER_LOBBIES, "lobbyID = ? and playerName = ?", new String[]{String.valueOf(lobbyID), playerName});
+                if (result == -1) {
+                    Log.d(TAG,  "Errore nella rimozione del player dalla lobby: " + playerName);
+                    throw new SQLException("Errore nella rimozione del player dalla lobby: " + playerName);
+                }
+            }
+            db.setTransactionSuccessful();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            db.endTransaction();
+            db.close();
+        }
+    }
 }

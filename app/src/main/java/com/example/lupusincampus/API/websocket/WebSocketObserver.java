@@ -11,7 +11,7 @@ public class WebSocketObserver {
 
     public enum EventType {
         CHAT_MESSAGE,
-        PLAYER_JOINED, LOBBY_UPDATE
+        PLAYER_JOINED, PLAYER_LEFT, LOBBY_UPDATE
     }
 
 
@@ -41,6 +41,6 @@ public class WebSocketObserver {
 
     public void notify(EventType event, JSONObject data){
        List<Subscriber> subscribersList = subscribers.get(event);
-       if (subscribersList != null) subscribersList.forEach(v -> v.update(data));
+       if (subscribersList != null) subscribersList.forEach(v -> v.update(data, event));
     }
 }

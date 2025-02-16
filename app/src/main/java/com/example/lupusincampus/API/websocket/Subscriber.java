@@ -4,6 +4,6 @@ import org.json.JSONObject;
 
 public interface Subscriber {
 
-    void update(JSONObject data);
+    void update(JSONObject data, WebSocketObserver.EventType eventType);
 
 }

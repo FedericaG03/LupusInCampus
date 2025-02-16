@@ -3,8 +3,6 @@ package com.example.lupusincampus.Play.GestioneLogicaPartita;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,8 +18,6 @@ import com.example.lupusincampus.SharedActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.nio.channels.ScatteringByteChannel;
 
 public class ChatActivity extends BaseActivity implements Subscriber {
 
@@ -80,7 +76,7 @@ public class ChatActivity extends BaseActivity implements Subscriber {
     }
 
     @Override
-    public void update(JSONObject data) {
+    public void update(JSONObject data, WebSocketObserver.EventType eventType) {
         try {
             String sender = data.getString("sender");
             String message = data.getString("message");

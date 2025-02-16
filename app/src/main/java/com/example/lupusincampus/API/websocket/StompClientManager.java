@@ -108,6 +108,11 @@ public class StompClientManager {
 
                 Log.d(TAG, "handleTopicLobby: player joined");
             }
+            case "LEFT": {
+                jsonObject.put("lobbyCode", lobbyCode);
+                WebSocketObserver.getInstance().notify(WebSocketObserver.EventType.PLAYER_LEFT, jsonObject);
+                Log.d(TAG, "handleTopicLobby: player left");
+            }
         }
     }
 
@@ -142,6 +147,20 @@ public class StompClientManager {
     public void notifyLobbyJoin(String playerName) {
         String destination = "/app/lobby/" + lobbyCode;
         String payload = "{ \"player\": \"" + playerName + "\", \"type\": \"JOIN\" }";
+
+        Log.d(TAG, "Notifying lobby " + lobbyCode + " about new player: " + playerName);
+
+        stompClient.send(destination, payload)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> Log.d(TAG, "Join notification sent!"),
+                        throwable -> Log.e(TAG, "Error sending join notification", throwable));
+    }
+
+    @SuppressLint("CheckResult")
+    public void notifyLobbyLeft(String playerName) {
+        String destination = "/app/lobby/" + lobbyCode;
+        String payload = "{ \"player\": \"" + playerName + "\", \"type\": \"LEFT\" }";
 
         Log.d(TAG, "Notifying lobby " + lobbyCode + " about new player: " + playerName);
 

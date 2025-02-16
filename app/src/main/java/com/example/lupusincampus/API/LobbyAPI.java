@@ -206,6 +206,7 @@ public class LobbyAPI {
 
             @Override
             public void onSuccess(Object response) {
+                StompClientManager.getInstance(ctx).connect(String.valueOf(code));
                 JSONArray jsonResponse = (JSONArray) response;
                 int numPlayer = jsonResponse.length();  // Prendi il numero di giocatori dalla risposta
                 List<Player> players = new ArrayList<>();
@@ -215,10 +216,13 @@ public class LobbyAPI {
 
                         Player tmp = new Player();
                         JSONObject player_json = jsonResponse.getJSONObject(i);
+                        player_json = player_json.getJSONObject("player");
 
-                        tmp.setEmail(player_json.getString("email"));
+                        //tmp.setEmail(player_json.getString("email"));
                         tmp.setNickname(player_json.getString("nickname"));
                         tmp.setId(player_json.getInt("id"));
+
+                        //StompClientManager.getInstance(ctx).notifyLobbyJoin(tmp.getNickname());
 
                         players.add(tmp);
                     }
@@ -231,7 +235,6 @@ public class LobbyAPI {
 
                 dbHelper.insertPlayersIntoLobby(code, players.stream().map(Player::getNickname).collect(Collectors.toList()));
                 StompClientManager stompClient = StompClientManager.getInstance(ctx);
-                stompClient.connect(String.valueOf(code));
                 stompClient.notifyLobbyJoin(SharedActivity.getInstance(ctx).getNickname());
 
                 Intent intent = new Intent(ctx, LobbyActivityWait.class);
@@ -281,6 +284,16 @@ public class LobbyAPI {
         leaveLobby(context, codeLobby, new ServerConnector.CallbackInterface() {
             @Override
             public void onSuccess(Object jsonResponse) {
+
+                JSONObject removed_player = (JSONObject) jsonResponse;
+                String player_name = "";
+                try {
+                    player_name = removed_player.getString("nickname");
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+                StompClientManager.getInstance(context).notifyLobbyLeft(player_name);
 
             }
 

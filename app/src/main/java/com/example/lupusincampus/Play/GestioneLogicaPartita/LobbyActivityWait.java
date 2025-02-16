@@ -1,6 +1,5 @@
 package com.example.lupusincampus.Play.GestioneLogicaPartita;
 
-import com.example.lupusincampus.API.FriendAPI;
 import com.example.lupusincampus.API.websocket.Subscriber;
 import com.example.lupusincampus.API.websocket.WebSocketObserver;
 import com.example.lupusincampus.Amici.ListaAmiciAdapter;
@@ -8,7 +7,6 @@ import com.example.lupusincampus.Amici.ListaAmiciAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -28,7 +26,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class LobbyActivityWait extends BaseActivity implements Subscriber {
@@ -134,16 +131,29 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
     }
 
     @Override
-    public void update(JSONObject data) {
+    public void update(JSONObject data, WebSocketObserver.EventType eventType) {
 
         try {
             String player = data.getString("player");
             String lobbyCode = data.getString("lobbyCode");
 
-            player_in_waiting.add(player);
-            nicknameAdapter.notifyDataSetChanged();
+            switch (eventType){
+                case PLAYER_JOINED: {
+                    player_in_waiting.add(player);
+                    nicknameAdapter.notifyDataSetChanged();
 
-            dbHelper.insertPlayersIntoLobby(Integer.parseInt(lobbyCode), List.of(player));
+                    dbHelper.insertPlayersIntoLobby(Integer.parseInt(lobbyCode), List.of(player));
+                    break;
+                }
+                case PLAYER_LEFT: {
+                    player_in_waiting.remove(player);
+                    nicknameAdapter.notifyDataSetChanged();
+
+                    dbHelper.removePlayersFromLobby(Integer.parseInt(lobbyCode), List.of(player));
+                    break;
+                }
+            }
+
 
         }catch (JSONException ex){
             Log.e(TAG, "update: ", ex);
