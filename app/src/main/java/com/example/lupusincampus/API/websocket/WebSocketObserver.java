@@ -11,7 +11,7 @@ public class WebSocketObserver {
 
     public enum EventType {
         CHAT_MESSAGE,
-        PLAYER_JOINED, PLAYER_LEFT, LOBBY_UPDATE
+        PLAYER_JOINED, PLAYER_LEFT, ROLE, GAME_STARTED, LOBBY_UPDATE
     }
 
 

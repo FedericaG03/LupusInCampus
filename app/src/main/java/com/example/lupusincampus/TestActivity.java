@@ -133,7 +133,7 @@ public class TestActivity extends BaseActivity {
         });
 
         btnJoinLobby.setOnClickListener(v -> {
-            stompClient.connect("3456");
+            stompClient.connect("3456", "EMU");
             stompClient.notifyLobbyJoin("EMU");
         });
 

@@ -129,7 +129,7 @@ public class LobbyAPI {
                     String state = lobby.getString("state");
 
                     StompClientManager stompClient = StompClientManager.getInstance(ctx);
-                    stompClient.connect(String.valueOf(code));
+                    stompClient.connect(String.valueOf(code), SharedActivity.getInstance(ctx).getNickname());
 
                     // Salva la lobby nel database locale
                     LobbyDatabaseHelper dbHelper = new LobbyDatabaseHelper(ctx);
@@ -206,7 +206,7 @@ public class LobbyAPI {
 
             @Override
             public void onSuccess(Object response) {
-                StompClientManager.getInstance(ctx).connect(String.valueOf(code));
+                StompClientManager.getInstance(ctx).connect(String.valueOf(code), SharedActivity.getInstance(ctx).getNickname());
                 JSONArray jsonResponse = (JSONArray) response;
                 int numPlayer = jsonResponse.length();  // Prendi il numero di giocatori dalla risposta
                 List<Player> players = new ArrayList<>();

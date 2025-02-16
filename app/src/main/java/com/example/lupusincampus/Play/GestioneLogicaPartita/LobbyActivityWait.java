@@ -51,6 +51,7 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
 
         WebSocketObserver.getInstance().subscribe(WebSocketObserver.EventType.PLAYER_JOINED, this);
         WebSocketObserver.getInstance().subscribe(WebSocketObserver.EventType.PLAYER_LEFT, this);
+        WebSocketObserver.getInstance().subscribe(WebSocketObserver.EventType.GAME_STARTED, this);
 
 
         numberPlayer = findViewById(R.id.number_player);
@@ -135,29 +136,49 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
     public void update(JSONObject data, WebSocketObserver.EventType eventType) {
 
         try {
-            String player = data.getString("player");
-            String lobbyCode = data.getString("lobbyCode");
-
-            if (player.equals(SharedActivity.getInstance(this).getNickname())){
-                return;
-            }
 
             switch (eventType){
                 case PLAYER_JOINED: {
+
+                    String player = data.getString("player");
+                    String lobbyCode = data.getString("lobbyCode");
+
+                    if (player.equals(SharedActivity.getInstance(this).getNickname())){
+                        return;
+                    }
+
                     player_in_waiting.add(player);
 
                     dbHelper. insertPlayersIntoLobby(Integer.parseInt(lobbyCode), List.of(player));
                     refreshPlayerList(Integer.parseInt(lobbyCode));
+
                     break;
                 }
                 case PLAYER_LEFT: {
+
+                    String player = data.getString("player");
+                    String lobbyCode = data.getString("lobbyCode");
+
+                    if (player.equals(SharedActivity.getInstance(this).getNickname())){
+                        return;
+                    }
+
                     player_in_waiting.remove(player);
                     //nicknameAdapter.notifyDataSetChanged();
                     dbHelper.removePlayersFromLobby(Integer.parseInt(lobbyCode), List.of(player));
 
                     refreshPlayerList(Integer.parseInt(lobbyCode));
-
                     break;
+                }
+                case GAME_STARTED:{
+
+                    String lobbyCode = data.getString("lobbyCode");
+
+                    Toast.makeText(getApplicationContext(),"Iniziamo a giocare!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), PartitaActivity.class);
+                    Log.d(TAG, "onClick: vado alla partita, iniziamo a giocare: " + intent.toString());
+                    intent.putExtra("lobbyType", Integer.parseInt(lobbyCode));  // Passa il tipo di lobby
+                    startActivity(intent);
                 }
             }
 

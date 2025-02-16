@@ -46,7 +46,7 @@ public class ChatActivity extends BaseActivity implements Subscriber {
 
 
         // Sottoscrizione ai messaggi quando il WebSocket è connesso
-        stompClientManager.connect("lobbyCode");  // Usa il codice della lobby come parametro
+        stompClientManager.connect(lobbyCode, SharedActivity.getInstance(this).getNickname());  // Usa il codice della lobby come parametro
 
         // Gestire l'invio del messaggio
         sendMessageButton.setOnClickListener(v -> {

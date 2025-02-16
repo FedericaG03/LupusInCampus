@@ -42,7 +42,7 @@ public class StompClientManager {
         stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, SERVER_URL);
     }
 
-    public void connect(String lobbyCode) {
+    public void connect(String lobbyCode, String nickname) {
         List<StompHeader> headers = new ArrayList<>();
         this.lobbyCode = lobbyCode;
 
@@ -53,7 +53,7 @@ public class StompClientManager {
                     switch (lifecycleEvent.getType()) {
                         case OPENED:
                             Log.d(TAG, "WebSocket connected!");
-                            subscribeToLobbyAndChat(lobbyCode);
+                            subscribeToLobbyAndChat(lobbyCode, nickname);
                             break;
                         case ERROR:
                             Log.e(TAG, "WebSocket Error: ", lifecycleEvent.getException());
@@ -67,9 +67,10 @@ public class StompClientManager {
     }
 
     @SuppressLint("CheckResult")
-    private void subscribeToLobbyAndChat(String lobbyCode) {
+    private void subscribeToLobbyAndChat(String lobbyCode, String nickname) {
         String chatTopic = "/topic/chat/" + lobbyCode;
         String lobbyTopic = "/topic/lobby/" + lobbyCode;
+        String userTopic = "/user/" + nickname + "/queue/roles";
 
         Log.d(TAG, "Subscribing to topics: " + chatTopic + " & " + lobbyTopic);
 
@@ -89,6 +90,28 @@ public class StompClientManager {
                     handleTopicLobby(topicMessage);
                     // Here you can update the UI or show a toast message
                 }, throwable -> Log.e(TAG, "Error in Lobby Subscription", throwable)));
+
+        topicSubscriptions.add(stompClient.topic(userTopic)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(topicMessage ->{
+                    handleUserMessage(topicMessage);
+                }, throwable -> Log.e(TAG, "subscribeToLobbyAndChat: ", throwable)));
+    }
+
+    private void handleUserMessage(StompMessage topicMessage) throws JSONException {
+
+        JSONObject jsonObject = new JSONObject(topicMessage.getPayload());
+
+        switch (jsonObject.getString("type")){
+            case "ROLE": {
+
+                WebSocketObserver.getInstance().notify(WebSocketObserver.EventType.ROLE, jsonObject);
+
+                break;
+            }
+        }
+
     }
 
     /**

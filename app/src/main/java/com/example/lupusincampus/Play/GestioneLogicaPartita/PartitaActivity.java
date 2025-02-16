@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.lupusincampus.API.websocket.Subscriber;
+import com.example.lupusincampus.API.websocket.WebSocketObserver;
 import com.example.lupusincampus.BaseActivity;
 import com.example.lupusincampus.Model.Ruolo;
 import com.example.lupusincampus.R;
@@ -29,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PartitaActivity extends BaseActivity {
+public class PartitaActivity extends BaseActivity implements Subscriber {
     private static final String TAG = "PartitaActivity";
     private Button btnExit, btnPlayers;
     private ImageView micButton, playerAvatar;
@@ -45,6 +47,7 @@ public class PartitaActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.partita_activity);
 
+        WebSocketObserver.getInstance().subscribe(WebSocketObserver.EventType.ROLE, this);
 
         sharedActivity = SharedActivity.getInstance(this);
         serverConnector = new ServerConnector();
@@ -156,6 +159,19 @@ public class PartitaActivity extends BaseActivity {
 
         });
     }*/
+
+    @Override
+    public void update(JSONObject data, WebSocketObserver.EventType eventType) {
+
+        if (eventType == WebSocketObserver.EventType.ROLE){
+            try {
+                Log.d(TAG, "update: ricevuto ruolo " + data.getString("data"));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
 }
 
 
