@@ -30,7 +30,7 @@ public class LobbyDatabaseHelper extends SQLiteOpenHelper {
     // Tabella player_lobbies
     private static final String TABLE_PLAYER_LOBBIES = "partecipants";
     private static final String COLUMN_LOBBY_ID = "lobbyID";
-    private static final String COLUMN_PLAYER_ID = "playerID";
+    private static final String COLUMN_PLAYER_NAME = "playerName";
 
 
     public LobbyDatabaseHelper(Context context) {
@@ -53,7 +53,7 @@ public class LobbyDatabaseHelper extends SQLiteOpenHelper {
         String CREATE_PARTECUPANTS = "CREATE TABLE partecipants ( " +
                 "lobbyID INTEGER NOT NULL," +
                 "playerName TEXT NOT NULL," +
-                "PRIMARY KEY (lobbyID, playerID)," +
+                "PRIMARY KEY (lobbyID, playerName)," +
                 "FOREIGN KEY (lobbyID) REFERENCES lobbies(id) ON DELETE CASCADE" +
                 ");";
 
@@ -167,12 +167,12 @@ public class LobbyDatabaseHelper extends SQLiteOpenHelper {
         List<String> playerNames = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String query = "SELECT " + COLUMN_PLAYER_ID + " FROM " + TABLE_PLAYER_LOBBIES + " WHERE " + COLUMN_LOBBY_ID + " = ?";
+        String query = "SELECT " + COLUMN_PLAYER_NAME + " FROM " + TABLE_PLAYER_LOBBIES + " WHERE " + COLUMN_LOBBY_ID + " = ?";
         Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(lobbyID)});
 
         if (cursor.moveToFirst()) {
             do {
-                String playerName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PLAYER_ID));
+                String playerName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PLAYER_NAME));
                 playerNames.add(playerName);
             } while (cursor.moveToNext());
         }
