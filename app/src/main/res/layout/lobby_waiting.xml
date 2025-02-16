@@ -24,7 +24,7 @@
             android:layout_width="600dp"
             android:layout_height="200dp"
             android:textColor="#FFF"
-            android:textSize="35sp"
+            android:textSize="55sp"
             android:layout_centerInParent="true"
             android:background="@drawable/white_border_grey_bg"
             android:padding="10dp" />
@@ -48,11 +48,10 @@
         android:layout_height="wrap_content"
         android:text="@string/inizia_partita"
         android:textColor="#FFF"
-        android:background="@android:color/transparent"
+        android:background="@drawable/back_btn_border"
         android:padding="10dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:visibility="gone"
         />
 
 
@@ -69,17 +68,6 @@
         android:layout_alignParentBottom="true"
         />
 
-    <!-- Start Button -->
-    <Button
-        android:id="@+id/btn_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/inizia_partita"
-        android:textColor="#FFF"
-        android:background="@android:color/transparent"
-        android:layout_centerInParent="true"
-        android:layout_alignParentBottom="true"
-        />
 
 
     <!-- Friend List (Initially Hidden) -->

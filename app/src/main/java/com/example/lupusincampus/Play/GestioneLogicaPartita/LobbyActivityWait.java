@@ -63,30 +63,26 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
         int lastCode = dbHelper.getLastRow();
         Log.d(TAG, "onCreate: code lobby" + lastCode);
 
-
         // Funzione per aggiornare la UI con il numero di giocatori
         updateNumberPlayerInUI(dbHelper.getNumPlayer(lastCode));
 
         // Imposta l'adapter per la RecyclerView con la lista amici
         List<Player> friendList = SharedActivity.getInstance(getApplicationContext()).getFriendList();
-
-        // Configura il RecyclerView
         ListaAmiciAdapter listaAmiciAdapter = new ListaAmiciAdapter(friendList);
         recyclerFriends.setLayoutManager(new LinearLayoutManager(this));
         recyclerFriends.setAdapter(listaAmiciAdapter);
 
 
+        // Recupera i giocatori attuali dalla lobby
         player_in_waiting = dbHelper.getPlayesByLobbyID(lastCode);
         Log.d(TAG, "onCreate: giocatori nella lobby " + player_in_waiting.size());
-         // Prendi i dati dal DB
-        // Creazione dell'ArrayAdapter
+
+        // Imposta l'adapter iniziale per la lista giocatori in attesa
         nicknameAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, player_in_waiting);
         friends_waiting.setAdapter(nicknameAdapter);
 
-
         String lobbyType = dbHelper.getLobbyType(lastCode);
 
-        // Imposta un listener per il bottone di uscita
         Button btnExit = findViewById(R.id.btn_exit);
         btnExit.setOnClickListener(v -> {
             lobbyAPI.doLeaveLobby(this, lastCode);
@@ -94,12 +90,12 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
             finish();
         });
 
-
         btnStartGame.setOnClickListener(view -> {
+            Log.d(TAG, "onClick: vado alla partita, iniziamo a giocare: ");
             Toast.makeText(getApplicationContext(),"Iniziamo a giocare!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), PartitaActivity.class);
             Log.d(TAG, "onClick: vado alla partita, iniziamo a giocare: " + intent.toString());
-            intent.putExtra("lobbyType", lobbyType);  // Passa il tipo di lobby
+            intent.putExtra("lobbyCode", lastCode);
             startActivity(intent);
         });
 
@@ -114,16 +110,6 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
         runOnUiThread(() -> numberPlayer.setText(String.valueOf(numPlayer)));
     }
 
-    /**
-     * Metodo per entrare in una lobby e aggiornare i dati.
-     */
-    private void joinLobby(int lastCode) {
-        Log.d(TAG, "joinLobby: Richiesta al server per unire il giocatore alla lobby");
-
-        // Supponiamo che il codice della lobby sia già disponibile (può essere passato tramite Intent)
-        // Eseguiamo la richiesta di join nella lobby
-        lobbyAPI.doJoinLobby(this, lastCode); // Chiamata alla funzione in LobbyAPI
-    }
 
     @Override
     protected void onDestroy() {
@@ -145,23 +131,17 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
             switch (eventType){
                 case PLAYER_JOINED: {
                     player_in_waiting.add(player);
-
                     dbHelper. insertPlayersIntoLobby(Integer.parseInt(lobbyCode), List.of(player));
-                    refreshPlayerList(Integer.parseInt(lobbyCode));
                     break;
                 }
                 case PLAYER_LEFT: {
                     player_in_waiting.remove(player);
                     //nicknameAdapter.notifyDataSetChanged();
                     dbHelper.removePlayersFromLobby(Integer.parseInt(lobbyCode), List.of(player));
-
-                    refreshPlayerList(Integer.parseInt(lobbyCode));
-
                     break;
                 }
             }
-
-
+            refreshPlayerList(Integer.parseInt(lobbyCode));
         }catch (JSONException ex){
             Log.e(TAG, "update: ", ex);
         }

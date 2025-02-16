@@ -77,6 +77,9 @@ public class LobbyAPI {
 
             @Override
             public void onError(String jsonResponse) {
+                LobbyDatabaseHelper dbHelper = new LobbyDatabaseHelper(ctx);
+                dbHelper.clearLobbies();
+
                 Toast.makeText(ctx, jsonResponse, Toast.LENGTH_SHORT).show();
             }
 
@@ -156,25 +159,6 @@ public class LobbyAPI {
                 Toast.makeText(ctx, "Errore nella creazione della lobby, il server non risponde!", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-
-
-    /**
-     * Effettua una richiesta al server per eliminare una lobby esistente.
-     *
-     * @param ctx      Contesto dell'applicazione.
-     * @param code     Codice identificativo della lobby da eliminare.
-     * @param callback Interfaccia di callback per gestire la risposta del server.
-     */
-    public void deleteLobby(Context ctx, int code, ServerConnector.CallbackInterface callback) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("code", code);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-        serverConnector.makeDeleteRequest(ctx, "/controller/lobby/delete-lobby", jsonObject, callback);
     }
 
     /**

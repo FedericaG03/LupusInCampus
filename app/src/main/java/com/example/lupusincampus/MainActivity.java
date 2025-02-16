@@ -95,11 +95,11 @@ public class MainActivity extends BaseActivity {
                 }
             });
 
-        playButton.setOnClickListener(v -> {
-            Log.d("MainActivity","Vado alla playactivity" );
-            Intent intent = new Intent(MainActivity.this, GiocaActivity.class);
-            startActivity(intent);
-        });
+            playButton.setOnClickListener(v -> {
+                Log.d("MainActivity","Vado alla playactivity" );
+                Intent intent = new Intent(MainActivity.this, GiocaActivity.class);
+                startActivity(intent);
+            });
 
             exitButton.setOnClickListener(v->{
                 new AlertDialog.Builder(this)
@@ -115,10 +115,11 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent);
             });
 
-        richiesteAmiciziaBtn.setOnClickListener(v->{
-            Intent intent = new Intent(getApplicationContext(), ListaRichiesteAmiciActivity.class);
-            startActivity(intent);
-        });
+
+            richiesteAmiciziaBtn.setOnClickListener(v->{
+                Intent intent = new Intent(getApplicationContext(), ListaRichiesteAmiciActivity.class);
+                startActivity(intent);
+            });
 
             rulesButton.setOnClickListener(v->{
                 Intent intent = new Intent(getApplicationContext(), RegoleRuoliActivity.class);
