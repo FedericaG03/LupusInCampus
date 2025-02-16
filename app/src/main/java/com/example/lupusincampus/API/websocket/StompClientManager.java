@@ -169,6 +169,20 @@ public class StompClientManager {
     }
 
     @SuppressLint("CheckResult")
+    public void sendAck(String nickname) {
+        String destination = "/app/ack";
+        String payload = "{ \"nickname\": \"" + nickname + "\"}";
+
+        Log.d(TAG, "Sending Message to " + destination + ": " + payload);
+
+        stompClient.send(destination, payload)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> Log.d(TAG, "Message sent successfully!"),
+                        throwable -> Log.e(TAG, "Error sending message", throwable));
+    }
+
+    @SuppressLint("CheckResult")
     public void notifyLobbyJoin(String playerName) {
         String destination = "/app/lobby/" + lobbyCode;
         String payload = "{ \"player\": \"" + playerName + "\", \"type\": \"JOIN\" }";
@@ -207,5 +221,4 @@ public class StompClientManager {
             stompClient.disconnect();
         }
     }
-
 }
