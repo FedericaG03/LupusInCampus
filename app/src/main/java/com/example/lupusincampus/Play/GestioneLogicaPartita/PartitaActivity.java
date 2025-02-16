@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.example.lupusincampus.API.websocket.StompClientManager;
 import com.example.lupusincampus.API.websocket.Subscriber;
 import com.example.lupusincampus.API.websocket.WebSocketObserver;
 import com.example.lupusincampus.BaseActivity;
@@ -39,8 +40,6 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.partita_activity);
 
-        WebSocketObserver.getInstance().subscribe(WebSocketObserver.EventType.ROLE, this);
-
         sharedActivity = SharedActivity.getInstance(this);
 
         Intent intent = getIntent();
@@ -49,6 +48,7 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
 
 
         String nickname = sharedActivity.getNickname();
+        StompClientManager.getInstance(this).sendAck(nickname);
         TextView profileButton = findViewById(R.id.profile_btn);
         profileButton.setText(nickname);
 

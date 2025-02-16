@@ -1,5 +1,7 @@
 package com.example.lupusincampus.API;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -33,9 +35,18 @@ public class GameAPI {
         startGame(context, codeLobby, new ServerConnector.CallbackInterface() {
             @Override
             public void onSuccess(Object jsonResponse) {
-                Intent intent = new Intent(context, PartitaActivity.class);
-                Log.d(TAG, "onClick: vado alla partita, iniziamo a giocare: " + intent.toString());
-                context.startActivity(intent);
+
+                try {
+                    JSONObject player = ((JSONObject) jsonResponse).getJSONObject("player");
+                    Intent intent = new Intent(context, PartitaActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("role", player.getString("role"));
+                    Log.d(TAG, "onClick: vado alla partita, iniziamo a giocare: " + intent.toString());
+                    context.startActivity(intent);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
             }
 
             @Override
