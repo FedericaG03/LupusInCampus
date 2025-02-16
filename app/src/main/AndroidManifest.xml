@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
-
     <application
         android:allowBackup="false"
         android:isScrollContainer="false"
@@ -52,8 +51,6 @@
         <activity android:name=".Amici.ListaRichiesteAmiciActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape"/>
-
-
 
         <!-- Login / Registrazione -->
         <activity android:name=".Login.ForgotPasswordActivity"

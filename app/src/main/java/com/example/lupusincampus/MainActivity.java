@@ -1,6 +1,7 @@
 package com.example.lupusincampus;
 
 import com.example.lupusincampus.API.FriendAPI;
+import com.example.lupusincampus.API.NotificationAPI;
 import com.example.lupusincampus.Amici.ListaAmiciActivity;
 import com.example.lupusincampus.Amici.ListaRichiesteAmiciActivity;
 import com.example.lupusincampus.Login.LoginActivity;
@@ -20,6 +21,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import me.pushy.sdk.Pushy;
+
 
 public class MainActivity extends BaseActivity {
     private SharedActivity sharedActivity;
@@ -31,6 +34,16 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         sharedActivity = SharedActivity.getInstance(this);
         Log.d(TAG, "onCreate: sessioneID" + sharedActivity.getSessionId());
+
+        if (!Pushy.isRegistered(this)){
+            new NotificationAPI().doSave(this);
+
+        } else {
+            Log.d(TAG, "onCreate: " + Pushy.getDeviceCredentials(this).token);
+        }
+
+        Pushy.listen(this);
+
 
         if (sharedActivity.getSessionId() == null){
             CookieHelper.init();
