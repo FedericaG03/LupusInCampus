@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.lupusincampus.API.LobbyAPI;
 import com.example.lupusincampus.BaseActivity;
 import com.example.lupusincampus.Model.Player;
+import com.example.lupusincampus.Play.NickFriendsAdapter;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.SharedActivity;
 
@@ -72,9 +73,24 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
 
         // Imposta l'adapter per la RecyclerView con la lista amici
         List<Player> friendList = SharedActivity.getInstance(getApplicationContext()).getFriendList();
-        ListaAmiciAdapter listaAmiciAdapter = new ListaAmiciAdapter(friendList);
+        List<String> friendNicknames = new ArrayList<>();
+        for (Player player : friendList) {
+            friendNicknames.add(player.getNickname());
+        }
+
+        // Crea l'adapter e imposta l'OnItemClickListener
+        NickFriendsAdapter nickFriendsAdapter = new NickFriendsAdapter(friendNicknames, new NickFriendsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(String player) {
+                // Aggiugngere chiamata quando clicco un elemento
+
+            }
+        });
+
         recyclerFriends.setLayoutManager(new LinearLayoutManager(this));
-        recyclerFriends.setAdapter(listaAmiciAdapter);
+        recyclerFriends.setAdapter(nickFriendsAdapter);
+
+
 
 
         // Recupera i giocatori attuali dalla lobby
