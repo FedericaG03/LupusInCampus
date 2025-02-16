@@ -26,7 +26,7 @@ public class GameAPI {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        serverConnector.makePostRequest(ctx, "/controller/game/start_game", jsonObject, callback);
+        serverConnector.makePostRequest(ctx, "/controller/game/start-game", jsonObject, callback);
     }
 
     public void doStartGame(Context context, String codeLobby){

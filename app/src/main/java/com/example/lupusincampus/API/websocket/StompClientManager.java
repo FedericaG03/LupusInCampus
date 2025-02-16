@@ -70,7 +70,7 @@ public class StompClientManager {
     private void subscribeToLobbyAndChat(String lobbyCode, String nickname) {
         String chatTopic = "/topic/chat/" + lobbyCode;
         String lobbyTopic = "/topic/lobby/" + lobbyCode;
-        String userTopic = "/user/" + nickname + "/queue/roles";
+        String userTopic = "/topic/lobby/" + lobbyCode + "/" + nickname;
 
         Log.d(TAG, "Subscribing to topics: " + chatTopic + " & " + lobbyTopic);
 
