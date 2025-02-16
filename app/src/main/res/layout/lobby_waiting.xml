@@ -52,6 +52,7 @@
         android:padding="10dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:visibility="visible"
         />
 
 
@@ -77,6 +78,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:visibility="visible"
-        android:background="@android:color/white"/>
+        android:textColor="#000"
+        android:background="@color/panna"/>
 
 </RelativeLayout>

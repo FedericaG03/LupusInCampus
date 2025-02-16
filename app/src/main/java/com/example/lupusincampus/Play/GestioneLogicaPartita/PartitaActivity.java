@@ -1,6 +1,8 @@
 package com.example.lupusincampus.Play.GestioneLogicaPartita;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -24,7 +26,7 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
     private static final String TAG = "PartitaActivity";
     private static final String FILE_NAME = "Il Campus Maledetto.txt";
     private Button btnExit, btnPlayers;
-    private TextView storyText, playerName, roleDescription;
+    private TextView storyText, playerRole;
     private ImageView playerAvatar;
     private SharedActivity sharedActivity;
 
@@ -41,6 +43,7 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
 
         Intent intent = getIntent();
         int lobbyCode = intent.getIntExtra("lobbyCode",0);
+        String role = intent.getStringExtra("role");
 
 
         String nickname = sharedActivity.getNickname();
@@ -49,10 +52,23 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
 
         btnExit = findViewById(R.id.btn_exit);
         btnPlayers = findViewById(R.id.btn_players);
-
-        playerAvatar = findViewById(R.id.player_avatar);
         storyText = findViewById(R.id.story_text);
-        playerName = findViewById(R.id.player_name);
+
+
+        playerRole = findViewById(R.id.player_role);
+        playerRole.setText(role);
+
+        //setta immagine in base al ruolo
+        playerAvatar = findViewById(R.id.player_avatar);
+        String fileName = "logo_" + role.toLowerCase().replaceAll(" ", "_") + ".png";
+        int resId = getResources().getIdentifier(fileName, "drawable", getPackageName());
+
+        if (resId != 0) { // Controlla se l'immagine esiste
+            playerAvatar.setImageResource(resId);
+        } else {
+            // Immagine non trovata, imposta un'immagine di default
+            playerAvatar.setImageResource(R.drawable.logo);
+        }
 
 
         // Leggi la prima riga e mostra nella TextView
