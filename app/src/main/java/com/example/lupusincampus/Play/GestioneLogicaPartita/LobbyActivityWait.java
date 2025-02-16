@@ -123,6 +123,12 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        WebSocketObserver.getInstance().unsubscribe(WebSocketObserver.EventType.PLAYER_JOINED, this);
+    }
+
+    @Override
     public void update(JSONObject data) {
 
         try {
@@ -131,6 +137,8 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
 
             player_in_waiting.add(player);
             nicknameAdapter.notifyDataSetChanged();
+
+            dbHelper.insertPlayersIntoLobby(Integer.parseInt(lobbyCode), List.of(player));
 
         }catch (JSONException ex){
             Log.e(TAG, "update: ", ex);
