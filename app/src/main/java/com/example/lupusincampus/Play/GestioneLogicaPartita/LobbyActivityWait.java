@@ -1,6 +1,8 @@
 package com.example.lupusincampus.Play.GestioneLogicaPartita;
 
 import com.example.lupusincampus.API.FriendAPI;
+import com.example.lupusincampus.API.websocket.Subscriber;
+import com.example.lupusincampus.API.websocket.WebSocketObserver;
 import com.example.lupusincampus.Amici.ListaAmiciAdapter;
 
 import android.content.Intent;
@@ -22,16 +24,22 @@ import com.example.lupusincampus.Model.Player;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.SharedActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-public class LobbyActivityWait extends BaseActivity {
+public class LobbyActivityWait extends BaseActivity implements Subscriber {
 
     private TextView numberPlayer;
     private RecyclerView recyclerFriends;
     private Button btnStartGame;
     private ListView friends_waiting;
     private static final String TAG = "LobbyActivityWait";
+    List<String> player_in_waiting = new ArrayList<>();
+    ArrayAdapter<String> nicknameAdapter;
 
     private LobbyAPI lobbyAPI = new LobbyAPI();; // Aggiungi un'istanza di LobbyAPI
     private LobbyDatabaseHelper dbHelper; // Istanza per il database delle lobby
@@ -40,6 +48,8 @@ public class LobbyActivityWait extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lobby_waiting);
+
+        WebSocketObserver.getInstance().subscribe(WebSocketObserver.EventType.PLAYER_JOINED, this);
 
         numberPlayer = findViewById(R.id.number_player);
         recyclerFriends = findViewById(R.id.recycler_friends);
@@ -67,10 +77,9 @@ public class LobbyActivityWait extends BaseActivity {
         recyclerFriends.setAdapter(listaAmiciAdapter);
 
 
-        List<String> player_in_waiting = new ArrayList<>(); // Prendi i dati dal DB
+         // Prendi i dati dal DB
         // Creazione dell'ArrayAdapter
-        ArrayAdapter<String> nicknameAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, player_in_waiting);
-        String nickname = ""; // TODO: da prendere dall'observer
+        nicknameAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, player_in_waiting);
         friends_waiting.setAdapter(nicknameAdapter);
 
         String lobbyType = dbHelper.getLobbyType(lastCode);
@@ -113,5 +122,18 @@ public class LobbyActivityWait extends BaseActivity {
         lobbyAPI.doJoinLobby(this, lastCode); // Chiamata alla funzione in LobbyAPI
     }
 
+    @Override
+    public void update(JSONObject data) {
 
+        try {
+            String player = data.getString("player");
+            String lobbyCode = data.getString("lobbyCode");
+
+            player_in_waiting.add(player);
+            nicknameAdapter.notifyDataSetChanged();
+
+        }catch (JSONException ex){
+            Log.e(TAG, "update: ", ex);
+        }
+    }
 }

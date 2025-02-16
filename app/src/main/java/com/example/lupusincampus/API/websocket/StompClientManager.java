@@ -103,6 +103,8 @@ public class StompClientManager {
         switch (jsonObject.getString("type")){
             case "JOIN": {
 
+                jsonObject.put("lobbyCode", lobbyCode);
+                WebSocketObserver.getInstance().notify(WebSocketObserver.EventType.PLAYER_JOINED, jsonObject);
 
                 Log.d(TAG, "handleTopicLobby: player joined");
             }

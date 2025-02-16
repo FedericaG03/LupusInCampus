@@ -226,6 +226,7 @@ public class LobbyAPI {
 
                 LobbyDatabaseHelper dbHelper = new LobbyDatabaseHelper(ctx);
                 dbHelper.updateNumPlayer(code, numPlayer);
+
                 dbHelper.insertPlayersIntoLobby(code, players.stream().map(Player::getNickname).collect(Collectors.toList()));
                 StompClientManager stompClient = StompClientManager.getInstance(ctx);
                 stompClient.connect(String.valueOf(code));

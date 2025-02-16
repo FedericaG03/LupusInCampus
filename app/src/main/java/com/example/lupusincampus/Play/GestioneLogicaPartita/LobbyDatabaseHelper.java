@@ -161,7 +161,7 @@ public class LobbyDatabaseHelper extends SQLiteOpenHelper {
 
 
     /**
-     * Ottiene tutti i playerID di una determinata lobby.
+     * Ottiene tutti i playerName di una determinata lobby.
      */
     public List<String> getPlayesByLobbyID(int lobbyID) {
         List<String> playerNames = new ArrayList<>();
