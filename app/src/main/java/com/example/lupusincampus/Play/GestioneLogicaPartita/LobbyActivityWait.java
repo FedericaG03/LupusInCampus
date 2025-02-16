@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import com.example.lupusincampus.Model.Player;
 import com.example.lupusincampus.R;
 import com.example.lupusincampus.SharedActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LobbyActivityWait extends BaseActivity {
@@ -27,6 +30,7 @@ public class LobbyActivityWait extends BaseActivity {
     private TextView numberPlayer;
     private RecyclerView recyclerFriends;
     private Button btnStartGame;
+    private ListView friends_waiting;
     private static final String TAG = "LobbyActivityWait";
 
     private LobbyAPI lobbyAPI = new LobbyAPI();; // Aggiungi un'istanza di LobbyAPI
@@ -40,6 +44,7 @@ public class LobbyActivityWait extends BaseActivity {
         numberPlayer = findViewById(R.id.number_player);
         recyclerFriends = findViewById(R.id.recycler_friends);
         btnStartGame = findViewById(R.id.btn_start_game);
+        friends_waiting = findViewById(R.id.friends_waiting);
 
         // Crea un'istanza di LobbyDatabaseHelper
         dbHelper = new LobbyDatabaseHelper(this);
@@ -48,8 +53,7 @@ public class LobbyActivityWait extends BaseActivity {
         Log.d(TAG, "onCreate: code lobby" + lastCode);
         // Imposta RecyclerView per la lista degli amici
         Log.d(TAG, "onCreate: code lobby"+lastCode);
-        recyclerFriends.setLayoutManager(new LinearLayoutManager(this));
-
+        
         // Funzione per aggiornare la UI con il numero di giocatori
         updateNumberPlayerInUI(dbHelper.getNumPlayer(lastCode));
 
@@ -62,7 +66,13 @@ public class LobbyActivityWait extends BaseActivity {
         recyclerFriends.setLayoutManager(new LinearLayoutManager(this));
         recyclerFriends.setAdapter(listaAmiciAdapter);
 
-        // Recupera il tipo di lobby passato dall'Intent
+
+        List<String> player_in_waiting = new ArrayList<>(); // Prendi i dati dal DB
+        // Creazione dell'ArrayAdapter
+        ArrayAdapter<String> nicknameAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, player_in_waiting);
+        String nickname = ""; // TODO: da prendere dall'observer
+        friends_waiting.setAdapter(nicknameAdapter);
+
         String lobbyType = dbHelper.getLobbyType(lastCode);
 
         // Imposta un listener per il bottone di uscita
