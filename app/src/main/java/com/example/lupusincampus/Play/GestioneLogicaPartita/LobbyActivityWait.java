@@ -178,7 +178,7 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
                     Toast.makeText(getApplicationContext(),"Iniziamo a giocare!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), PartitaActivity.class);
                     Log.d(TAG, "onClick: vado alla partita, iniziamo a giocare: " + intent.toString());
-                    intent.putExtra("lobbyType", Integer.parseInt(lobbyCode));
+                    intent.putExtra("lobbyCode", lobbyCode);
                     intent.putExtra("role", role);// Passa il tipo di lobby
                     startActivity(intent);
                 }

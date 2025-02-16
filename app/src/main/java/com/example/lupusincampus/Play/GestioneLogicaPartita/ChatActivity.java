@@ -38,7 +38,6 @@ public class ChatActivity extends BaseActivity implements Subscriber {
         WebSocketObserver.getInstance().subscribe(WebSocketObserver.EventType.CHAT_MESSAGE, this);
 
         Intent intent = getIntent();
-        int lobbyCode = intent.getIntExtra("lobbyCode",0);
 
         SharedActivity sharedActivity = SharedActivity.getInstance(getApplicationContext());
         String nickname = sharedActivity.getNickname();
@@ -48,10 +47,6 @@ public class ChatActivity extends BaseActivity implements Subscriber {
 
         // Inizializza StompClientManager
         stompClientManager = StompClientManager.getInstance(this);
-
-
-        // Sottoscrizione ai messaggi quando il WebSocket è connesso
-        stompClientManager.connect(String.valueOf(lobbyCode), SharedActivity.getInstance(this).getNickname());  // Usa il codice della lobby come parametro
 
         // Gestire l'invio del messaggio
         sendMessageButton.setOnClickListener(v -> {

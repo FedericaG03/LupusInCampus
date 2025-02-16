@@ -171,11 +171,10 @@ public class StompClientManager {
     @SuppressLint("CheckResult")
     public void sendAck(String nickname) {
         String destination = "/app/ack";
-        String payload = "{ \"nickname\": \"" + nickname + "\"}";
 
-        Log.d(TAG, "Sending Message to " + destination + ": " + payload);
+        Log.d(TAG, "Sending Message to " + destination + ": " + nickname);
 
-        stompClient.send(destination, payload)
+        stompClient.send(destination, nickname)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> Log.d(TAG, "Message sent successfully!"),
