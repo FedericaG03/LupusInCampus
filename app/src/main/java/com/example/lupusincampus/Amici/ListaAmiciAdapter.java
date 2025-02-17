@@ -65,7 +65,8 @@ public class ListaAmiciAdapter extends RecyclerView.Adapter<ListaAmiciAdapter.Li
     }
 
     private void inviteToLobby(Context ctx, Player player) {
-        lobbyAPI.doInviteFriendToLobby(ctx, player.getId());
+
+        lobbyAPI.doInviteFriendToLobby(ctx, player.getId(),0);
     }
 
     @Override

@@ -31,14 +31,12 @@ public class FileUtils {
             String line;
 
             while ((line = reader.readLine()) != null) {
+                lines.add(line);
                 if (line.equals("-")) {
-                    currentIndex= lines.size();
                     break;
                 }
-                lines.add(line);
             }
             reader.close();
-
 
         } catch (IOException e) {
             e.printStackTrace();

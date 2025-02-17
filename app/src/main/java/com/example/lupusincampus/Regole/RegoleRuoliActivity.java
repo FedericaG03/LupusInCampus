@@ -39,7 +39,6 @@ public class RegoleRuoliActivity extends BaseActivity {
         TextView areautenteBtn = findViewById(R.id.area_utente_btn);
         TextView listaAmiciBtn = findViewById(R.id.lista_amici_btn);
         TextView richiesteAmiciBtn = findViewById(R.id.richiesta_amicizia_btn);
-        TextView listaInvitiBtn = findViewById(R.id.lista_inviti_btn);
         TextView logoutButton = findViewById(R.id.logout_btn);
         ImageButton btnRules = findViewById(R.id.btn_rules);
         ImageButton btnRoles = findViewById(R.id.btn_roles);
@@ -80,9 +79,6 @@ public class RegoleRuoliActivity extends BaseActivity {
             startActivity(intent);
         });
 
-        listaInvitiBtn.setOnClickListener(v->{
-            /*TODO*/
-        });
 
         logoutButton.setOnClickListener(v->{
             playerAPI.doLogout(getApplicationContext(), sharedActivity);

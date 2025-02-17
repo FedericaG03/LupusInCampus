@@ -73,17 +73,13 @@ public class LobbyActivityWait extends BaseActivity implements Subscriber {
 
         // Imposta l'adapter per la RecyclerView con la lista amici
         List<Player> friendList = SharedActivity.getInstance(getApplicationContext()).getFriendList();
-        List<String> friendNicknames = new ArrayList<>();
-        for (Player player : friendList) {
-            friendNicknames.add(player.getNickname());
-        }
 
         // Crea l'adapter e imposta l'OnItemClickListener
-        NickFriendsAdapter nickFriendsAdapter = new NickFriendsAdapter(friendNicknames, new NickFriendsAdapter.OnItemClickListener() {
+        NickFriendsAdapter nickFriendsAdapter = new NickFriendsAdapter(friendList, new NickFriendsAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(String player) {
-                // Aggiugngere chiamata quando clicco un elemento
-
+            public void onItemClick(Player player) {
+                int code = player.getId();
+                String nickname = player.getNickname();
             }
         });
 

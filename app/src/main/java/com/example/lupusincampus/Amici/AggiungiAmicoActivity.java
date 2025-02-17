@@ -40,7 +40,6 @@ public class AggiungiAmicoActivity extends BaseActivity {
         TextView areaUtenteBtn = findViewById(R.id.area_utente_btn);
         TextView listaAmiciBtn = findViewById(R.id.lista_amici_btn);
         TextView richiesteAmiciBtn = findViewById(R.id.richiesta_amicizia_btn);
-        TextView listaInvitiBtn = findViewById(R.id.lista_inviti_btn);
         TextView logoutButton = findViewById(R.id.logout_btn);
 
         EditText searchBar = findViewById(R.id.aggiungi_amico_search_bar);
@@ -84,10 +83,6 @@ public class AggiungiAmicoActivity extends BaseActivity {
         richiesteAmiciBtn.setOnClickListener(v->{
             Intent intent = new Intent(getApplicationContext(), ListaRichiesteAmiciActivity.class);
             startActivity(intent);
-        });
-
-        listaInvitiBtn.setOnClickListener(v->{
-            /*TODO*/
         });
 
         logoutButton.setOnClickListener(v->
