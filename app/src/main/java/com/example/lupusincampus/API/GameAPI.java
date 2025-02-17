@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.example.lupusincampus.Model.Player;
 import com.example.lupusincampus.Play.GestioneLogicaPartita.PartitaActivity;
 import com.example.lupusincampus.ServerConnector;
+import com.example.lupusincampus.SharedActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +26,7 @@ public class GameAPI {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("codeLobby", codeLobby);
+            jsonObject.put("playerID", String.valueOf(SharedActivity.getInstance(ctx).getId()));
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
