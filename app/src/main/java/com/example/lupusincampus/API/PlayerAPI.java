@@ -242,6 +242,10 @@ public class PlayerAPI {
             public void onError(String jsonResponse) {
                 Log.d(TAG, "onError: Impossibile effettuare logout!");
                 Toast.makeText(ctx, "Impossibile effettuare logout!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(ctx, LoginActivity.class);
+                intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                ctx.startActivity(intent);
+
             }
 
             @Override
