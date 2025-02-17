@@ -21,16 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <ImageView
-        android:id="@+id/invita_amico_btn"
-        android:layout_width="0dp"
-        android:layout_height="25dp"
-        app:layout_constraintWidth_percent="0.145"
-        android:src="@drawable/invita_lobby_icon"
-        android:layout_marginHorizontal="5dp"
-        app:layout_constraintEnd_toStartOf="@id/rimuovi_amico_btn"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <ImageView
         android:id="@+id/rimuovi_amico_btn"
         android:layout_width="0dp"
         android:layout_height="25dp"

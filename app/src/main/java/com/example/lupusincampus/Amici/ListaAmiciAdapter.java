@@ -12,7 +12,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lupusincampus.API.FriendAPI;
-import com.example.lupusincampus.API.LobbyAPI;
 import com.example.lupusincampus.Model.Player;
 import com.example.lupusincampus.R;
 
@@ -21,7 +20,6 @@ import java.util.List;
 public class ListaAmiciAdapter extends RecyclerView.Adapter<ListaAmiciAdapter.ListaAmiciViewHolder> {
     private List<Player> listaAmici;
     private FriendAPI friendAPI = new FriendAPI();
-    private LobbyAPI lobbyAPI = new LobbyAPI();
 
     public ListaAmiciAdapter(List<Player> listaAmici){
         this.listaAmici = listaAmici;
@@ -39,13 +37,6 @@ public class ListaAmiciAdapter extends RecyclerView.Adapter<ListaAmiciAdapter.Li
         Player player = listaAmici.get(position);
         Context ctx = holder.itemView.getContext();
         holder.usernameTextView.setText(player.getNickname());
-        holder.invitaAmicoBtn.setOnClickListener(v->{
-            new AlertDialog.Builder(v.getContext())
-                    .setMessage("Sei sicuro di voler aggiungere questo amico?")
-                    .setPositiveButton("Sì", (dialog, which) -> inviteToLobby(ctx, player))
-                    .setNegativeButton("No", null)
-                    .show();
-        });
 
         holder.rimuoviAmicoBtn.setOnClickListener(v->{
             new AlertDialog.Builder(v.getContext())
@@ -55,10 +46,6 @@ public class ListaAmiciAdapter extends RecyclerView.Adapter<ListaAmiciAdapter.Li
                     .show();
         });
 
-    }
-
-    private void inviteToLobby(Context ctx, Player player) {
-        lobbyAPI.doInviteFriendToLobby(ctx, player.getId());
     }
 
     @Override
@@ -74,13 +61,11 @@ public class ListaAmiciAdapter extends RecyclerView.Adapter<ListaAmiciAdapter.Li
 
     public static class ListaAmiciViewHolder extends RecyclerView.ViewHolder {
         TextView usernameTextView;
-        ImageView invitaAmicoBtn;
         ImageView rimuoviAmicoBtn;
 
         public ListaAmiciViewHolder(@NonNull View itemView) {
             super(itemView);
             usernameTextView = itemView.findViewById(R.id.username_lista_amici);
-            invitaAmicoBtn = itemView.findViewById(R.id.invita_amico_btn);
             rimuoviAmicoBtn = itemView.findViewById(R.id.rimuovi_amico_btn);
         }
     }
