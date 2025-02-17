@@ -63,7 +63,9 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
         //setta immagine in base al ruolo
         playerAvatar = findViewById(R.id.player_avatar);
         String fileName = "logo_" + role.toLowerCase().replaceAll(" ", "_") + ".png";
+        Log.d(TAG, "onCreate: filename is:" + fileName);
         int resId = getResources().getIdentifier(fileName, "drawable", getPackageName());
+
 
         if (resId != 0) { // Controlla se l'immagine esiste
             playerAvatar.setImageResource(resId);
@@ -97,46 +99,6 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
         // Listener per mostrare i giocatori
         btnPlayers.setOnClickListener(v -> Log.d(TAG, "Mostra lista giocatori"));
     }
-
-    // Metodo per ottenere il ruolo dal server
- /*   private void fetchRoleFromServer() {
-        serverConnector.fetchRole(this,new ServerConnector.FetchDataCallback() {
-            @Override
-            public void onSuccess(String jsonResponse) {
-                try {
-                    JSONObject jsonObject = new JSONObject(jsonResponse);
-                    JSONObject roleObject = jsonObject.getJSONObject("role");  // Estrai l'oggetto "role"
-
-                    // Estrai i dettagli del ruolo
-                    String roleName = roleObject.getString("name");
-                    String roleDescriptionText = roleObject.getString("description");
-                    int roleImageResId = getResources().getIdentifier(
-                            roleObject.getString("imageResId"), "drawable", getPackageName());
-
-                    // Crea un oggetto Ruolo
-                    Ruolo ruolo = new Ruolo(roleName, roleDescriptionText, roleImageResId);
-                    playerAvatar.setImageResource(ruolo.getImageResId());  // Imposta l'immagine dell'avatar
-                    playerName.setText(ruolo.getNome());  // Imposta il nome del ruolo
-                    roleDescription.setText(ruolo.getDescrizione());  // Imposta la descrizione del ruolo
-
-                } catch (JSONException e) {
-                    Log.e(TAG, "Errore nell'analisi del ruolo: " + e.getMessage(), e);
-                }
-            }
-
-            @Override
-            public void onError(Exception e) {
-                Log.e(TAG, "Errore nel recupero del ruolo: " + e.getMessage(), e);
-            }
-
-            @Override
-            public void onServerOffline(Exception e) {
-                Log.e(TAG, "Errore connessione server: " + e.getMessage(), e);
-            }
-
-        });
-    }*/
-
     @Override
     public void update(JSONObject data, WebSocketObserver.EventType eventType) {
 
