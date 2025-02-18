@@ -109,21 +109,26 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
     protected void onResume() {
         super.onResume();
 
-        String game_phase = this.getIntent().getStringExtra("game_phase");
-        if (game_phase == null){
-            game_phase = "werewolves";
+        String gamePhase = this.getIntent().getStringExtra("game_phase");
+        if (gamePhase == null){
+            gamePhase = "werewolves";
         }
         // Leggi la prima riga e mostra nella TextView
         fileUtils = new FileUtils(this, FILE_NAME);
         // Mostra la prossima riga del file
         storyText.setText(fileUtils.getNextLine());
 
-        switch (game_phase){
+        doManageTurns(gamePhase);
+    }
+
+
+    private void doManageTurns(String gamePhase){
+        switch (gamePhase){
             case "werewolves": {
                 if (playerRole.getText().equals("Studenti fuori corso")){
 
                     Intent intent = new Intent(this, VotazioneActivity.class);
-                    intent.putExtra("game_phase", game_phase);
+                    intent.putExtra("game_phase", gamePhase);
                     intent.putExtra("lobby_code", lobbyCode);
                     activityResultLauncher.launch(intent);
 
@@ -152,7 +157,7 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
             case "bodyguard": {
                 if (playerRole.getText().equals("Rettore")){
                     Intent intent = new Intent(this, VotazioneActivity.class);
-                    intent.putExtra("game_phase", game_phase);
+                    intent.putExtra("game_phase", gamePhase);
                     intent.putExtra("lobby_code", lobbyCode);
                     activityResultLauncher.launch(intent);
 
@@ -179,7 +184,7 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
             case "seer": {
                 if (playerRole.getText().equals(("Ricercatore"))){
                     Intent intent = new Intent(this, VotazioneActivity.class);
-                    intent.putExtra("game_phase", game_phase);
+                    intent.putExtra("game_phase", gamePhase);
                     intent.putExtra("lobby_code", lobbyCode);
                     activityResultLauncher.launch(intent);
 
@@ -205,7 +210,7 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
             }
             case "discussion": {
                 Intent intent = new Intent(this, VotazioneActivity.class);
-                intent.putExtra("game_phase", game_phase);
+                intent.putExtra("game_phase", gamePhase);
                 intent.putExtra("lobby_code", lobbyCode);
                 activityResultLauncher.launch(intent);
 
@@ -228,8 +233,6 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
                 );
             }
         }
-
-
     }
 
     @Override
@@ -242,7 +245,9 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
                 throw new RuntimeException(e);
             }
         }
-
+        if (eventType == WebSocketObserver.EventType.RETRY_VOTE)
+        {
+        }
     }
 }
 
