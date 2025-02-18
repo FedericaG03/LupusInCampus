@@ -138,8 +138,9 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
                                         phase = "werewolves";
                                     }
                                     String voted_player = data.getStringExtra("voted_player");
+                                    String voting_player = sharedActivity.getNickname();
 
-                                    StompClientManager.getInstance(this).sendVotedPlayerOnPhase(voted_player, phase);
+                                    StompClientManager.getInstance(this).sendVotedPlayerOnPhase(voted_player, voting_player, phase);
                                 }
                             }
                     );
@@ -166,8 +167,9 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
                                         phase = "bodyguard";
                                     }
                                     String voted_player = data.getStringExtra("voted_player");
+                                    String voting_player = sharedActivity.getNickname();
 
-                                    StompClientManager.getInstance(this).sendVotedPlayerOnPhase(voted_player, phase);
+                                    StompClientManager.getInstance(this).sendVotedPlayerOnPhase(voted_player, voting_player, phase);
                                 }
                             }
                     );
@@ -192,8 +194,9 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
                                         phase = "seer";
                                     }
                                     String voted_player = data.getStringExtra("voted_player");
+                                    String voting_player = sharedActivity.getNickname();
 
-                                    StompClientManager.getInstance(this).sendVotedPlayerOnPhase(voted_player, phase);
+                                    StompClientManager.getInstance(this).sendVotedPlayerOnPhase(voted_player, voting_player, phase);
                                 }
                             }
                     );
@@ -217,8 +220,9 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
                                     phase = "discussion";
                                 }
                                 String voted_player = data.getStringExtra("voted_player");
+                                String voting_player = sharedActivity.getNickname();
 
-                                StompClientManager.getInstance(this).sendVotedPlayerOnPhase(voted_player, phase);
+                                StompClientManager.getInstance(this).sendVotedPlayerOnPhase(voted_player, voting_player, phase);
                             }
                         }
                 );

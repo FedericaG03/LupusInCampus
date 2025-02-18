@@ -224,9 +224,9 @@ public class StompClientManager {
     }
 
     @SuppressLint("CheckResult")
-    public void sendVotedPlayerOnPhase(String votedPlayer, String phase) {
+    public void sendVotedPlayerOnPhase(String votedPlayer, String votingPlayer, String phase) {
         String destination = "/app/game/" + lobbyCode + "/phase-result";
-        String payload = "{ \"phase\":\""+phase+"\", \"voted_player\":\"" + votedPlayer + "\"}";
+        String payload = "{ \"phase\":\""+phase+"\", \"voted_player\":\"" + votedPlayer + "\", \"voting_player\":\"" + votingPlayer + "\"}";
 
         Log.d(TAG, "Sending Message to " + destination + ": " + payload);
 
