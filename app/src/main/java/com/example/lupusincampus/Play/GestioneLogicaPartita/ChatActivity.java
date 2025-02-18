@@ -59,11 +59,8 @@ public class ChatActivity extends BaseActivity implements Subscriber {
         });
 
         // Dopo 3 minuti, torna automaticamente a StoryActivity
-        new Handler().postDelayed(() -> {
-            Intent intent_game = new Intent(this, PartitaActivity.class);
-            startActivity(intent);
-            finish(); // Chiude l'activity dopo il tempo
-        }, RETURN_DELAY);
+        // Chiude l'activity dopo il tempo
+        new Handler().postDelayed(this::finish, RETURN_DELAY);
     }
 
     // Aggiungere un messaggio alla UI

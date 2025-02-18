@@ -121,14 +121,11 @@ public class StompClientManager {
     private void handleTopicLobby(StompMessage topicMessage) throws JSONException {
 
         JSONObject jsonObject = new JSONObject(topicMessage.getPayload());
-        String player = jsonObject.getString("player");
 
         switch (jsonObject.getString("type")){
             case "JOIN": {
-
                 jsonObject.put("lobbyCode", lobbyCode);
                 WebSocketObserver.getInstance().notify(WebSocketObserver.EventType.PLAYER_JOINED, jsonObject);
-
                 Log.d(TAG, "handleTopicLobby: player joined");
                 break;
             }
@@ -138,6 +135,11 @@ public class StompClientManager {
                 Log.d(TAG, "handleTopicLobby: player left");
                 break;
             }
+            case "NEXT_PHASE":{
+                WebSocketObserver.getInstance().notify(WebSocketObserver.EventType.NEXT_PHASE, jsonObject);
+                break;
+            }
+
         }
     }
 
@@ -219,5 +221,19 @@ public class StompClientManager {
         if (stompClient != null) {
             stompClient.disconnect();
         }
+    }
+
+    @SuppressLint("CheckResult")
+    public void sendVotedPlayerOnPhase(String votedPlayer, String phase) {
+        String destination = "/app/game/" + lobbyCode + "/phase-result";
+        String payload = "{ \"phase\":\""+phase+"\", \"voted_player\":\"" + votedPlayer + "\"}";
+
+        Log.d(TAG, "Sending Message to " + destination + ": " + payload);
+
+        stompClient.send(destination, payload)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> Log.d(TAG, "Message sent successfully!"),
+                        throwable -> Log.e(TAG, "Error sending message", throwable));
     }
 }
