@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/sfondo">
+
+    <TextView
+        android:id="@+id/descrizione_turno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="22sp"
+        android:textColor="@color/panna"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/lista_player_votabili"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lista_player_votabili"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/descrizione_turno"
+        app:layout_constraintBottom_toTopOf="@id/conferma_voto_btn"
+        android:layout_marginHorizontal="20dp"/>
+
+    <TextView
+        android:id="@+id/conferma_voto_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Conferma Voto"
+        android:textSize="22sp"
+        android:textColor="@color/panna"
+        android:background="@drawable/white_border_grey_bg"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintTop_toBottomOf="@id/lista_player_votabili"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/skip_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saltare"
+        android:textColor="@color/panna"
+        android:textSize="22sp"
+        android:background="@drawable/white_border_grey_bg"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lista_player_votabili"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

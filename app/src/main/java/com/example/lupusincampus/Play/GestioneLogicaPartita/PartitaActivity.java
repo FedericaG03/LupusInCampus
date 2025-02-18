@@ -1,8 +1,6 @@
 package com.example.lupusincampus.Play.GestioneLogicaPartita;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -25,7 +23,6 @@ import com.example.lupusincampus.SharedActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import ua.naiksoftware.stomp.Stomp;
 
 
 public class PartitaActivity extends BaseActivity implements Subscriber {
@@ -81,7 +78,7 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
             playerAvatar.setImageResource(resId);
         } else {
             // Immagine non trovata, imposta un'immagine di default
-            playerAvatar.setImageResource(R.drawable.logo);
+            playerAvatar.setImageResource(R.drawable.icona_profilo);
         }
 
         // Dopo 3 minuti, passa automaticamente a ChatActivity
@@ -119,7 +116,11 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
         switch (game_phase){
             case "werewolves": {
                 if (playerRole.getText().equals("Studenti fuori corso")){
-                    //can choose the player to kill
+
+                    Intent intent = new Intent(this, VotazioneActivity.class);
+                    intent.putExtra("game_phase", game_phase);
+                    intent.putExtra("lobby_code", lobbyCode);
+                    activityResultLauncher.launch(intent);
 
                     activityResultLauncher = registerForActivityResult(
                             new ActivityResultContracts.StartActivityForResult(),
@@ -144,18 +145,78 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
             }
             case "bodyguard": {
                 if (playerRole.getText().equals("Rettore")){
-                    //can choose the player to protect
+                    Intent intent = new Intent(this, VotazioneActivity.class);
+                    intent.putExtra("game_phase", game_phase);
+                    intent.putExtra("lobby_code", lobbyCode);
+                    activityResultLauncher.launch(intent);
+
+                    activityResultLauncher = registerForActivityResult(
+                            new ActivityResultContracts.StartActivityForResult(),
+                            result -> {
+                                if (result.getResultCode() == PartitaActivity.RESULT_OK) {
+                                    Intent data = result.getData();
+
+                                    String phase = data.getStringExtra("game_phase");
+                                    if (phase == null){
+                                        phase = "bodyguard";
+                                    }
+                                    String voted_player = data.getStringExtra("voted_player");
+
+                                    StompClientManager.getInstance(this).sendVotedPlayerOnPhase(voted_player, phase);
+                                }
+                            }
+                    );
                 }
                 break;
             }
             case "seer": {
                 if (playerRole.getText().equals(("Ricercatore"))){
-                    //can choos the player to check
+                    Intent intent = new Intent(this, VotazioneActivity.class);
+                    intent.putExtra("game_phase", game_phase);
+                    intent.putExtra("lobby_code", lobbyCode);
+                    activityResultLauncher.launch(intent);
+
+                    activityResultLauncher = registerForActivityResult(
+                            new ActivityResultContracts.StartActivityForResult(),
+                            result -> {
+                                if (result.getResultCode() == PartitaActivity.RESULT_OK) {
+                                    Intent data = result.getData();
+
+                                    String phase = data.getStringExtra("game_phase");
+                                    if (phase == null){
+                                        phase = "seer";
+                                    }
+                                    String voted_player = data.getStringExtra("voted_player");
+
+                                    StompClientManager.getInstance(this).sendVotedPlayerOnPhase(voted_player, phase);
+                                }
+                            }
+                    );
                 }
                 break;
             }
             case "discussion": {
-                //must vote for a player or skip
+                Intent intent = new Intent(this, VotazioneActivity.class);
+                intent.putExtra("game_phase", game_phase);
+                intent.putExtra("lobby_code", lobbyCode);
+                activityResultLauncher.launch(intent);
+
+                activityResultLauncher = registerForActivityResult(
+                        new ActivityResultContracts.StartActivityForResult(),
+                        result -> {
+                            if (result.getResultCode() == PartitaActivity.RESULT_OK) {
+                                Intent data = result.getData();
+
+                                String phase = data.getStringExtra("game_phase");
+                                if (phase == null){
+                                    phase = "discussion";
+                                }
+                                String voted_player = data.getStringExtra("voted_player");
+
+                                StompClientManager.getInstance(this).sendVotedPlayerOnPhase(voted_player, phase);
+                            }
+                        }
+                );
             }
         }
 

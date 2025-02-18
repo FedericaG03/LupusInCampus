@@ -140,10 +140,6 @@ public class SettingsActivity extends BaseActivity {
             startActivity(intent);
         });
 
-        listaInvitiBtn.setOnClickListener(v->{
-            /*TODO*/
-        });
-
         logoutBtn.setOnClickListener(v->
                 playerAPI.doLogout(getApplicationContext(), sharedActivity)
         );

@@ -47,16 +47,16 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.jbcrypt)
-    implementation("me.pushy:sdk:1.0.109")
+    implementation(libs.sdk)
     implementation(libs.jackson.databind)
     // Test unitari con JUnit 4
     testImplementation(libs.junit)
     // Mockito per creare mock e stub
-    testImplementation("org.mockito:mockito-core:4.0.0")
+    testImplementation(libs.mockito.core)
     // Librerie per websocket over stomp communication
-    implementation("com.github.NaikSoftware:StompProtocolAndroid:1.6.6")
-    implementation ("io.reactivex.rxjava2:rxjava:2.2.21")
-    implementation ("io.reactivex.rxjava2:rxandroid:2.1.1")
+    implementation(libs.stompprotocolandroid)
+    implementation (libs.rxjava)
+    implementation (libs.rxandroid)
 }
 
 // Configurazione di JaCoCo per la copertura del codice

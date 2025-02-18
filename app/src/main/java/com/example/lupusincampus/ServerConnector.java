@@ -24,7 +24,7 @@ import java.util.concurrent.Executors;
 public class ServerConnector {
 
     private static final String TAG = "ServerConnector";
-    private static final String BASE_IP = "172.19.176.15";
+    private static final String BASE_IP = "93.56.126.87";
     private static final String SERVER_URL = "http://"+BASE_IP+":8080";
     private static String sessionId = null;
 
