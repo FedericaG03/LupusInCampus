@@ -110,6 +110,10 @@ public class StompClientManager {
 
                 break;
             }
+            case "SEER_RESULT": {
+                WebSocketObserver.getInstance().notify(WebSocketObserver.EventType.SEER_RESULT, jsonObject);
+                break;
+            }
         }
 
     }
@@ -137,6 +141,10 @@ public class StompClientManager {
             }
             case "NEXT_PHASE":{
                 WebSocketObserver.getInstance().notify(WebSocketObserver.EventType.NEXT_PHASE, jsonObject);
+                break;
+            }
+            case "RETRY_VOTE": {
+                WebSocketObserver.getInstance().notify(WebSocketObserver.EventType.RETRY_VOTE, jsonObject);
                 break;
             }
 
