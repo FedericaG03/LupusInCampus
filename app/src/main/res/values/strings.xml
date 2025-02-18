@@ -63,5 +63,7 @@
     <string name="entra_in_lobby">Entra in lobby</string>
     <string name="crea_lobby">CREA LOBBY</string>
     <string name="scegli_il_tipo_di_lobby">Scegli il tipo di lobby</string>
+    <string name="conferma_voto_btn_txt">Conferma Voto</string>
+    <string name="skip_btn_txt">Saltare</string>
 
 </resources>

@@ -69,16 +69,21 @@ public class PartitaActivity extends BaseActivity implements Subscriber {
 
         //setta immagine in base al ruolo
         playerAvatar = findViewById(R.id.player_avatar);
-        String fileName = "logo_" + role.toLowerCase().replaceAll(" ", "_") + ".png";
-        Log.d(TAG, "onCreate: filename is:" + fileName);
 
+        // Pulizia del nome ruolo per generare il nome file corretto
+        String fileName = "logo_" + role.toLowerCase().trim().replaceAll(" ", "_");
+        Log.d(TAG, "onCreate: Generated filename is: " + fileName);
+
+        // Ottiene l'ID della risorsa drawable
         int resId = getResources().getIdentifier(fileName, "drawable", getPackageName());
+        Log.d(TAG, "onCreate: Resource ID found: " + resId);
 
-        if (resId != 0) { // Controlla se l'immagine esiste
+        // Controlla se l'immagine esiste, altrimenti imposta un'immagine di default
+        if (resId != 0) {
             playerAvatar.setImageResource(resId);
         } else {
-            // Immagine non trovata, imposta un'immagine di default
-            playerAvatar.setImageResource(R.drawable.icona_profilo);
+            Log.w(TAG, "onCreate: Image not found, setting default image.");
+            playerAvatar.setImageResource(R.drawable.icona_profilo); // Immagine di default
         }
 
         // Dopo 3 minuti, passa automaticamente a ChatActivity
