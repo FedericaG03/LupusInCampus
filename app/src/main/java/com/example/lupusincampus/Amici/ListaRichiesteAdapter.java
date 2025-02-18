@@ -53,13 +53,6 @@ public class ListaRichiesteAdapter extends RecyclerView.Adapter<ListaRichiesteAd
                     .show();
         });
 
-        holder.bloccaAmicoBtn.setOnClickListener(v->{
-            new AlertDialog.Builder(v.getContext())
-                    .setMessage("Sei sicuro di voler bloccare questo giocatore?")
-                    .setPositiveButton("Sì", (dialog, which) -> removeFriend(ctx, position, player))
-                    .setNegativeButton("No", null)
-                    .show();
-        });
     }
 
     private void addFriend(Context ctx, Player player) {
@@ -81,14 +74,12 @@ public class ListaRichiesteAdapter extends RecyclerView.Adapter<ListaRichiesteAd
         TextView usernameTextView;
         ImageView accettaRichiestaBtn;
         ImageView rimuoviAmicoBtn;
-        ImageView bloccaAmicoBtn;
 
         public ListaRichiesteViewHolder(@NonNull View itemView) {
             super(itemView);
             usernameTextView = itemView.findViewById(R.id.username_richiesta_amici);
             accettaRichiestaBtn = itemView.findViewById(R.id.accetta_richiesta_btn);
             rimuoviAmicoBtn = itemView.findViewById(R.id.rimuovi_amico_btn);
-            bloccaAmicoBtn = itemView.findViewById(R.id.blocca_amico_btn);
         }
     }
 }

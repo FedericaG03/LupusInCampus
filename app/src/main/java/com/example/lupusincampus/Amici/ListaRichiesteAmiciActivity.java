@@ -46,7 +46,6 @@ public class ListaRichiesteAmiciActivity extends BaseActivity {
         TextView areaUtenteBtn = findViewById(R.id.area_utente_btn);
         TextView listaAmiciBtn = findViewById(R.id.lista_amici_btn);
         TextView richiesteAmiciBtn = findViewById(R.id.richiesta_amicizia_btn);
-        TextView listaInvitiBtn = findViewById(R.id.lista_inviti_btn);
         TextView logoutButton = findViewById(R.id.logout_btn);
         TextView backButton = findViewById(R.id.back_btn);
 
@@ -95,9 +94,6 @@ public class ListaRichiesteAmiciActivity extends BaseActivity {
             startActivity(intent);
         });
 
-        listaInvitiBtn.setOnClickListener(v->{
-            /*TODO*/
-        });
 
         logoutButton.setOnClickListener(v->
                 playerAPI.doLogout(getApplicationContext(), sharedActivity));

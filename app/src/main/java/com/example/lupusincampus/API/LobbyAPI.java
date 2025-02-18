@@ -325,19 +325,20 @@ public class LobbyAPI {
      * @param friendId ID dell'amico da invitare alla lobby.
      * @param callback Interfaccia di callback per gestire la risposta del server.
      */
-    public void inviteFriendToLobby(Context ctx, int friendId, ServerConnector.CallbackInterface callback) {
+    public void inviteFriendToLobby(Context ctx, int friendId, int codeLobby, ServerConnector.CallbackInterface callback) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("friendId", friendId);
+            jsonObject.put("codeLobby", codeLobby);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
         serverConnector.makePostRequest(ctx, "/controller/lobby/invite-friend-lobby", jsonObject, callback);
     }
 
-    public void doInviteFriendToLobby(Context ctx, int friendId){
+    public void doInviteFriendToLobby(Context ctx, int friendId, int codeLobby){
 
-        inviteFriendToLobby(ctx, friendId, new ServerConnector.CallbackInterface() {
+        inviteFriendToLobby(ctx, friendId, codeLobby, new ServerConnector.CallbackInterface() {
             @Override
             public void onSuccess(Object jsonResponse) {
                 Log.d("LobbyAPI", "onSuccess: invitato alla lobby");

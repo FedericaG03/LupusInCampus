@@ -44,7 +44,6 @@ public class GiocaActivity extends BaseActivity {
         TextView areaUtenteBtn = findViewById(R.id.area_utente_btn);
         TextView listaAmiciBtn = findViewById(R.id.lista_amici_btn);
         TextView richiesteAmiciBtn = findViewById(R.id.richiesta_amicizia_btn);
-        TextView listaInvitiButton = findViewById(R.id.lista_inviti_btn);
         TextView logoutBtn = findViewById(R.id.logout_btn);
         TextView btnShowLobby = findViewById(R.id.btnShowLobby);
         TextView btnCreateGame = findViewById(R.id.btnCreateGame);
@@ -87,9 +86,6 @@ public class GiocaActivity extends BaseActivity {
             startActivity(intent);
         });
 
-        listaInvitiButton.setOnClickListener(v->{
-            /*TODO*/
-        });
 
         logoutBtn.setOnClickListener(v->{
             playerAPI.doLogout(getApplicationContext(), sharedActivity);

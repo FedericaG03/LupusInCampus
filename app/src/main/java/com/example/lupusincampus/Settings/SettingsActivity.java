@@ -76,7 +76,6 @@ public class SettingsActivity extends BaseActivity {
         areaUtenteBtn = findViewById(R.id.area_utente_btn);
         listaAmiciBtn = findViewById(R.id.lista_amici_btn);
         richiesteAmiciBtn = findViewById(R.id.richiesta_amicizia_btn);
-        listaInvitiBtn = findViewById(R.id.lista_inviti_btn);
         logoutBtn = findViewById(R.id.logout_btn);
 
 
@@ -146,7 +145,8 @@ public class SettingsActivity extends BaseActivity {
         });
 
         logoutBtn.setOnClickListener(v->
-                playerAPI.doLogout(getApplicationContext(), sharedActivity));
+                playerAPI.doLogout(getApplicationContext(), sharedActivity)
+        );
 
 
         // Language spinner listener

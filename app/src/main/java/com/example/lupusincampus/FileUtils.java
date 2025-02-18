@@ -29,13 +29,15 @@ public class FileUtils {
             InputStream inputStream = assetManager.open(fileName);
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
+
             while ((line = reader.readLine()) != null) {
+                lines.add(line);
                 if (line.equals("-")) {
                     break;
                 }
-                lines.add(line);
             }
             reader.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -33,7 +33,6 @@ public class RegoleActivity extends BaseActivity {
         TextView areaUtenteBtn = findViewById(R.id.area_utente_btn);
         TextView listaAmiciBtn = findViewById(R.id.lista_amici_btn);
         TextView richiesteAmiciBtn = findViewById(R.id.richiesta_amicizia_btn);
-        TextView listaInvitiBtn = findViewById(R.id.lista_inviti_btn);
         TextView logoutBtn = findViewById(R.id.logout_btn);
         TextView backBtn = findViewById(R.id.back_btn);
         View sidebarRegole = findViewById(R.id.profile_sidebar_rules);
@@ -73,10 +72,6 @@ public class RegoleActivity extends BaseActivity {
         richiesteAmiciBtn.setOnClickListener(v->{
             Intent intent = new Intent(getApplicationContext(), ListaRichiesteAmiciActivity.class);
             startActivity(intent);
-        });
-
-        listaInvitiBtn.setOnClickListener(v->{
-            /*TODO*/
         });
 
         logoutBtn.setOnClickListener(v->{
