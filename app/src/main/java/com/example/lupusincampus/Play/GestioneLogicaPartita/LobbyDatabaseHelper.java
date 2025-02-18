@@ -51,14 +51,14 @@ public class LobbyDatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_STATE + " TEXT)";
         sqLiteDatabase.execSQL(CREATE_TABLE);
 
-        String CREATE_PARTECUPANTS = "CREATE TABLE partecipants ( " +
+        String CREATE_PARTECIPANTS = "CREATE TABLE partecipants ( " +
                 "lobbyID INTEGER NOT NULL," +
                 "playerName TEXT NOT NULL," +
                 "PRIMARY KEY (lobbyID, playerName)," +
                 "FOREIGN KEY (lobbyID) REFERENCES lobbies(id) ON DELETE CASCADE" +
                 ");";
 
-        sqLiteDatabase.execSQL(CREATE_PARTECUPANTS);
+        sqLiteDatabase.execSQL(CREATE_PARTECIPANTS);
     }
 
 
